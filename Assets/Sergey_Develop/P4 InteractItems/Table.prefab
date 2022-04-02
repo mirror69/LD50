@@ -433,6 +433,7 @@ GameObject:
   - component: {fileID: 1574867801623775180}
   - component: {fileID: 1574867801623775187}
   - component: {fileID: 1574867801623775185}
+  - component: {fileID: 8485657315296566183}
   - component: {fileID: 1574867801623775186}
   m_Layer: 0
   m_Name: table
@@ -522,6 +523,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseOnItemColor: {r: 1, g: 0.99215686, b: 0, a: 0.49803922}
+--- !u!114 &8485657315296566183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574867801623775181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c383ee3223a90834284b59a00beb0478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceToStartQuest: 0.2
 --- !u!61 &1574867801623775186
 BoxCollider2D:
   m_ObjectHideFlags: 0

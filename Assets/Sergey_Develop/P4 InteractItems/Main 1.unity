@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149902197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.47, y: -2.2, z: 0}
+  m_LocalPosition: {x: 3.27, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -156,23 +156,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &204903215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba811dd65de778145a90f0ca15ee8ede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftBorder: -18
-  rightBorder: 18
-  timeToZoom: 5
-  cameraSizeInZoom: 3.5
-  player: {fileID: 149902198}
 --- !u!1 &215683632
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,7 +571,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 204903215}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -695,6 +678,23 @@ Transform:
   m_Father: {fileID: 814459817}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2578c7d1fff2b634980f84e2e7cc3a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftBorder: -18
+  rightBorder: 18
+  timeToZoom: 5
+  maxCameraSizeInZoom: 3.5
+  playerTransform: {fileID: 149902198}
 --- !u!1 &618116559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,18 +1474,18 @@ PrefabInstance:
     - target: {fileID: 35631714, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 243083532}
+      objectReference: {fileID: 1574867800086703492}
     - target: {fileID: 35631714, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 35631714, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: set_enabled
       objectReference: {fileID: 0}
     - target: {fileID: 35631714, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Behaviour, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 35631714, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
@@ -1547,8 +1547,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8485657315296566183, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485657315296566183, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
+      propertyPath: distanceToStartQuest
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
+--- !u!114 &1574867800086703492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8485657315296566183, guid: d6ee09ed4fce00740a9de2552b124285, type: 3}
+  m_PrefabInstance: {fileID: 1574867800086703491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c383ee3223a90834284b59a00beb0478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2462578783819475303
 Transform:
   m_ObjectHideFlags: 0
