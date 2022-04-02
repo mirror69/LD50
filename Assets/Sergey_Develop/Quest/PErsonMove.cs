@@ -10,6 +10,7 @@ public class PErsonMove : MonoBehaviour
     private void Start()
     {
         target = transform.position;
+        
     }
 
     private void Update()
@@ -25,7 +26,7 @@ public class PErsonMove : MonoBehaviour
     private void SetNewPosition ()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        Debug.Log(mousePos);
         target.x = mousePos.x;
     }
 
