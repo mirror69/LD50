@@ -38,5 +38,6 @@ public class QuestStarter : MonoBehaviour
         Debug.Log("Quest is ENDED");
         questIsActivated = false;
         CameraController.Instance.ResetCamera();
+        this.enabled = false;
     }
 }
