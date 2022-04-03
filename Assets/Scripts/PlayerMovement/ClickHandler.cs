@@ -13,6 +13,7 @@ public class ClickHandler : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
             if (hit.collider != null)
             {
+
                 DestinationPointClicked?.Invoke(
                     new DestinationPoint(hit.point, hit.collider.GetComponent<InteractableItem>()));
             }
