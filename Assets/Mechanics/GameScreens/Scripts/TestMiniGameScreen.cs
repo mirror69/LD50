@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class TableMiniGameScreen : GameScreen
+public class TestMiniGameScreen : GameScreen
 {
     [SerializeField]
-    private GameObject TableMiniGamePrefab;
+    private GameObject TestMiniGamePrefab;
 
-    private GameObject _tableMiniGameObject;
+    private GameObject _testMiniGameObject;
 
     public override void Show()
     {
         base.Show();
-        if (_tableMiniGameObject == null)
+        if (_testMiniGameObject == null)
         {
-            _tableMiniGameObject = Instantiate(TableMiniGamePrefab, transform);
+            _testMiniGameObject = Instantiate(TestMiniGamePrefab, transform);
         }
     }
 

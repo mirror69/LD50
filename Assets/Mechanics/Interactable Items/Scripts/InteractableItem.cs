@@ -4,13 +4,14 @@ using UnityEngine;
 
 public enum ItemTimerType
 {
-    SpeedUpDeath,
-    SlowDownDeath
+    BadItem,
+    GoodItem
 }
 
 public enum ItemType
 {
-    Table
+    Table,
+    Bulb
 }
 
 public class InteractableItem : MonoBehaviour

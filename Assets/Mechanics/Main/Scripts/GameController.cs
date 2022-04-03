@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public GameScreenController GameScreenController;
     [SerializeField]
+    private QuestStarter QuestStarter;
+    [SerializeField]
     public PlayerInput Player;
 
     private TimeState _timeState;
@@ -18,7 +20,6 @@ public class GameController : MonoBehaviour
     private GameData _gameData;
 
     private ActionTimer _deathTimer;
-    //private ActionTimer _badItemTimer;
 
     private void Start()
     {
@@ -40,12 +41,60 @@ public class GameController : MonoBehaviour
 
         Player.DestinationPointReached += OnPlayerReachedDestinationPoint;
         GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
-        //_badItemTimer = new ActionTimer(_timeLogic, _timeState, OnTimeToDeathIsOver);
     }
 
     private void OnDestinationPointClicked(DestinationPoint destinationPoint)
     {
+        StopCurrentInteraction();
         Player.SetNewTargetPosition(destinationPoint);
+
+        if (destinationPoint.item != null && destinationPoint.item.TimerType == ItemTimerType.BadItem)
+        {
+            QuestStarter.Enable(destinationPoint);
+        }
+    }
+
+    private void StopCurrentInteraction()
+    {
+        if (_gameData.CurrentInteractingItem == null)
+        {
+            return;
+        }
+
+        int newTime = 0;
+
+        switch (_gameData.CurrentInteractingItem.TimerType)
+        {
+            case ItemTimerType.BadItem:
+                _gameData.AddBadItemInteraction();
+                if (_deathTimer.SecondsLeft >= _gameData.CurrentTimeOfBadItemUse / 2)
+                {
+                    newTime = GameSettings.TimeSettings.TimeAfterShortBadItemUse;
+                }
+                else
+                {
+                    newTime = GameSettings.TimeSettings.TimeAfterLongBadItemUse;
+                }
+                break;
+            case ItemTimerType.GoodItem:
+                _gameData.AddGoodItemInteraction();
+                newTime = GameSettings.TimeSettings.MinTimeAfterGoodItemUse;
+                if (_deathTimer.SecondsLeft >= GameSettings.TimeSettings.MinTimeAfterGoodItemUse)
+                {
+                    newTime += _deathTimer.SecondsLeft;
+                }
+                break;
+            default:
+                break;
+        }
+
+        Debug.Log($"New time: {newTime}");
+
+        _timeLogic.Start();
+        _deathTimer.StartTimer(newTime);
+
+        _gameData.ResetCurrentInteraction();
+        QuestStarter.Disable();
     }
 
     private void OnTimeToDeathIsOver()
@@ -59,79 +108,32 @@ public class GameController : MonoBehaviour
         if (destinationPoint.item != null)
         {
             destinationPoint.item.ResetDraw();
-            _gameData.SetCurrentInteraction(destinationPoint.item);
-            ProcessItemAction(destinationPoint.item.Type);
-            ProcessTimerAction(destinationPoint.item.TimerType);
+            ProcessItemInteraction(destinationPoint.item);
         }
     }
 
-    private void ProcessTimerAction(ItemTimerType timerType)
+    private void ProcessItemInteraction(InteractableItem item)
     {
-        //_timeLogic.Stop();
-        _deathTimer.StopTimer();
-        switch (timerType)
-        {
-            case ItemTimerType.SpeedUpDeath:
-                _gameData.AddBadObjectInteraction();
-                _deathTimer.StartTimer(_gameData.CurrentTimeOfBadItemUse);
-                Debug.Log($"Time left: {_gameData.CurrentTimeOfBadItemUse}");
-                break;
-            case ItemTimerType.SlowDownDeath:
-                _timeLogic.Stop();
-                break;
-            default:
-                break;
-        }
-    }
+        _gameData.SetCurrentInteraction(item);
 
-    private void ProcessItemAction(ItemType itemType)
-    {
-        GameScreenController.ShowItemScreen(itemType);
-        GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
-        switch (itemType)
+        if (item.TimerType == ItemTimerType.BadItem)
         {
-            case ItemType.Table:
-                Debug.Log("Table action processed!");
-                break;
-            default:
-                break;
+            _deathTimer.StartTimer(_gameData.CurrentTimeOfBadItemUse);
+            Debug.Log($"Bad Item Use. Time left: {_gameData.CurrentTimeOfBadItemUse}");
         }
+        else
+        {
+            _deathTimer.StopTimer();
+            _timeLogic.Stop();
+            GameScreenController.ShowItemScreen(item.Type);
+            GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
+        }
+
     }
 
     private void OnGameScreenCloseRequested()
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
         GameScreenController.CloseCurrentScreen();
-
-        int newTime = 0;
-        if (_gameData.CurrentInteractingItem != null)
-        {
-            switch (_gameData.CurrentInteractingItem.TimerType)
-            {
-                case ItemTimerType.SpeedUpDeath:
-                    if (_deathTimer.SecondsLeft >= _gameData.CurrentTimeOfBadItemUse / 2)
-                    {
-                        newTime = GameSettings.TimeSettings.TimeAfterShortBadItemUse;
-                    }
-                    else
-                    {
-                        newTime = GameSettings.TimeSettings.TimeAfterLongBadItemUse;
-                    }
-                    break;
-                case ItemTimerType.SlowDownDeath:
-                    newTime = GameSettings.TimeSettings.MinTimeAfterGoodItemUse;
-                    if (_deathTimer.SecondsLeft >= GameSettings.TimeSettings.MinTimeAfterGoodItemUse)
-                    {
-                        newTime += _deathTimer.SecondsLeft;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        Debug.Log($"New time: {newTime}");
-
-        _timeLogic.Start();
-        _deathTimer.StartTimer(newTime);
     }
 }
