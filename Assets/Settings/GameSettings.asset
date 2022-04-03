@@ -23,3 +23,6 @@ MonoBehaviour:
     SecondsToWin: 30
     GoodItemCountToWin: 2
     WinDelayAfterLastItemUse: 3
+  <SceneSettings>k__BackingField:
+    MainMenuSceneName: Main menu
+    GameSceneName: Main
