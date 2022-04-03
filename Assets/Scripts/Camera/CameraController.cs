@@ -42,8 +42,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        SetNewCameraPosition();
-
         if (Input.GetKeyDown(KeyCode.Z))
             ZoomCamera();
         if (Input.GetKeyDown(KeyCode.X))
@@ -54,6 +52,11 @@ public class CameraController : MonoBehaviour
             mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetCameraSize, currentTime * Time.deltaTime);
             currentTime += Time.deltaTime;
         }
+    }
+
+    private void LateUpdate()
+    {
+        SetNewCameraPosition();
     }
 
     private void SetNewCameraPosition ()

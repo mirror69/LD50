@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovements))]
@@ -10,13 +11,18 @@ public class PlayerInput : MonoBehaviour
     private float _newTargetPosX;
     private float _horizontalDirection;
 
+    private DestinationPoint _currentDestinationPoint;
+
+    public event Action<DestinationPoint> DestinationPointReached;
+
     private void OnEnable()
     {
-        PlayerMovements.ReachedDestination += ReturnDestinationToZero;
+        PlayerMovements.ReachedDestination += OnDestinationPointReached;
     }
+
     private void OnDisable()
     {
-        PlayerMovements.ReachedDestination -= ReturnDestinationToZero;
+        PlayerMovements.ReachedDestination -= OnDestinationPointReached;
     }
 
     private void Awake()
@@ -50,25 +56,34 @@ public class PlayerInput : MonoBehaviour
 
 
         _playerAnimations.AnimatorStateChanger(isMoving);
+    }
 
+    private void FixedUpdate()
+    {
         CharacterRotation();
-        if (_newTargetPosX !=0)
+        if (_newTargetPosX != 0)
         {
-
-        _playerMovements.Move(_horizontalDirection , _newTargetPosX);
+            _playerMovements.Move(_horizontalDirection, _newTargetPosX);
         }
     }
 
-    private void ReturnDestinationToZero()
+    public void SetNewTargetPosition(DestinationPoint destinationPoint)
     {
-        _newTargetPosX = 0;
-    }
-
-    public void GiveNewTargetPosition( float x)
-    {
-        _newTargetPosX = x;
+        _currentDestinationPoint = destinationPoint;
+        _newTargetPosX = destinationPoint.point.x;
         Debug.Log(_newTargetPosX);
         Debug.Log(transform.position);
+    }
+
+    private void OnDestinationPointReached()
+    {
+        DestinationPointReached?.Invoke(_currentDestinationPoint);
+        SetDestinationToZero();
+    }
+
+    private void SetDestinationToZero()
+    {
+        _newTargetPosX = 0;
     }
 
     private void CharacterRotation()
