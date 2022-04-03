@@ -4,38 +4,37 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InteractablePhotoDrawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class InteractablePhotoDrawer : MonoBehaviour
 {
     [SerializeField] private Color mouseOnItemColor;
 
-    private Image image;
+    [HideInInspector]
+    public MiniQuest myMiniQuest;
+    private SpriteRenderer image;
     private RectTransform rectTransform;
     private bool questIsPreparing;
 
     private Color startColor;
 
-    public void OnPointerDown(PointerEventData eventData)
+    private void OnMouseDown()
     {
-        Transform go = transform.GetChild(0);
-        go.gameObject.SetActive(true);
-
-        MiniQuest miniQuest = go.gameObject.GetComponent<MiniQuest>();
-        miniQuest.MiniQuestStart();
+        myMiniQuest.gameObject.SetActive(true);
+        myMiniQuest.MiniQuestStart();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    private void OnMouseEnter()
     {
         image.color = mouseOnItemColor;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    private void OnMouseExit()
     {
         image.color = startColor;
     }
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        image = GetComponent<SpriteRenderer>();
         rectTransform = GetComponent<RectTransform>();
         startColor = image.color;
     }

@@ -8,6 +8,6 @@ public class MiniQuest_Blur : MiniQuest
     {
         base.MiniQuestStart();
 
-        Invoke(nameof(MiniQuestEnded), 3f);
+        Invoke(nameof(MiniQuestEnded), 2f);
     }
 }

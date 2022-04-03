@@ -7,13 +7,13 @@ public class PhotoAlbumQuest : MonoBehaviour
 {
     public static PhotoAlbumQuest Instance = null;
 
-    [SerializeField]
-    private Button backButton;
+    //[SerializeField]
+    //private Button backButton;
 
     [SerializeField]
     private List<MiniQuest> photoQuests;
 
-    private int _currentQuestIndex=0;
+    private int _currentQuestIndex;
 
     private void OnEnable()
     {
@@ -34,48 +34,70 @@ public class PhotoAlbumQuest : MonoBehaviour
         else
             Destroy(this);
 
-        backButton.gameObject.SetActive(false);
-        backButton.onClick.AddListener(ShowAllPreviews);
+        //backButton.gameObject.SetActive(false);
+        //backButton.onClick.AddListener(ShowAllPreviews);
+
+        foreach (var elem in photoQuests)
+        {
+            elem.SetMiniQuestToPreviewImage();
+        }
+    }
+
+    private void Start()
+    {
+        HideAllPreviews();
+        _currentQuestIndex = 0;
+        ShowNextPreview();
     }
 
     public void HideAllPreviews ()
     {
         foreach (var photo in photoQuests)
         {
-            photo.previewImageInAlbum.enabled = false;
+            photo.previewImageInAlbum.gameObject.SetActive(false);
         }
-        backButton.gameObject.SetActive(true);
+        //backButton.gameObject.SetActive(true);
     }
 
-    public void ShowAllPreviews ()
+    public void ShowNextPreview ()
     {
+        photoQuests[_currentQuestIndex].previewImageInAlbum.gameObject.SetActive(true);
         foreach (var photo in photoQuests)
         {
-            photo.previewImageInAlbum.enabled = true;
             if (photo.gameObject.activeSelf)
                 photo.gameObject.SetActive(false);
         }
-        backButton.gameObject.SetActive(false);
+        //backButton.gameObject.SetActive(false);
     }
 
     private void MiniQuest_OnMiniQuestEnded(MiniQuest obj)
     {
         Debug.Log($"«‡ÍÓÌ˜ËÎÒˇ ÏËÌËÍ‚ÂÒÚ {obj.name}");
 
+        StartCoroutine(TurnOffQuest(obj));
+    }
+
+    private IEnumerator TurnOffQuest (MiniQuest obj)
+    {
         obj.previewImageInAlbum.sprite = obj.originalImage;
         obj.previewImageInAlbum.color = Color.white;
         obj.previewImageInAlbum.gameObject.GetComponent<InteractablePhotoDrawer>().enabled = false;
+        obj.previewImageInAlbum.gameObject.GetComponent<Collider2D>().enabled = false;
+        
+        //«¿œ”—“»“‹ ¿Õ»Ã¿÷»ﬁ
 
+        yield return new WaitForSeconds(2f);
+
+        
         obj.gameObject.SetActive(false);
-        ShowAllPreviews();
 
         _currentQuestIndex++;
 
-        if (_currentQuestIndex == photoQuests.Count)
+        if (_currentQuestIndex < photoQuests.Count)
         {
-            Debug.Log("??????? —Œ¡€“»≈ Œ «¿¬≈–ÿ≈Õ»»  ¬≈—“¿ — ¿À‹¡ŒÃŒÃ ???????");
-            //ÒÓ·˚ÚËÂ Ó Á‡‚Â¯ÂÌËË Í‚ÂÒÚ‡ Ò ÙÓÚÓ‡Î¸·ÓÏÓÏ
-            return;
+            ShowNextPreview();
         }
+        else
+            Debug.Log("??????? —Œ¡€“»≈ Œ «¿¬≈–ÿ≈Õ»»  ¬≈—“¿ — ¿À‹¡ŒÃŒÃ ???????");
     }
 }
