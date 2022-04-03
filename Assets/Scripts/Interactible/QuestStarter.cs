@@ -6,14 +6,8 @@ public class QuestStarter : MonoBehaviour
 {
     [SerializeField] float distanceToStartQuest;
 
-    private BlackScreen blackScreen;
     private bool CharacterIsNear;
     private bool questIsActivated;
-
-    private void Awake()
-    {
-        blackScreen = GetComponent<BlackScreen>();
-    }
 
     private DestinationPoint _currentDestinationPoint;
 
@@ -41,7 +35,6 @@ public class QuestStarter : MonoBehaviour
 
     private void StartQuest ()
     {
-        blackScreen.Activate();
         questIsActivated = true;
         Debug.Log("Quest is STARTED");
         CameraController.Instance.ZoomCamera();

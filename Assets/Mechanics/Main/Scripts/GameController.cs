@@ -111,9 +111,14 @@ public class GameController : MonoBehaviour
         else
         {
             TimeController.StartGoodInteraction();
-            GameScreenController.ShowItemScreen(item.Type);
-            GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
+            GameScreenController.BlackScreen.Activate(() => StartMiniGame(item));
         }
+    }
+
+    private void StartMiniGame(InteractableItem item)
+    {
+        GameScreenController.ShowItemScreen(item.Type);
+        GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
     }
 
     private void OnWinTimeReached()

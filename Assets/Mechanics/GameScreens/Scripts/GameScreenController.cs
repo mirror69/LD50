@@ -4,6 +4,9 @@ using UnityEngine;
 public class GameScreenController : MonoBehaviour
 {
     [field: SerializeField]
+    public BlackScreen BlackScreen { get; private set; }
+
+    [field: SerializeField]
     public MainGameScreen MainGameScreen { get; private set; }
 
     [field: SerializeField]
