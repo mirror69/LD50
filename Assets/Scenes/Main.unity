@@ -1744,8 +1744,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftBorder: -18
   rightBorder: 18
-  timeToZoom: 5
-  maxCameraSizeInZoom: 3.5
+  timeToZoom: 2
+  maxCameraSizeInZoom: 4
   playerTransform: {fileID: 2124656820}
 --- !u!114 &1925253301
 MonoBehaviour:

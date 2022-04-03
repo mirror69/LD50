@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TimeSettings>k__BackingField:
     NormalTimeSpeed: 1
-    SecondsToDeath: 30
-    MaxTimeOfBadItemUse: 10
-    TimeAfterShortBadItemUse: 10
-    TimeAfterLongBadItemUse: 5
+    SecondsToDeath: 45
+    MaxTimeOfBadItemUse: 12
+    TimeAfterShortBadItemUse: 18
+    TimeAfterLongBadItemUse: 8
     BadProgressionDivider: 2
     MinTimeAfterGoodItemUse: 20
-    SecondsToWin: 20
+    SecondsToWin: 30
     GoodItemCountToWin: 2
     WinDelayAfterLastItemUse: 3
