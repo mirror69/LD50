@@ -24,19 +24,25 @@ public class BlackScreen : MonoBehaviour
         SetImageActive(false);
     }
 
-    public void Activate ()
+    public void FadeScreenOut ()
     { 
         Sequence sequence = DOTween.Sequence();
 
         sequence.AppendCallback(() => SetImageActive(true))
             .Append(BlackScreenImage.DOFade(1, startTimeToFadeImage))
-            .AppendCallback(() => Debug.Log("Какое то действие в темноте"))
-            .AppendInterval(timeIntervalInFade)
-            .Append(BlackScreenImage.DOFade(0, startTimeToFadeOutImage))
+            .AppendInterval(timeIntervalInFade);
+    }
+
+    public void FadeScreenIn ()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(BlackScreenImage.DOFade(0, startTimeToFadeOutImage))
             .AppendCallback(() => SetImageActive(false));
 
         startTimeToFadeImage += timeAddAfterUseItem;
         startTimeToFadeOutImage += timeAddAfterUseItem;
+
     }
 
     private void SetImageActive (bool active)

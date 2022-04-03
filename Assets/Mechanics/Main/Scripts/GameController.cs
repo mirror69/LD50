@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public PlayerInput Player;
 
+    private BlackScreen blackScreen;
     private TimeState _timeState;
     private TimeLogic _timeLogic;
 
@@ -125,6 +126,10 @@ public class GameController : MonoBehaviour
         {
             _deathTimer.StopTimer();
             _timeLogic.Stop();
+
+
+
+
             GameScreenController.ShowItemScreen(item.Type);
             GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
         }
