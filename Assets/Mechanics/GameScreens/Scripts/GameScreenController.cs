@@ -12,6 +12,11 @@ public class GameScreenController : MonoBehaviour
     [field: SerializeField]
     public TestMiniGameScreen TestMiniGameScreen { get; private set; }
 
+    [SerializeField]
+    private Texture2D _cursorTexture;
+    [SerializeField]
+    private Texture2D _cursorTextureYellow;
+
     public GameScreen CurrentScreen { get; private set; }
 
     private List<GameScreen> _screens;
@@ -21,6 +26,8 @@ public class GameScreenController : MonoBehaviour
         _screens = new List<GameScreen>();
         _screens.Add(MainGameScreen);
         _screens.Add(TestMiniGameScreen);
+        CursorManager cursorManager = new CursorManager();
+        cursorManager.Init(_cursorTexture, _cursorTextureYellow);
         CurrentScreen = MainGameScreen;
     }
 
