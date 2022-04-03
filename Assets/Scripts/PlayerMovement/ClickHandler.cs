@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class ClickHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _playerInput;
+    public event Action<DestinationPoint> DestinationPointClicked;
 
     private void Update()
     {
@@ -16,7 +13,8 @@ public class ClickHandler : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
             if (hit.collider != null)
             {
-                _playerInput.GiveNewTargetPosition(hit.point.x);
+                DestinationPointClicked?.Invoke(
+                    new DestinationPoint(hit.point, hit.collider.GetComponent<InteractableItem>()));
             }
         }
     }
