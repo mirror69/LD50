@@ -4,14 +4,14 @@ using UnityEngine;
 
 public enum ItemTimerType
 {
-    SpeedUpDeath,
-    SlowDownDeath
+    BadItem,
+    GoodItem
 }
 
 public enum ItemType
 {
     Table,
-    TV
+    Bulb
 }
 
 public class InteractableItem : MonoBehaviour
@@ -35,15 +35,11 @@ public class InteractableItem : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("SHOW");
-
         Drawer.Show();
     }
 
     private void OnMouseExit()
     {
-        Debug.Log("HIDE");
-
         Drawer.Hide();
     }
 

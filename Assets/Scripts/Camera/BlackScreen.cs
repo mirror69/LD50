@@ -22,13 +22,13 @@ public class BlackScreen : MonoBehaviour
         SetImageActive(false);
     }
 
-    public void Activate (TweenCallback doInFade)
+    public void Activate ()
     {
         Sequence sequence = DOTween.Sequence();
 
         sequence.AppendCallback(() => SetImageActive(true))
             .Append(BlackScreenImage.DOFade(1, timeToFadeImage))
-            .AppendCallback(doInFade)
+            .AppendCallback(() => Debug.Log("Какое то действие в темноте"))
             .AppendInterval(timeIntervalInFade)
             .Append(BlackScreenImage.DOFade(0, timeToFadeOutImage))
             .AppendCallback(() => SetImageActive(false));   
