@@ -183,9 +183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlackScreenImage: {fileID: 817254259}
-  timeToFadeImage: 2
-  timeToFadeOutImage: 1
+  startTimeToFadeImage: 1
+  startTimeToFadeOutImage: 1
   timeIntervalInFade: 0.1
+  timeAddAfterUseItem: 0.5
 --- !u!4 &89361059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8063241468381052838, guid: 81d2568cbd2945d4ab08e122a55e459e, type: 3}

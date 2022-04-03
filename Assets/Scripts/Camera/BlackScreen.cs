@@ -11,11 +11,13 @@ public class BlackScreen : MonoBehaviour
     private Image BlackScreenImage;
 
     [SerializeField]
-    private float timeToFadeImage;
+    private float startTimeToFadeImage;
     [SerializeField]
-    private float timeToFadeOutImage;
+    private float startTimeToFadeOutImage;
     [SerializeField]
     private float timeIntervalInFade;
+    [SerializeField]
+    private float timeAddAfterUseItem;
 
     private void Start()
     {
@@ -23,15 +25,18 @@ public class BlackScreen : MonoBehaviour
     }
 
     public void Activate ()
-    {
+    { 
         Sequence sequence = DOTween.Sequence();
 
         sequence.AppendCallback(() => SetImageActive(true))
-            .Append(BlackScreenImage.DOFade(1, timeToFadeImage))
+            .Append(BlackScreenImage.DOFade(1, startTimeToFadeImage))
             .AppendCallback(() => Debug.Log("Какое то действие в темноте"))
             .AppendInterval(timeIntervalInFade)
-            .Append(BlackScreenImage.DOFade(0, timeToFadeOutImage))
-            .AppendCallback(() => SetImageActive(false));   
+            .Append(BlackScreenImage.DOFade(0, startTimeToFadeOutImage))
+            .AppendCallback(() => SetImageActive(false));
+
+        startTimeToFadeImage += timeAddAfterUseItem;
+        startTimeToFadeOutImage += timeAddAfterUseItem;
     }
 
     private void SetImageActive (bool active)
