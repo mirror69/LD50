@@ -8,6 +8,6 @@ public class MiniQuest_DustPhoto : MiniQuest
     {
         base.MiniQuestStart();
 
-        Invoke(nameof(MiniQuestEnded), 3f);
+        
     }
 }
