@@ -42,7 +42,7 @@ public class PazzlePartMovement : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Vector3.Distance(transform.position, startPosition) < 10f)
+        if (Vector3.Distance(transform.position, startPosition) < 20f)
         {
             transform.position = startPosition;
 

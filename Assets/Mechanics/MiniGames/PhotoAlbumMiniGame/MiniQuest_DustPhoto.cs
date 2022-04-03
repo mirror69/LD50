@@ -6,6 +6,8 @@ public class MiniQuest_DustPhoto : MiniQuest
 {
     public override void MiniQuestStart()
     {
+        base.MiniQuestStart();
+
         Invoke(nameof(MiniQuestEnded), 3f);
     }
 }
