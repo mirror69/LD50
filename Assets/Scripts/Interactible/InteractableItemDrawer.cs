@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent (typeof(SpriteRenderer))]
-public class InteractibleItem : MonoBehaviour
+public class InteractableItemDrawer : MonoBehaviour
 {
     [SerializeField] private Color mouseOnItemColor; 
 
@@ -19,15 +19,27 @@ public class InteractibleItem : MonoBehaviour
         hiddenObjects = transform.GetChild(0);
     }
 
-    private void OnMouseEnter()
+    public void Show()
     {
         hiddenObjects.gameObject.SetActive(true);
         _renderer.color = mouseOnItemColor;
     }
 
-    private void OnMouseExit()
+    public void Hide()
     {
         hiddenObjects.gameObject.SetActive(false);
         _renderer.color = startColor;
     }
+
+    //private void OnMouseEnter()
+    //{
+    //    hiddenObjects.gameObject.SetActive(true);
+    //    _renderer.color = mouseOnItemColor;
+    //}
+
+    //private void OnMouseExit()
+    //{
+    //    hiddenObjects.gameObject.SetActive(false);
+    //    _renderer.color = startColor;
+    //}
 }
