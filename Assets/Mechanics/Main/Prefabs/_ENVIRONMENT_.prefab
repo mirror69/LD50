@@ -121,7 +121,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5420375285924344925}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &781442853405257139
 MonoBehaviour:
@@ -325,6 +325,7 @@ Transform:
   - {fileID: 5420375286257756422}
   - {fileID: 5982583398605111658}
   - {fileID: 8786432215075107685}
+  - {fileID: 4218865799994448151}
   - {fileID: 5532075281423450879}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -486,6 +487,52 @@ MonoBehaviour:
   GameSettings: {fileID: 11400000, guid: f57014c830d72144f83426e001d3ef8c, type: 2}
   TimeController: {fileID: 288554039485505420}
   GameScreenController: {fileID: 0}
+  UIScreenController: {fileID: 0}
+  KeyPressController: {fileID: 2120518461092270666}
   QuestStarter: {fileID: 0}
   Player: {fileID: 0}
   _debugView: {fileID: 0}
+--- !u!1 &7745934105637420204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218865799994448151}
+  - component: {fileID: 2120518461092270666}
+  m_Layer: 0
+  m_Name: KeyPressController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4218865799994448151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745934105637420204}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5420375285924344925}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120518461092270666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745934105637420204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb46d6430346fc84696bd1fea140d13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
