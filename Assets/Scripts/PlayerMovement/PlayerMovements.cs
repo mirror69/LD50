@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class PlayerMovements : MonoBehaviour
@@ -6,23 +7,31 @@ public class PlayerMovements : MonoBehaviour
     [Header("Movement vars")]
     [SerializeField] private float _speed;
 
+    private NavMeshAgent agent;
+
     public delegate void PlayerPositionEvents();
     public static event PlayerPositionEvents ReachedDestination;
 
-    public void Move(float direction, float newXPos)
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
+    public void Move(float direction, Vector2 newPos)
     {
         if (Mathf.Abs(direction) > 0.01f)
         {
-            HorizontalMovement(newXPos);
+            HorizontalMovement(newPos);
         }
     }
 
-    private void HorizontalMovement(float newXPos)
+    private void HorizontalMovement(Vector2 newPos)
     {
-        Vector2 newDestination = new Vector2(newXPos, transform.position.y);
+        agent.SetDestination(newPos);
 
-        transform.position = Vector2.MoveTowards(transform.position, newDestination, _speed * Time.deltaTime);
-        if (Vector2.Distance(transform.position, newDestination) < 0.1f)
+        if (Vector2.Distance(transform.position, newPos) < 0.1f)
         {
             ReachedDestination();
         }
