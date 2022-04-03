@@ -4,23 +4,23 @@ using UnityEngine;
 public class GameScreenController : MonoBehaviour
 {
     [field: SerializeField]
+    public BlackScreen BlackScreen { get; private set; }
+
+    [field: SerializeField]
     public MainGameScreen MainGameScreen { get; private set; }
 
     [field: SerializeField]
-    public TableMiniGameScreen TableMiniGameScreen { get; private set; }
+    public TestMiniGameScreen TestMiniGameScreen { get; private set; }
 
     public GameScreen CurrentScreen { get; private set; }
 
     private List<GameScreen> _screens;
 
-    
-    //public Action MiniGameScreenClosed;
-
     private void Awake()
     {
         _screens = new List<GameScreen>();
         _screens.Add(MainGameScreen);
-        _screens.Add(TableMiniGameScreen);
+        _screens.Add(TestMiniGameScreen);
         CurrentScreen = MainGameScreen;
     }
 
@@ -28,8 +28,8 @@ public class GameScreenController : MonoBehaviour
     {
         switch (itemType)
         {
-            case ItemType.Table:
-                ShowScreen(TableMiniGameScreen);
+            case ItemType.Bulb:
+                ShowScreen(TestMiniGameScreen);
                 break;
             default:
                 break;
