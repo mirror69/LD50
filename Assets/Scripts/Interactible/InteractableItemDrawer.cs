@@ -17,6 +17,9 @@ public class InteractableItemDrawer : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         startColor = _renderer.color;
         hiddenObjects = transform.GetChild(0);
+
+        if (hiddenObjects.gameObject.activeSelf)
+            hiddenObjects.gameObject.SetActive(false);
     }
 
     public void Show()

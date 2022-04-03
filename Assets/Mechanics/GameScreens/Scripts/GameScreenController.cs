@@ -9,6 +9,12 @@ public class GameScreenController : MonoBehaviour
     [field: SerializeField]
     public TableMiniGameScreen TableMiniGameScreen { get; private set; }
 
+    /// <summary>
+    /// Добавил ТВ для тестов
+    /// </summary>
+    [field: SerializeField]
+    public TVMiniGameScreen TVMiniGameScreen { get; private set; }
+
     public GameScreen CurrentScreen { get; private set; }
 
     private List<GameScreen> _screens;
@@ -19,8 +25,11 @@ public class GameScreenController : MonoBehaviour
     private void Awake()
     {
         _screens = new List<GameScreen>();
+
         _screens.Add(MainGameScreen);
         _screens.Add(TableMiniGameScreen);
+        _screens.Add(TVMiniGameScreen);
+
         CurrentScreen = MainGameScreen;
     }
 
@@ -30,6 +39,9 @@ public class GameScreenController : MonoBehaviour
         {
             case ItemType.Table:
                 ShowScreen(TableMiniGameScreen);
+                break;
+            case ItemType.TV:
+                ShowScreen(TVMiniGameScreen);
                 break;
             default:
                 break;

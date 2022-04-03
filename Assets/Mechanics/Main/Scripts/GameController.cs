@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -11,6 +12,9 @@ public class GameController : MonoBehaviour
     public GameScreenController GameScreenController;
     [SerializeField]
     public PlayerInput Player;
+
+    [SerializeField]
+    public BlackScreen blackScreen;
 
     private TimeState _timeState;
     private TimeLogic _timeLogic;
@@ -60,9 +64,17 @@ public class GameController : MonoBehaviour
         {
             destinationPoint.item.ResetDraw();
             _gameData.SetCurrentInteraction(destinationPoint.item);
-            ProcessItemAction(destinationPoint.item.Type);
-            ProcessTimerAction(destinationPoint.item.TimerType);
+
+            //blackScreen.Activate(Method(destinationPoint));
+
+            Method(destinationPoint);
         }
+    }
+
+    public void Method(DestinationPoint destinationPoint)
+    {
+        ProcessItemAction(destinationPoint.item.Type);
+        ProcessTimerAction(destinationPoint.item.TimerType);
     }
 
     private void ProcessTimerAction(ItemTimerType timerType)
@@ -92,6 +104,9 @@ public class GameController : MonoBehaviour
         {
             case ItemType.Table:
                 Debug.Log("Table action processed!");
+                break;
+            case ItemType.TV:
+                Debug.Log("TV action processed!");
                 break;
             default:
                 break;

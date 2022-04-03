@@ -10,7 +10,8 @@ public enum ItemTimerType
 
 public enum ItemType
 {
-    Table
+    Table,
+    TV
 }
 
 public class InteractableItem : MonoBehaviour
@@ -34,11 +35,15 @@ public class InteractableItem : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        Debug.Log("SHOW");
+
         Drawer.Show();
     }
 
     private void OnMouseExit()
     {
+        Debug.Log("HIDE");
+
         Drawer.Hide();
     }
 
