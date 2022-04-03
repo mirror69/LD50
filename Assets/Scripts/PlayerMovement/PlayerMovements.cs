@@ -31,7 +31,7 @@ public class PlayerMovements : MonoBehaviour
     {
         agent.SetDestination(newPos);
 
-        if (Vector2.Distance(transform.position, newPos) < 0.1f)
+        if (!agent.pathPending && agent.remainingDistance < 0.2f)
         {
             ReachedDestination();
         }
