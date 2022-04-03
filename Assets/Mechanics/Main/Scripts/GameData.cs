@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameData
 {
@@ -6,9 +7,14 @@ public class GameData
     public int BadItemCount { get; private set; }
     public InteractableItem CurrentInteractingItem { get; private set; }
 
-    public int CurrentTimeOfBadItemUse =>
-        (int)Mathf.Ceil(_gameSettings.TimeSettings.MaxTimeOfBadItemUse 
-            / Mathf.Pow(_gameSettings.TimeSettings.BadProgressionDivider, BadItemCount));
+    public int CurrentTimeOfBadItemUse 
+        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.MaxTimeOfBadItemUse, BadItemCount);
+
+    public int CurrentTimeAfterShortBadItemUse
+        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterShortBadItemUse, BadItemCount - 1);
+
+    public int CurrentTimeAfterLongBadItemUse
+        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterLongBadItemUse, BadItemCount - 1);
 
     private GameSettings _gameSettings;
     
@@ -35,6 +41,14 @@ public class GameData
     public void AddBadItemInteraction()
     {
         BadItemCount++;
+    }
 
+    private int GetProgressionValueForBadCount(float value, int count)
+    {
+        if (count < 0)
+        {
+            count = 0;
+        }
+        return (int)Mathf.Ceil(value / Mathf.Pow(_gameSettings.TimeSettings.BadProgressionDivider, count));
     }
 }

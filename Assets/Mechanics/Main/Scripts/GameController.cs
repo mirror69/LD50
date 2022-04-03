@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField]
     public GameSettings GameSettings;
     [SerializeField]
-    public TimeService TimeService;
+    public TimeController TimeController;
     [SerializeField]
     public GameScreenController GameScreenController;
     [SerializeField]
@@ -14,12 +13,12 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public PlayerInput Player;
 
-    private TimeState _timeState;
-    private TimeLogic _timeLogic;
+    [Space]
+    [Header("Debug")]
+    [SerializeField]
+    private DebugView _debugView;
 
     private GameData _gameData;
-
-    private ActionTimer _deathTimer;
 
     private void Start()
     {
@@ -29,29 +28,24 @@ public class GameController : MonoBehaviour
     private void StartGame()
     {
         _gameData = new GameData();
-        _timeState = new TimeState();
-        _timeLogic = new TimeLogic();
-        _deathTimer = new ActionTimer(_timeLogic, _timeState, OnTimeToDeathIsOver);
-
         _gameData.Init(GameSettings);
-        _timeLogic.Init(GameSettings.TimeSettings, _timeState, TimeService);
-        _timeLogic.Start();
-
-        _deathTimer.StartTimer(GameSettings.TimeSettings.SecondsToDeath);
 
         Player.DestinationPointReached += OnPlayerReachedDestinationPoint;
         GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
+
+        TimeController.DeathTimeOver += OnDeathTimeOver;
+        TimeController.WinTimeReached += OnWinTimeReached;
+
+        TimeController.Init(GameSettings, _gameData, _debugView);
+        TimeController.StartTime();
+
+        RefreshDebugView();
     }
 
-    private void OnDestinationPointClicked(DestinationPoint destinationPoint)
+    private bool IsWinReached()
     {
-        StopCurrentInteraction();
-        Player.SetNewTargetPosition(destinationPoint);
-
-        if (destinationPoint.item != null && destinationPoint.item.TimerType == ItemTimerType.BadItem)
-        {
-            QuestStarter.Enable(destinationPoint);
-        }
+        return _gameData.GoodItemCount >= GameSettings.TimeSettings.GoodItemCountToWin
+            && TimeController.IsWinTimeReached();
     }
 
     private void StopCurrentInteraction()
@@ -61,55 +55,49 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        int newTime = 0;
-
-        switch (_gameData.CurrentInteractingItem.TimerType)
+        ItemTimerType timerType = _gameData.CurrentInteractingItem.TimerType;
+        switch (timerType)
         {
             case ItemTimerType.BadItem:
+                TimeController.StopBadInteraction();
                 _gameData.AddBadItemInteraction();
-                if (_deathTimer.SecondsLeft >= _gameData.CurrentTimeOfBadItemUse / 2)
-                {
-                    newTime = GameSettings.TimeSettings.TimeAfterShortBadItemUse;
-                }
-                else
-                {
-                    newTime = GameSettings.TimeSettings.TimeAfterLongBadItemUse;
-                }
                 break;
             case ItemTimerType.GoodItem:
+                TimeController.StopGoodInteraction();
                 _gameData.AddGoodItemInteraction();
-                newTime = GameSettings.TimeSettings.MinTimeAfterGoodItemUse;
-                if (_deathTimer.SecondsLeft >= GameSettings.TimeSettings.MinTimeAfterGoodItemUse)
+
+                if (IsWinReached())
                 {
-                    newTime += _deathTimer.SecondsLeft;
+                    ProcessWinAfterDelay(GameSettings.TimeSettings.WinDelayAfterLastItemUse);
                 }
+
                 break;
             default:
                 break;
         }
 
-        Debug.Log($"New time: {newTime}");
-
-        _timeLogic.Start();
-        _deathTimer.StartTimer(newTime);
-
         _gameData.ResetCurrentInteraction();
         QuestStarter.Disable();
+
+        RefreshDebugView();
     }
 
-    private void OnTimeToDeathIsOver()
+    private void ProcessWinAfterDelay(int delay)
     {
-        Debug.Log("Time to death is over. You lose.");
-        _timeLogic.Stop();
+        TimeController.StopTime();
+        Invoke(nameof(ProcessWinActions), delay);
     }
 
-    private void OnPlayerReachedDestinationPoint(DestinationPoint destinationPoint)
+    private void ProcessWinActions()
     {
-        if (destinationPoint.item != null)
-        {
-            destinationPoint.item.ResetDraw();
-            ProcessItemInteraction(destinationPoint.item);
-        }
+        TimeController.StopTime();
+        _debugView.ShowWinScreen();
+    }
+
+    private void ProcessLoseActions()
+    {
+        TimeController.StopTime();
+        _debugView.ShowLoseScreen();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
@@ -118,22 +106,63 @@ public class GameController : MonoBehaviour
 
         if (item.TimerType == ItemTimerType.BadItem)
         {
-            _deathTimer.StartTimer(_gameData.CurrentTimeOfBadItemUse);
-            Debug.Log($"Bad Item Use. Time left: {_gameData.CurrentTimeOfBadItemUse}");
+            TimeController.StartBadInteraction();
         }
         else
         {
-            _deathTimer.StopTimer();
-            _timeLogic.Stop();
+            TimeController.StartGoodInteraction();
             GameScreenController.ShowItemScreen(item.Type);
             GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
         }
+    }
 
+    private void OnWinTimeReached()
+    {
+        if (IsWinReached())
+        {
+            ProcessWinActions();
+        }
+    }
+
+    private void OnDeathTimeOver()
+    {
+        ProcessLoseActions();
+    }
+
+    private void OnDestinationPointClicked(DestinationPoint destinationPoint)
+    {
+        StopCurrentInteraction();
+        Player.SetNewTargetPosition(destinationPoint);
+
+        if (destinationPoint.item != null)
+        {
+            TimeController.PauseTime();
+            if (destinationPoint.item.TimerType == ItemTimerType.BadItem)
+            {
+                QuestStarter.Enable(destinationPoint);
+            }
+        }
+    }
+
+    private void OnPlayerReachedDestinationPoint(DestinationPoint destinationPoint)
+    {
+        if (destinationPoint.item != null)
+        {
+            TimeController.ResumeTime();
+            destinationPoint.item.ResetDraw();
+            ProcessItemInteraction(destinationPoint.item);
+        }
     }
 
     private void OnGameScreenCloseRequested()
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
         GameScreenController.CloseCurrentScreen();
+        StopCurrentInteraction();
+    }
+
+    private void RefreshDebugView()
+    {
+        _debugView.SetInteractionsCount(_gameData);
     }
 }

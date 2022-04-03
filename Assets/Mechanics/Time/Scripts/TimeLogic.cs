@@ -44,6 +44,7 @@ public class TimeLogic
     private void OnSecondPassed()
     {
         _secondsPassed += TimeSpeed;
+        _timeState.SecondsPassed = (int)_secondsPassed;
         IngameSecondPassed?.Invoke();
     }
 }
