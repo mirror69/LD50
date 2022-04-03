@@ -387,6 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4013842684330277175}
   - component: {fileID: 6592854251538607116}
+  - component: {fileID: 3458275872329298912}
   m_Layer: 0
   m_Name: PazzleQuest
   m_TagString: Untagged
@@ -427,6 +428,26 @@ MonoBehaviour:
   originalImage: {fileID: 0}
   questIsDone: 0
   pazzleDestroyer: {fileID: 6634931872555527963}
+--- !u!95 &3458275872329298912
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807997827302301301}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ce39dd5528648c4eafec9b0353a6448, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1228385405464816367
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,6 +3245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8909707219217175975}
   - component: {fileID: 6183335896974364728}
+  - component: {fileID: 4032297939860117985}
   m_Layer: 0
   m_Name: DustQuest
   m_TagString: Untagged
@@ -3263,6 +3285,26 @@ MonoBehaviour:
   previewImageInAlbum: {fileID: 8270902333255117658}
   originalImage: {fileID: 0}
   questIsDone: 0
+--- !u!95 &4032297939860117985
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160767524614188171}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3e56b2e3c74e78459554472d113cdc2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9193463221526414437
 GameObject:
   m_ObjectHideFlags: 0
