@@ -1336,6 +1336,8 @@ MonoBehaviour:
   <BlackScreen>k__BackingField: {fileID: 2914477333632316505}
   <MainGameScreen>k__BackingField: {fileID: 618116562}
   <TestMiniGameScreen>k__BackingField: {fileID: 1220739512}
+  _cursorTexture: {fileID: 2800000, guid: 7507738fe621d75478b1c034d902380f, type: 3}
+  _cursorTextureYellow: {fileID: 2800000, guid: 76a221d0916f79841a80e939a70f9525, type: 3}
 --- !u!1 &1576292825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2054,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
+    - target: {fileID: 6272017327367855894, guid: 81d2568cbd2945d4ab08e122a55e459e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8063241468381052838, guid: 81d2568cbd2945d4ab08e122a55e459e, type: 3}
       propertyPath: m_RootOrder
       value: 5
