@@ -55,7 +55,11 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        ItemTimerType timerType = _gameData.CurrentInteractingItem.TimerType;
+        StopCurrentInteraction(_gameData.CurrentInteractingItem.TimerType);
+    }
+
+    private void StopCurrentInteraction(ItemTimerType timerType)
+    {
         switch (timerType)
         {
             case ItemTimerType.BadItem:
@@ -75,7 +79,6 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-
         _gameData.ResetCurrentInteraction();
         QuestStarter.Disable();
 
@@ -159,11 +162,19 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void OnGameScreenCloseRequested()
+    private void OnGameScreenCloseRequested(GameScreenResult gameScreenResult)
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
         GameScreenController.CloseCurrentScreen();
-        StopCurrentInteraction();
+
+        if (gameScreenResult == GameScreenResult.WinGame)
+        {
+            StopCurrentInteraction();
+        }
+        else
+        {
+            StopCurrentInteraction(ItemTimerType.BadItem);
+        }
     }
 
     private void RefreshDebugView()

@@ -7,7 +7,6 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerMovements _playerMovements;
     private PlayerAnimations _playerAnimations;
-    private float _lastDir;
     private float _newTargetPosX;
     private float _horizontalDirection;
 
@@ -29,7 +28,6 @@ public class PlayerInput : MonoBehaviour
     {
         _playerMovements = GetComponent<PlayerMovements>();
         _playerAnimations = GetComponent<PlayerAnimations>();
-        _lastDir = 1f;
         _newTargetPosX = 0;
     }
 
@@ -55,15 +53,15 @@ public class PlayerInput : MonoBehaviour
         bool isMoving = (_horizontalDirection != 0);
 
 
-        _playerAnimations.AnimatorStateChanger(isMoving);
+        //_playerAnimations.AnimatorStateChanger(isMoving);
     }
 
     private void FixedUpdate()
     {
-        CharacterRotation();
+        //CharacterRotation();
         if (_newTargetPosX != 0)
         {
-            _playerMovements.Move(_horizontalDirection, _newTargetPosX);
+            _playerMovements.Move(_horizontalDirection, _currentDestinationPoint.point);
         }
     }
 
@@ -72,7 +70,6 @@ public class PlayerInput : MonoBehaviour
         _currentDestinationPoint = destinationPoint;
         _newTargetPosX = destinationPoint.point.x;
         Debug.Log(_newTargetPosX);
-        Debug.Log(transform.position);
     }
 
     private void OnDestinationPointReached()
@@ -86,9 +83,9 @@ public class PlayerInput : MonoBehaviour
         _newTargetPosX = 0;
     }
 
-    private void CharacterRotation()
-    {
-        if (_horizontalDirection < 0) gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-        if (_horizontalDirection > 0) gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-    }
+    //private void CharacterRotation()
+    //{
+    //    if (_horizontalDirection < 0) gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+    //    if (_horizontalDirection > 0) gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    //}
 }
