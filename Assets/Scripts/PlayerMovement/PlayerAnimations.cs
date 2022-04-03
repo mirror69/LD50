@@ -4,24 +4,43 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    [SerializeField] private GameObject _animatorObj;
+    private Animator _animator;
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = _animatorObj.GetComponent<Animator>();
     }
 
-    public void AnimatorStateChanger(bool isWalking)
+    public void AnimatorStateChanger(float direction)
     {
-        if (isWalking)
+        if (direction > 0)
         {
-            _animator.SetBool("Walk", true);
+            _animator.SetBool("WalkRight", true);
+            _animator.SetBool("WalkLeft", false);
+            _animator.SetBool("Idle", false);
+        }
+        else if(direction < 0)
+        {
+            _animator.SetBool("WalkRight", false);
+            _animator.SetBool("WalkLeft", true);
             _animator.SetBool("Idle", false);
         }
         else
         {
-            _animator.SetBool("Walk", false);
+            _animator.SetBool("WalkRight", false);
+            _animator.SetBool("WalkLeft", false);
             _animator.SetBool("Idle", true);
         }
+    }
+
+    public void DedDead()
+    {
+
+        if (transform.position.x < 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0,180,0);
+        }
+        _animator.SetTrigger("Dead");
     }
 }

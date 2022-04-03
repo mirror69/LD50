@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class GameController : MonoBehaviour
 
     private GameData _gameData;
 
+    private NavMeshAgent _agent;
+    private PlayerAnimations _animations;
+
     private void Start()
     {
         StartGame();
@@ -27,6 +31,9 @@ public class GameController : MonoBehaviour
 
     private void StartGame()
     {
+        _agent = Player.gameObject.GetComponent<NavMeshAgent>();
+        _animations = Player.gameObject.GetComponent<PlayerAnimations>();
+
         _gameData = new GameData();
         _gameData.Init(GameSettings);
 
@@ -98,6 +105,8 @@ public class GameController : MonoBehaviour
     {
         TimeController.StopTime();
         _debugView.ShowLoseScreen();
+        _agent.enabled = false;
+        _animations.DedDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
