@@ -23,6 +23,13 @@ public class GameController : MonoBehaviour
     private DeathTextsController DeathTextsController;
 
     [Space]
+    [Header("ChairAndTV")]
+    [SerializeField]
+    private InteractableItem ChairItem;
+    [SerializeField]
+    private InteractableItem TVItem;
+
+    [Space]
     [Header("Debug")]
     [SerializeField]
     private DebugView _debugView;
@@ -31,9 +38,10 @@ public class GameController : MonoBehaviour
     private UIEventMediator _uiEventMediator;
 
     private PlayableDirector _currentTimeline;
+    //private PlayableDirector _chairTimeline;
 
-    [SerializeField] private PlayableDirector finalTimeLine;
-
+    private bool _goToChairToWatchTV;
+    
     private void Start()
     {
         StartGame();
@@ -106,12 +114,13 @@ public class GameController : MonoBehaviour
             && TimeController.IsWinTimeReached();
     }
 
-    private void StopCurrentInteraction()
+    private void StopCurrentInteraction(InteractableItem newItem = null)
     {
+        var item = _gameData.CurrentInteractingItem;
+
         TryStopTimeline(_currentTimeline);
         _currentTimeline = null;
 
-        var item = _gameData.CurrentInteractingItem;
         if (item == null)
         {
             return;
@@ -163,11 +172,9 @@ public class GameController : MonoBehaviour
     {
         KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        finalTimeLine.Play();
-        //_debugView.ShowWinScreen();
-        //Invoke(nameof(ShowCredits), 2);
+        _debugView.ShowWinScreen();
+        Invoke(nameof(ShowCredits), 2);
     }
-
 
     private IEnumerator ProcessLoseActions()
     {
@@ -226,7 +233,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void ShowCredits()
+    private void ShowCredits()
     {
         UIScreenController.ShowCreditsScreen();
     }
@@ -248,14 +255,56 @@ public class GameController : MonoBehaviour
     private void OnDeathTimeOver()
     {
         StopCurrentInteraction();
+        TryStopTimeline(ChairItem.InTimeline);
         StartCoroutine(ProcessLoseActions());
     }
 
     private void OnDestinationPointClicked(DestinationPoint destinationPoint)
     {
+        _goToChairToWatchTV = false;
+        if (destinationPoint.item != null)
+        {
+            if (_gameData.CurrentInteractingItem == destinationPoint.item)
+            {
+                return;
+            }
+            else if (destinationPoint.item.Type == ItemType.TV)
+            {
+                if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.Chair)
+                {
+                    TimeController.ResumeTime();
+                    destinationPoint.item.ResetDraw();
+                    ProcessItemInteraction(destinationPoint.item);
+                    return;
+                }
+                else
+                {
+                    _goToChairToWatchTV = true;
+                }
+            }
+            else if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.TV 
+                && destinationPoint.item.Type == ItemType.Chair)
+            {
+                return;
+            }
+        }
+
+        if (_goToChairToWatchTV)
+        {
+            destinationPoint = new DestinationPoint(ChairItem.StayPoint.position, ChairItem);
+        }
+        else
+        {
+            TryStopTimeline(ChairItem.InTimeline);
+        }
         StopCurrentInteraction();
         StartCoroutine(StartMoveToPoint(destinationPoint));
     }
+
+    //private IEnumerator MoveToTV()
+    //{
+    //    MoveToTV(destinationPoint);
+    //}
 
     private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
     {
@@ -301,7 +350,21 @@ public class GameController : MonoBehaviour
         {
             TimeController.ResumeTime();
             destinationPoint.item.ResetDraw();
-            ProcessItemInteraction(destinationPoint.item);
+
+            if (_goToChairToWatchTV)
+            {
+                ProcessItemInteraction(ChairItem);
+            }
+            else
+            {
+                ProcessItemInteraction(destinationPoint.item);
+            }
+
+        }
+
+        if (_goToChairToWatchTV)
+        {
+            ProcessItemInteraction(TVItem);
         }
     }
 
@@ -327,20 +390,4 @@ public class GameController : MonoBehaviour
     {
         _debugView.SetInteractionsCount(_gameData);
     }
-
-    //private IEnumerator Restart()
-    //{
-    //    // Начинаем загрузку сцены
-    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(GameSettings.SceneSettings.GameSceneName);
-
-    //    // Ждём, пока сцена полностью загрузится
-    //    while (!asyncLoad.isDone)
-    //    {
-    //        // Прерываемся, раз ещё не загружено
-    //        yield return null;
-    //    }
-    //    // Выгрузить единственную открытую сцену нельзя
-    //    // Сперва загружаем, а потом выгружаем
-    //    SceneManager.UnloadSceneAsync("game");
-    //}
 }
