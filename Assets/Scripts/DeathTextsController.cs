@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using System;
 
+
 public class DeathTextsController : MonoBehaviour
 {
     [SerializeField] private AnimationClip firstTextAnimation;
@@ -12,6 +13,8 @@ public class DeathTextsController : MonoBehaviour
     [SerializeField] private GameObject blackScreen;
 
     [SerializeField] private GameObject activateForText;
+    [SerializeField]
+    private GameObject ButtonObject;
 
     [Header("Texts Arrays")]
     [SerializeField] private GameObject[] firstTextsArray;
@@ -42,6 +45,7 @@ public class DeathTextsController : MonoBehaviour
     private void Start()
     {
         activateForText.SetActive(false);
+        ButtonObject.SetActive(false);
     }
 
     public void StartDeathTextMethod()
@@ -99,6 +103,11 @@ public class DeathTextsController : MonoBehaviour
 
     }
 
+    public void OnClickAgain()
+    {
+
+    }
+
     private IEnumerator NextArrayCorutine()
     {
         for (int i = 0; i < arrayList.Count; i++)
@@ -128,8 +137,11 @@ public class DeathTextsController : MonoBehaviour
                 gameObjects[i].GetComponent<Animator>().speed = animatorSpeed;
 
                 yield return new WaitForSeconds(nextTextDelay);
+
             }
         }
+
         yield return new WaitForSeconds(nextPageDelay);
+
     }
 }
