@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class PazzleDestroyer : MonoBehaviour
 {
-    [SerializeField]
-    private MiniQuest miniQuest;
+    [HideInInspector]
+    public MiniQuest MiniQuest;
 
     private int readyParts = -1;
     private int partsCount;
+    private bool isDestroyed;
 
-    private void Start()
+    public void DestroyPhoto ()
     {
+        if (isDestroyed)
+            return;
+
         int photoPartsCount = transform.childCount;
 
         for (int i = 0; i < photoPartsCount; i++)
         {
-            
+
             PazzlePartMovement tmp = transform.GetChild(i).gameObject.AddComponent<PazzlePartMovement>();
 
             tmp.SetPazzleDestroyer(this);
@@ -27,6 +31,8 @@ public class PazzleDestroyer : MonoBehaviour
 
         partsCount = photoPartsCount;
         readyParts = 0;
+
+        isDestroyed = true;
     }
 
     public void AddReadyPartToCount()
@@ -35,7 +41,7 @@ public class PazzleDestroyer : MonoBehaviour
 
         if (readyParts == partsCount)
         {
-            miniQuest.MiniQuestEnded();
+            MiniQuest.MiniQuestEnded();
         }
     }
 }
