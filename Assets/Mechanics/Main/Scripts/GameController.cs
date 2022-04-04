@@ -1,17 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    public GameSettings GameSettings;
+    private GameSettings GameSettings;
     [SerializeField]
-    public TimeController TimeController;
+    private TimeController TimeController;
     [SerializeField]
-    public GameScreenController GameScreenController;
+    private GameScreenController GameScreenController;
+    [SerializeField]
+    private UIScreenController UIScreenController;
+    [SerializeField]
+    private KeyPressController KeyPressController;
     [SerializeField]
     private QuestStarter QuestStarter;
     [SerializeField]
     public PlayerInput Player;
+    [SerializeField]
+    private DeathTextsController DeathTextsController;
 
     [Space]
     [Header("Debug")]
@@ -19,6 +28,9 @@ public class GameController : MonoBehaviour
     private DebugView _debugView;
 
     private GameData _gameData;
+    private UIEventMediator _uiEventMediator;
+
+    private PlayableDirector _currentTimeline;
 
     private void Start()
     {
@@ -27,6 +39,15 @@ public class GameController : MonoBehaviour
 
     private void StartGame()
     {
+        _uiEventMediator = new UIEventMediator();
+        _uiEventMediator.PauseGameRequested += PauseGame;
+        _uiEventMediator.ResumeGameRequested += ResumeGame;
+        _uiEventMediator.QuitRequested += Quit;
+        _uiEventMediator.StartNewGameRequested += StartNewGame;
+        _uiEventMediator.MainMenuRequested += LoadMainMenu;
+
+        UIScreenController.Init(_uiEventMediator);
+
         _gameData = new GameData();
         _gameData.Init(GameSettings);
 
@@ -39,7 +60,42 @@ public class GameController : MonoBehaviour
         TimeController.Init(GameSettings, _gameData, _debugView);
         TimeController.StartTime();
 
+        KeyPressController.Init(_uiEventMediator, UIScreenController);
+
+        ResumeGame();
+
         RefreshDebugView();
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+        KeyPressController.SetMenuMode();
+        UIScreenController.ShowMainMenuScreen();
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1;
+        KeyPressController.SetGameplayMode();
+        UIScreenController.HideCurrentScreen();
+    }
+
+    private void Quit()
+    {
+        Application.Quit();
+    }
+
+    private void StartNewGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(GameSettings.SceneSettings.GameSceneName);
+    }
+
+    private void LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(GameSettings.SceneSettings.MainMenuSceneName);
     }
 
     private bool IsWinReached()
@@ -50,12 +106,21 @@ public class GameController : MonoBehaviour
 
     private void StopCurrentInteraction()
     {
-        if (_gameData.CurrentInteractingItem == null)
+        TryStopTimeline(_currentTimeline);
+        _currentTimeline = null;
+
+        var item = _gameData.CurrentInteractingItem;
+        if (item == null)
         {
             return;
         }
 
-        StopCurrentInteraction(_gameData.CurrentInteractingItem.TimerType);
+        Player.TryApplyAnimParams(item.OutAnimatorIntParams);
+
+        StopCurrentInteraction(item.TimerType);
+
+        TryPlayTimeline(item.OutTimeline);
+        _currentTimeline = item.OutTimeline;
     }
 
     private void StopCurrentInteraction(ItemTimerType timerType)
@@ -87,20 +152,30 @@ public class GameController : MonoBehaviour
 
     private void ProcessWinAfterDelay(int delay)
     {
+        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
         Invoke(nameof(ProcessWinActions), delay);
     }
 
     private void ProcessWinActions()
     {
+        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
         _debugView.ShowWinScreen();
+        Invoke(nameof(ShowCredits), 2);
     }
 
-    private void ProcessLoseActions()
+    private IEnumerator ProcessLoseActions()
     {
         TimeController.StopTime();
-        _debugView.ShowLoseScreen();
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+        KeyPressController.SetNotListeningMode();
+        DeathTextsController.StartDeathTextMethod();
+        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
@@ -111,11 +186,45 @@ public class GameController : MonoBehaviour
         {
             TimeController.StartBadInteraction();
         }
-        else
+        else if (item.TimerType == ItemTimerType.GoodItem)
         {
             TimeController.StartGoodInteraction();
             GameScreenController.BlackScreen.Activate(() => StartMiniGame(item));
         }
+
+        TryPlayTimeline(item.InTimeline);
+        _currentTimeline = item.InTimeline;
+    }
+
+    private void TryPlayTimeline(PlayableDirector timeline)
+    {
+        if (timeline == null)
+        {
+            return;
+        }
+
+        if (timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
+        }
+        timeline.Play();
+    }
+
+    private void TryStopTimeline(PlayableDirector timeline)
+    {
+        if (timeline == null)
+        {
+            return;
+        }
+        if (timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
+        }
+    }
+
+    private void ShowCredits()
+    {
+        UIScreenController.ShowCreditsScreen();
     }
 
     private void StartMiniGame(InteractableItem item)
@@ -134,26 +243,56 @@ public class GameController : MonoBehaviour
 
     private void OnDeathTimeOver()
     {
-        ProcessLoseActions();
+        StopCurrentInteraction();
+        StartCoroutine(ProcessLoseActions());
     }
 
     private void OnDestinationPointClicked(DestinationPoint destinationPoint)
     {
         StopCurrentInteraction();
+        StartCoroutine(StartMoveToPoint(destinationPoint));
+    }
+
+    private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
+    {
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+        GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
+
         Player.SetNewTargetPosition(destinationPoint);
 
+        bool isBadInteraction = false;
         if (destinationPoint.item != null)
         {
             TimeController.PauseTime();
             if (destinationPoint.item.TimerType == ItemTimerType.BadItem)
             {
-                QuestStarter.Enable(destinationPoint);
+                isBadInteraction = true;
             }
+        }
+        else
+        {
+            TimeController.ResumeTime();
+        }
+
+        if (isBadInteraction)
+        {
+            QuestStarter.Enable(destinationPoint);
+        }
+        else
+        {
+            QuestStarter.Disable();
         }
     }
 
     private void OnPlayerReachedDestinationPoint(DestinationPoint destinationPoint)
     {
+        TryStopTimeline(_currentTimeline);
+        _currentTimeline = null;
+
         if (destinationPoint.item != null)
         {
             TimeController.ResumeTime();
@@ -165,7 +304,10 @@ public class GameController : MonoBehaviour
     private void OnGameScreenCloseRequested(GameScreenResult gameScreenResult)
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
-        GameScreenController.CloseCurrentScreen();
+
+
+        GameScreenController.BlackScreen.Activate(() => GameScreenController.CloseCurrentScreen());
+        
 
         if (gameScreenResult == GameScreenResult.WinGame)
         {
@@ -181,4 +323,20 @@ public class GameController : MonoBehaviour
     {
         _debugView.SetInteractionsCount(_gameData);
     }
+
+    //private IEnumerator Restart()
+    //{
+    //    // Начинаем загрузку сцены
+    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(GameSettings.SceneSettings.GameSceneName);
+
+    //    // Ждём, пока сцена полностью загрузится
+    //    while (!asyncLoad.isDone)
+    //    {
+    //        // Прерываемся, раз ещё не загружено
+    //        yield return null;
+    //    }
+    //    // Выгрузить единственную открытую сцену нельзя
+    //    // Сперва загружаем, а потом выгружаем
+    //    SceneManager.UnloadSceneAsync("game");
+    //}
 }
