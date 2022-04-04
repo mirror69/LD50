@@ -13,8 +13,16 @@ public class TestMiniGameScreen : GameScreen
         if (_testMiniGameObject == null)
         {
             _testMiniGameObject = Instantiate(TestMiniGamePrefab, transform);
-            _testMiniGameObject.GetComponent<PhotoAlbumQuest>().OnPhotoAlbumQuestDone += TestMiniGameScreen_OnPhotoAlbumQuestDone;
+            //_testMiniGameObject.GetComponent<PhotoAlbumQuest>().OnPhotoAlbumQuestDone += TestMiniGameScreen_OnPhotoAlbumQuestDone;
+            _testMiniGameObject.GetComponent<ChessController>().OnFinish += TestMiniGameScreen_OnFinish;
+
         }
+    }
+
+    private void TestMiniGameScreen_OnFinish()
+    {
+        Debug.Log("Chess is ended");
+        CloseRequested?.Invoke(GameScreenResult.WinGame);
     }
 
     private void TestMiniGameScreen_OnPhotoAlbumQuestDone(PhotoAlbumQuest obj)
