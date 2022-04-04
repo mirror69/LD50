@@ -825,11 +825,11 @@ PrefabInstance:
       objectReference: {fileID: 1250942553}
     - target: {fileID: 6987379856160837285, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.56
+      value: -6.74
       objectReference: {fileID: 0}
     - target: {fileID: 6987379856160837285, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.01
+      value: 4.27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
@@ -1080,7 +1080,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
