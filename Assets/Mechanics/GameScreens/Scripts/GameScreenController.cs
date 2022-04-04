@@ -70,7 +70,8 @@ public class GameScreenController : MonoBehaviour
             case ItemType.Chair:
                 break;
             case ItemType.Chess:
-                ShowScreen(ChessMiniGameScreen);
+                if (!ChessMiniGameScreen.wasAlreadyChoosen)
+                    ShowScreen(ChessMiniGameScreen);
                 break;
             case ItemType.Curtain:
                 break;
@@ -79,14 +80,16 @@ public class GameScreenController : MonoBehaviour
             case ItemType.Mirror:
                 break;
             case ItemType.PhotoAlbum:
-                ShowScreen(PhotoAlbumMiniGameScreen);
+                if (!PhotoAlbumMiniGameScreen.wasAlreadyChoosen)
+                    ShowScreen(PhotoAlbumMiniGameScreen);
                 break;
             case ItemType.Records:
+                if (!TurntableMiniGameScreen)
+                    ShowScreen(TurntableMiniGameScreen);
                 break;
             case ItemType.Table:
                 break;
             case ItemType.Turntable:
-                ShowScreen(TurntableMiniGameScreen);
                 break;
             case ItemType.TV:
                 break;
