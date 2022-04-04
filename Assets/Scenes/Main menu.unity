@@ -1002,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6705933440730389209, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7373347963946463850, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1114,7 +1114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8855207879368778478, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9044868011665066733, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_text
@@ -1127,10 +1127,18 @@ PrefabInstance:
         SNIFFlb4
 
 
-        GAME
-        DESIGNERS
+        with
+        the help of
 
-        Danila GD
+        Twirl
+
+        SoundSteppe
+
+
+        GAME DESIGNERS
+
+        Danila
+        GD
 
         Lazy Fox
 

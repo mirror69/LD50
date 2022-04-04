@@ -29,6 +29,11 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+    public void StopAgent()
+    {
+        agent.isStopped = true;
+    }
+
     private void HorizontalMovement(Vector2 newPos)
     {
         if (agent.enabled == true)
