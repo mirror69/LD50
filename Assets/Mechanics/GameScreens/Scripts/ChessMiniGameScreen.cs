@@ -12,6 +12,7 @@ public class ChessMiniGameScreen : GameScreen
         base.Show();
         if (_chessMiniGameObject == null)
         {
+            wasAlreadyChoosen = true;
             _chessMiniGameObject = Instantiate(ChessMiniGamePrefab, transform);
             _chessMiniGameObject.GetComponent<ChessController>().OnFinish += ChessMiniGameScreen_OnFinish;
         }
