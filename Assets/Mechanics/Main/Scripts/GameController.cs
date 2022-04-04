@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     public PlayerInput Player;
     [SerializeField]
     private DeathTextsController DeathTextsController;
+    [SerializeField]
+    private MainMusicChanger MusicChanger;
 
     [Space]
     [Header("ChairAndTV")]
@@ -252,6 +254,7 @@ public class GameController : MonoBehaviour
 
     private void StartMiniGame(InteractableItem item)
     {
+        MusicChanger.OnMinigameMode();
         GameScreenController.ShowItemScreen(item.Type);
         GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
     }
@@ -391,6 +394,8 @@ public class GameController : MonoBehaviour
         {
             StopCurrentInteraction(ItemTimerType.BadItem);
         }
+
+        MusicChanger.OffMinigameMode();
     }
 
     private void RefreshDebugView()
