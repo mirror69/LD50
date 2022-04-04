@@ -48,7 +48,9 @@ public class EraseImageLayer : MonoBehaviour
             }
         }
         else
+        {
             Drawing = false;
+        }
     }
 
     public void UpdateTexture()
