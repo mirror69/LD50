@@ -32,6 +32,8 @@ public class GameController : MonoBehaviour
 
     private PlayableDirector _currentTimeline;
 
+    [SerializeField] private PlayableDirector finalTimeLine;
+
     private void Start()
     {
         StartGame();
@@ -161,9 +163,11 @@ public class GameController : MonoBehaviour
     {
         KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        _debugView.ShowWinScreen();
-        Invoke(nameof(ShowCredits), 2);
+        finalTimeLine.Play();
+        //_debugView.ShowWinScreen();
+        //Invoke(nameof(ShowCredits), 2);
     }
+
 
     private IEnumerator ProcessLoseActions()
     {
@@ -222,7 +226,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void ShowCredits()
+    public void ShowCredits()
     {
         UIScreenController.ShowCreditsScreen();
     }

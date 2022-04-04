@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TimeSettings>k__BackingField:
     NormalTimeSpeed: 1
-    SecondsToDeath: 5
+    SecondsToDeath: 100
     MaxTimeOfBadItemUse: 12
     TimeAfterShortBadItemUse: 18
     TimeAfterLongBadItemUse: 8
     BadProgressionDivider: 2
     MinTimeAfterGoodItemUse: 20
-    SecondsToWin: 30
-    GoodItemCountToWin: 2
-    WinDelayAfterLastItemUse: 3
+    SecondsToWin: 1
+    GoodItemCountToWin: 0
+    WinDelayAfterLastItemUse: 0
   <SceneSettings>k__BackingField:
     MainMenuSceneName: Main menu
     GameSceneName: Main
