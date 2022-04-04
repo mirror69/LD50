@@ -230,16 +230,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807997827302301301}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.027389044, w: 0.99962485}
+  m_LocalPosition: {x: 0.08017269, y: -0.18719822, z: 0}
+  m_LocalScale: {x: 1.3119445, y: 1.3119445, z: 1.3119445}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1776030823612125246}
   - {fileID: 8215604222624164341}
   m_Father: {fileID: 3066578799912114591}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.139}
 --- !u!114 &6592854251538607116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4add0d8a605520d44bdf146e96b3a9a9, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.65882355}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78039217}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   localCanvasWithSlider: {fileID: 3163259615336914525}
   leftSlider: {fileID: 712562136470950148}
   defaultFocalLength: 35
-  focalAccuracy: 2
+  focalAccuracy: 1
 --- !u!95 &2779152388152764701
 Animator:
   serializedVersion: 4
@@ -2982,7 +2982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8909707219217175975
 Transform:
   m_ObjectHideFlags: 0
@@ -3014,6 +3014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previewImageInAlbum: {fileID: 8270902333255117658}
   questIsDone: 0
+  PercentToWin: 90
 --- !u!95 &4032297939860117985
 Animator:
   serializedVersion: 4

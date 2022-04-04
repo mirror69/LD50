@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MiniQuest_DustPhoto : MiniQuest
 {
+    [SerializeField]
+    private float PercentToWin;
+
     private void OnEnable()
     {
         EraseImageLayer.OnEraseImageEnded += EraseImageLayer_OnEraseImageEnded;
@@ -22,5 +25,6 @@ public class MiniQuest_DustPhoto : MiniQuest
     public override void MiniQuestStart()
     {
         base.MiniQuestStart();
+        EraseImageLayer.PercentToWin = this.PercentToWin;
     }
 }
