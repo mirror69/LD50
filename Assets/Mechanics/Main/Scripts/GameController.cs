@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField]
-    public GameSettings GameSettings;
+    private GameSettings GameSettings;
     [SerializeField]
-    public TimeController TimeController;
+    private TimeController TimeController;
     [SerializeField]
-    public GameScreenController GameScreenController;
+    private GameScreenController GameScreenController;
+    [SerializeField]
+    private UIScreenController UIScreenController;
+    [SerializeField]
+    private KeyPressController KeyPressController;
     [SerializeField]
     private QuestStarter QuestStarter;
     [SerializeField]
@@ -19,6 +25,7 @@ public class GameController : MonoBehaviour
     private DebugView _debugView;
 
     private GameData _gameData;
+    private UIEventMediator _uiEventMediator;
 
     private void Start()
     {
@@ -27,6 +34,15 @@ public class GameController : MonoBehaviour
 
     private void StartGame()
     {
+        _uiEventMediator = new UIEventMediator();
+        _uiEventMediator.PauseGameRequested += PauseGame;
+        _uiEventMediator.ResumeGameRequested += ResumeGame;
+        _uiEventMediator.QuitRequested += Quit;
+        _uiEventMediator.StartNewGameRequested += StartNewGame;
+        _uiEventMediator.MainMenuRequested += LoadMainMenu;
+
+        UIScreenController.Init(_uiEventMediator);
+
         _gameData = new GameData();
         _gameData.Init(GameSettings);
 
@@ -39,7 +55,42 @@ public class GameController : MonoBehaviour
         TimeController.Init(GameSettings, _gameData, _debugView);
         TimeController.StartTime();
 
+        KeyPressController.Init(_uiEventMediator, UIScreenController);
+
+        ResumeGame();
+
         RefreshDebugView();
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+        KeyPressController.SetMenuMode();
+        UIScreenController.ShowMainMenuScreen();
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1;
+        KeyPressController.SetGameplayMode();
+        UIScreenController.HideCurrentScreen();
+    }
+
+    private void Quit()
+    {
+        Application.Quit();
+    }
+
+    private void StartNewGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(GameSettings.SceneSettings.GameSceneName);
+    }
+
+    private void LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(GameSettings.SceneSettings.MainMenuSceneName);
     }
 
     private bool IsWinReached()
@@ -87,20 +138,25 @@ public class GameController : MonoBehaviour
 
     private void ProcessWinAfterDelay(int delay)
     {
+        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
         Invoke(nameof(ProcessWinActions), delay);
     }
 
     private void ProcessWinActions()
     {
+        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
         _debugView.ShowWinScreen();
+        Invoke(nameof(ShowCredits), 2);
     }
 
     private void ProcessLoseActions()
     {
+        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
         _debugView.ShowLoseScreen();
+        UIScreenController.ShowGameOverScreen();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
@@ -116,6 +172,11 @@ public class GameController : MonoBehaviour
             TimeController.StartGoodInteraction();
             GameScreenController.BlackScreen.Activate(() => StartMiniGame(item));
         }
+    }
+
+    private void ShowCredits()
+    {
+        UIScreenController.ShowCreditsScreen();
     }
 
     private void StartMiniGame(InteractableItem item)
@@ -142,13 +203,27 @@ public class GameController : MonoBehaviour
         StopCurrentInteraction();
         Player.SetNewTargetPosition(destinationPoint);
 
+        bool isBadInteraction = false;
         if (destinationPoint.item != null)
         {
             TimeController.PauseTime();
             if (destinationPoint.item.TimerType == ItemTimerType.BadItem)
             {
-                QuestStarter.Enable(destinationPoint);
+                isBadInteraction = true;
             }
+        }
+        else
+        {
+            TimeController.ResumeTime();
+        }
+
+        if (isBadInteraction)
+        {
+            QuestStarter.Enable(destinationPoint);
+        }
+        else
+        {
+            QuestStarter.Disable();
         }
     }
 
@@ -184,4 +259,20 @@ public class GameController : MonoBehaviour
     {
         _debugView.SetInteractionsCount(_gameData);
     }
+
+    //private IEnumerator Restart()
+    //{
+    //    // Начинаем загрузку сцены
+    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(GameSettings.SceneSettings.GameSceneName);
+
+    //    // Ждём, пока сцена полностью загрузится
+    //    while (!asyncLoad.isDone)
+    //    {
+    //        // Прерываемся, раз ещё не загружено
+    //        yield return null;
+    //    }
+    //    // Выгрузить единственную открытую сцену нельзя
+    //    // Сперва загружаем, а потом выгружаем
+    //    SceneManager.UnloadSceneAsync("game");
+    //}
 }

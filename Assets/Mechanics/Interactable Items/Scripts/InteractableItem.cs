@@ -36,11 +36,13 @@ public class InteractableItem : MonoBehaviour
     private void OnMouseEnter()
     {
         Drawer.Show();
+        CursorManager.Instance.SetCursorHighlight(true);
     }
 
     private void OnMouseExit()
     {
         Drawer.Hide();
+        CursorManager.Instance.SetCursorHighlight(false);
     }
 
     public void ResetDraw()

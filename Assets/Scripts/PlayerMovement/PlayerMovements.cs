@@ -19,6 +19,11 @@ public class PlayerMovements : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
+    public Vector2 GetVelocity()
+    {
+        return agent.velocity;
+    }
+
     public void Move(float direction, Vector2 newPos)
     {
         if (Mathf.Abs(direction) > 0.01f)
