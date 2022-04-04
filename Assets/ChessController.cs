@@ -7,6 +7,9 @@ using SimpleMan.CoroutineExtensions;
 
 public class ChessController : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip chessMemory;
+
     //---------FIELDS
     [SerializeField, Min(0.1f)]
     private float _enemyFirstMoveDelay = 1.5f;
@@ -18,7 +21,10 @@ public class ChessController : MonoBehaviour
     private float _figureMoveTime = 1f;
 
     [SerializeField, Min(0.1f)]
-    private float _finishDelay = 5f;
+    private float _afterLastTurn;
+    [SerializeField, Min(0.1f)]
+    private float _afterVoiceDelay;
+
 
     [SerializeField]
     private Transform _enemyRook;
@@ -33,6 +39,7 @@ public class ChessController : MonoBehaviour
     private Transform[] _enemyRookPositions;
 
     private bool _isFirstMove = true;
+    private AudioSource audio;
 
 
 
@@ -45,11 +52,10 @@ public class ChessController : MonoBehaviour
         remove => _onFinish.RemoveListener(value);
     }
 
-
-
     //-------METHODS
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         FigureChessKing.Instance.OnFigureChoose += OnFigureChoose;
         FigureChessKing.Instance.OnMoveToPosition += OnMoveToPosition;
     }
@@ -70,7 +76,9 @@ public class ChessController : MonoBehaviour
             this.Delay(_enemySecondMoveDelay, () => _enemyRook.transform.DOMove(_enemyRookPositions[1].position, _figureMoveTime));
             _allyKingPositions[1].gameObject.SetActive(false);
             this.Delay(FigureChessKing.Instance.TimeToShake * 0.7f, ()=> FigureChessKing.Instance.StopNafigShake());
-            this.Delay(_finishDelay, () => _onFinish.Invoke());
+
+            this.Delay(_afterLastTurn, () => audio.PlayOneShot(chessMemory));
+            this.Delay(_afterVoiceDelay, () => _onFinish.Invoke());
         }
     }
 
