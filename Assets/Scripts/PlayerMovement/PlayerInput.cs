@@ -50,7 +50,9 @@ public class PlayerInput : MonoBehaviour
             _horizontalDirection = 0;
         }
 
-        _playerAnimations.AnimatorStateChanger(_horizontalDirection);
+        bool isMoving = (_horizontalDirection != 0);
+
+        _playerAnimations.AnimatorStateChanger(isMoving);
     }
 
     private void FixedUpdate()

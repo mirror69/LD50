@@ -10,14 +10,7 @@ public class DeathTextsController : MonoBehaviour
 
     [SerializeField] private GameObject blackScreen;
 
-    //[SerializeField]
-    //private float startTimeToFadeImage;
-    //[SerializeField]
-    //private float startTimeToFadeOutImage;
-    //[SerializeField]
-    //private float timeIntervalInFade;
-    //[SerializeField]
-    //private float timeAddAfterUseItem;
+    [SerializeField] private GameObject activateForText;
 
     [Header("Texts Arrays")]
     [SerializeField] private GameObject[] firstTextsArray;
@@ -32,11 +25,10 @@ public class DeathTextsController : MonoBehaviour
     [SerializeField] private Transform[] threeTextPosition;
     [SerializeField] private Transform[] fourTextPosition;
 
-    [Header("Texts Settings")]
+    [Header("Settings")]
     [SerializeField] private float animatorSpeed;
-    //[SerializeField] private float appeareAnimLenght;
-    //[SerializeField] private float stayAnimLenght;
-    //[SerializeField] private float disappeareAnimLenght;
+    [SerializeField] private float blackScreenSpeed;
+
 
 
     private List<GameObject[]> arrayList = new List<GameObject[]>();
@@ -44,25 +36,28 @@ public class DeathTextsController : MonoBehaviour
 
     private void Start()
     {
-        StartMethod();
-        blackScreen.GetComponent<Animator>().enabled = true;
+        activateForText.SetActive(false);
     }
 
-    private void StartMethod()
+    public void StartDeathTextMethod()
     {
-        if (firstTextsArray != null)
+        activateForText.SetActive(true);
+        blackScreen.GetComponent<Animator>().enabled = true;
+        blackScreen.GetComponent<Animator>().speed = blackScreenSpeed;
+
+        if (firstTextsArray.Length != 0)
         {
             arrayList.Add(firstTextsArray);
-            if (secondTextsArray != null)
+            if (secondTextsArray.Length != 0)
             {
                 arrayList.Add(secondTextsArray);
-                if (thirdTextsArray != null)
+                if (thirdTextsArray.Length != 0)
                 {
                     arrayList.Add(thirdTextsArray);
-                    if (fourthTextsArray != null)
+                    if (fourthTextsArray.Length != 0)
                     {
                         arrayList.Add(fourthTextsArray);
-                        if (fivthTextsArray != null)
+                        if (fivthTextsArray.Length != 0)
                         {
                             arrayList.Add(fivthTextsArray);
                         }
@@ -74,13 +69,13 @@ public class DeathTextsController : MonoBehaviour
         if (singteTextPosition != null)
         {
             posArrayList.Add(singteTextPosition);
-            if (twoTextPosition != null)
+            if (twoTextPosition.Length != 0)
             {
                 posArrayList.Add(twoTextPosition);
-                if (threeTextPosition != null)
+                if (threeTextPosition.Length != 0)
                 {
                     posArrayList.Add(threeTextPosition);
-                    if (fourTextPosition != null)
+                    if (fourTextPosition.Length != 0)
                     {
                         posArrayList.Add(fourTextPosition);
                     }
@@ -99,27 +94,6 @@ public class DeathTextsController : MonoBehaviour
 
     }
 
-    //private void ActivateBlackScreen() 
-    //{
-    //    Sequence sequence = DOTween.Sequence();
-
-    //    sequence.AppendCallback(() => SetImageActive(true))
-    //        .Append(BlackScreenImage.DOFade(1, startTimeToFadeImage))
-    //        .AppendCallback(callback)
-    //        .AppendInterval(timeIntervalInFade)
-    //        .Append(BlackScreenImage.DOFade(0, startTimeToFadeOutImage))
-    //        .AppendCallback(() => SetImageActive(false));
-
-    //    startTimeToFadeImage += timeAddAfterUseItem;
-    //    startTimeToFadeOutImage += timeAddAfterUseItem;
-    //}
-
-    //private void SetImageActive(bool active)
-    //{
-    //    BlackScreenImage.gameObject.SetActive(active);
-    //}
-
-
     private IEnumerator NextArrayCorutine()
     {
         for (int i = 0; i < arrayList.Count; i++)
@@ -131,20 +105,23 @@ public class DeathTextsController : MonoBehaviour
 
     private IEnumerator TextAnimationCorutine(GameObject[] gameObjects)
     {
-
-        Transform[] posArray = posArrayList[gameObjects.Length -1];
-
-        for (int i = 0; i < gameObjects.Length; i++)
+        if (gameObjects.Length != 0)
         {
-            gameObjects[i].transform.position = posArray[i].position;
-        }
 
-        for (int i = 0; i < gameObjects.Length; i++)
-        {
-            gameObjects[i].GetComponent<Animator>().enabled = true;
-            gameObjects[i].GetComponent<Animator>().speed = animatorSpeed;
+            Transform[] posArray = posArrayList[gameObjects.Length -1];
 
-            yield return new WaitForSeconds(firstTextAnimation.length);
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                gameObjects[i].transform.position = posArray[i].position;
+            }
+
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                gameObjects[i].GetComponent<Animator>().enabled = true;
+                gameObjects[i].GetComponent<Animator>().speed = animatorSpeed;
+
+                yield return new WaitForSeconds(firstTextAnimation.length);
+            }
         }
         yield return new WaitForSeconds(5f);
     }
