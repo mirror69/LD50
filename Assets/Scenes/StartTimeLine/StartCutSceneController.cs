@@ -20,6 +20,9 @@ public class StartCutSceneController : MonoBehaviour
     [SerializeField]
     private float timeToFadeOut;
 
+    [SerializeField]
+    private GameObject musicChanger;
+
     private bool isFadingOut;
 
     private void OnEnable()
@@ -46,6 +49,7 @@ public class StartCutSceneController : MonoBehaviour
     private void TextInCutScene_OnStartCutSceneEnded()
     {
         isFadingOut = true;
+        musicChanger.SetActive(true);
         this.Delay(timeToFadeOut, () => this.gameObject.SetActive(false));
     }
 }

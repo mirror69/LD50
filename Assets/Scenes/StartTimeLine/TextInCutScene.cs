@@ -85,7 +85,6 @@ public class TextInCutScene : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenLetters);
 
         string resText = textInCanvas.text + currentText[currentLetterIndex];
-        Debug.Log(resText);
 
         ShowPartOfText(resText);
         currentLetterIndex++;
