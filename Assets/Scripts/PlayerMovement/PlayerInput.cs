@@ -75,6 +75,17 @@ public class PlayerInput : MonoBehaviour
         _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
     }
 
+    public void TryApplyAnimParams(AnimatorIntParam[] animIntParams)
+    {
+        if (animIntParams.Length > 0)
+        {
+            foreach (var item in animIntParams)
+            {
+                _playerAnimations.SetByIntParam(item);
+            }
+        }
+    }
+
     public void SetAnimatorDead()
     {
         _playerAnimations.SetDead();

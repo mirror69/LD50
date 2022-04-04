@@ -13,6 +13,11 @@ public class PlayerAnimations : MonoBehaviour
         playerSounds = GetComponent<PlayerSounds>();
     }
 
+    public void SetByIntParam(AnimatorIntParam intParam)
+    {
+        _animator.SetInteger(intParam.Name, intParam.Value);
+    }
+
     public void SetByVelocity(Vector2 velocity)
     {
         int direction;
