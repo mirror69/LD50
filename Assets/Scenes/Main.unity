@@ -1750,6 +1750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda0d750aa56b7c46bcb5ac4049cb1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1842009094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 971801667500987309, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+  m_PrefabInstance: {fileID: 2914477333632316504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1847565088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,6 +2165,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 488426642635709924, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_text
+      value: No, everything was done wrong
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 2273560492707891051, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273560492707891051, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273560492707891051, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273560492707891051, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2410073987645365320, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2168,6 +2213,28 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_text
+      value: 'He can wait for me
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
     - target: {fileID: 2914477333663350864, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2220,6 +2287,58 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_text
+      value: "I can't believe,\n my dad didn't wait for me\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: animatorSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: nextPageDelay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: nextTextDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: blackScreenSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: firstTextsArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: fourTextPosition.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: firstTextsArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 1842009094}
+    - target: {fileID: 4812766749884417053, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5446414143156536065, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2232,6 +2351,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6414522846864045963, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7451513693494168820, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2243,6 +2366,32 @@ PrefabInstance:
     - target: {fileID: 7451513693494168820, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499387377158466880, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_text
+      value: 'He can
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499387377158466880, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499387377158466880, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 8499387377158466880, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499387377158466880, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+    - target: {fileID: 8966298238789332039, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: m_Type
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}

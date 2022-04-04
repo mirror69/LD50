@@ -94,8 +94,8 @@ public class MainMusicChanger : MonoBehaviour
 
     private void Update()
     {
-        goodMusicAudioSource.volume = Mathf.Lerp(goodMusicAudioSource.volume, goodMusicTargetVolume, Time.deltaTime * 2);
-        badMusicAudioSource.volume = Mathf.Lerp(badMusicAudioSource.volume, badMusicTargetVolume, Time.deltaTime * 2);
+        goodMusicAudioSource.volume = Mathf.Lerp(goodMusicAudioSource.volume, goodMusicTargetVolume, Time.deltaTime * 5);
+        badMusicAudioSource.volume = Mathf.Lerp(badMusicAudioSource.volume, badMusicTargetVolume, Time.deltaTime * 5);
 
         currentTime += Time.deltaTime;
         if (currentTime >= maxTimeAudio)
