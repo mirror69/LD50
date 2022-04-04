@@ -5,6 +5,9 @@ public class GameSettings : ScriptableObject
 {
     [field: SerializeField]
     public TimeSettings TimeSettings { get; private set; }
+
+    [field: SerializeField]
+    public SceneSettings SceneSettings { get; private set; }
 }
 
 [System.Serializable]
@@ -26,4 +29,11 @@ public struct TimeSettings
     public int SecondsToWin;
     public int GoodItemCountToWin;
     public int WinDelayAfterLastItemUse;
+}
+
+[System.Serializable]
+public struct SceneSettings
+{
+    public string MainMenuSceneName;
+    public string GameSceneName;
 }

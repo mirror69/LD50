@@ -16,6 +16,11 @@ public class PlayerMovements : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
+    public Vector2 GetVelocity()
+    {
+        return agent.velocity;
+    }
+
     public void Move(float direction, Vector2 newPos)
     {
         if (Mathf.Abs(direction) > 0.01f)
@@ -32,7 +37,7 @@ public class PlayerMovements : MonoBehaviour
             agent.SetDestination(newPos);
         }
 
-        if (Vector2.Distance(transform.position, newPos) < 0.1f)
+        if (!agent.pathPending && agent.remainingDistance < 0.2f)
         {
             ReachedDestination();
         }

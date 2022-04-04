@@ -59,6 +59,8 @@ public class PlayerInput : MonoBehaviour
         {
             _playerMovements.Move(_horizontalDirection, _currentDestinationPoint.point);
         }
+
+        _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
     }
 
     public void SetNewTargetPosition(DestinationPoint destinationPoint)

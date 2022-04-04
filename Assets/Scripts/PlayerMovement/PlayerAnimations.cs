@@ -4,43 +4,39 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    [SerializeField] private GameObject _animatorObj;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
 
-    private void Awake()
+    public void SetByVelocity(Vector2 velocity)
     {
-        _animator = _animatorObj.GetComponent<Animator>();
+        int direction;
+
+        if (velocity.x < 0)
+        {
+            direction = -1;
+        }
+        else if (velocity.x > 0)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = 0;
+        }
+
+        _animator.SetInteger("XSpeed", direction);
     }
 
-    public void AnimatorStateChanger(float direction)
+    public void AnimatorStateChanger(bool isWalking)
     {
-        if (direction > 0)
+        if (isWalking)
         {
-            _animator.SetBool("WalkRight", true);
-            _animator.SetBool("WalkLeft", false);
-            _animator.SetBool("Idle", false);
-        }
-        else if(direction < 0)
-        {
-            _animator.SetBool("WalkRight", false);
-            _animator.SetBool("WalkLeft", true);
+            _animator.SetBool("Walk", true);
             _animator.SetBool("Idle", false);
         }
         else
         {
-            _animator.SetBool("WalkRight", false);
-            _animator.SetBool("WalkLeft", false);
+            _animator.SetBool("Walk", false);
             _animator.SetBool("Idle", true);
         }
-    }
-
-    public void DedDead()
-    {
-
-        if (transform.position.x < 0)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0,180,0);
-        }
-        _animator.SetTrigger("Dead");
     }
 }

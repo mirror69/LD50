@@ -11,10 +11,10 @@ public class GameData
         => GetProgressionValueForBadCount(_gameSettings.TimeSettings.MaxTimeOfBadItemUse, BadItemCount);
 
     public int CurrentTimeAfterShortBadItemUse
-        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterShortBadItemUse, BadItemCount - 1);
+        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterShortBadItemUse, BadItemCount);
 
     public int CurrentTimeAfterLongBadItemUse
-        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterLongBadItemUse, BadItemCount - 1);
+        => GetProgressionValueForBadCount(_gameSettings.TimeSettings.TimeAfterLongBadItemUse, BadItemCount);
 
     private GameSettings _gameSettings;
     
