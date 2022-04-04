@@ -12,7 +12,6 @@ public class ChessMiniGameScreen : GameScreen
         base.Show();
         if (_chessMiniGameObject == null)
         {
-            wasAlreadyChoosen = true;
             _chessMiniGameObject = Instantiate(ChessMiniGamePrefab, transform);
             _chessMiniGameObject.GetComponent<ChessController>().OnFinish += ChessMiniGameScreen_OnFinish;
         }
@@ -21,6 +20,7 @@ public class ChessMiniGameScreen : GameScreen
     private void ChessMiniGameScreen_OnFinish()
     {
         Debug.Log("Chess is ended");
+        wasAlreadyChoosen = true;
         CloseRequested?.Invoke(GameScreenResult.WinGame);
     }
 
