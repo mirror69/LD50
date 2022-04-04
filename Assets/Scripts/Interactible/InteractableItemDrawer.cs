@@ -13,6 +13,7 @@ public class InteractableItemDrawer : MonoBehaviour
 
     private void Awake()
     {
+        Content.SetActive(false);
         startColor = Renderer.color;
     }
 
