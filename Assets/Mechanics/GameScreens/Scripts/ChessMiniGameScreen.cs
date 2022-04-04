@@ -20,6 +20,7 @@ public class ChessMiniGameScreen : GameScreen
     private void ChessMiniGameScreen_OnFinish()
     {
         Debug.Log("Chess is ended");
+        wasAlreadyChoosen = true;
         CloseRequested?.Invoke(GameScreenResult.WinGame);
     }
 
