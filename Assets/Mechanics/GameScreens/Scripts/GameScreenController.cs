@@ -84,7 +84,7 @@ public class GameScreenController : MonoBehaviour
                     ShowScreen(PhotoAlbumMiniGameScreen);
                 break;
             case ItemType.Records:
-                if (!TurntableMiniGameScreen)
+                if (!TurntableMiniGameScreen.wasAlreadyChoosen)
                     ShowScreen(TurntableMiniGameScreen);
                 break;
             case ItemType.Table:

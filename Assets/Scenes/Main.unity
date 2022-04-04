@@ -408,6 +408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicPlayerMiniGameScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 5165193674812572432, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5165193674812572435, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
       propertyPath: m_RootOrder
       value: 4
