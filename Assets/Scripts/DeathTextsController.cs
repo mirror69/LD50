@@ -13,8 +13,6 @@ public class DeathTextsController : MonoBehaviour
     [SerializeField] private GameObject blackScreen;
 
     [SerializeField] private GameObject activateForText;
-    [SerializeField]
-    private GameObject ButtonObject;
 
     [Header("Texts Arrays")]
     [SerializeField] private GameObject[] firstTextsArray;
@@ -45,7 +43,6 @@ public class DeathTextsController : MonoBehaviour
     private void Start()
     {
         activateForText.SetActive(false);
-        ButtonObject.SetActive(false);
     }
 
     public void StartDeathTextMethod()
