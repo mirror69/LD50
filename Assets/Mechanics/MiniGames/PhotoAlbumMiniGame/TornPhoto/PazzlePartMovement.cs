@@ -33,7 +33,6 @@ public class PazzlePartMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("HELLO");
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
 
         if (hit.collider.gameObject == this.gameObject)

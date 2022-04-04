@@ -1300,6 +1300,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
+    - target: {fileID: 1874466498, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
+      propertyPath: m_Speed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1899,8 +1903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2578c7d1fff2b634980f84e2e7cc3a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorder: -3.3
-  rightBorder: 3.4
+  leftBorder: 0
+  rightBorder: 0
   timeToZoom: 2
   maxCameraSizeInZoom: 4
   playerTransform: {fileID: 2124656820}
@@ -2109,7 +2113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_text
-      value: No, everything was done wrong
+      value: No, it was all wrong
       objectReference: {fileID: 0}
     - target: {fileID: 1011374015984612903, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_fontSize
@@ -2153,9 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_text
-      value: 'He can wait for me
-
-'
+      value: He will wait
       objectReference: {fileID: 0}
     - target: {fileID: 2491736096924036897, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_fontSize
@@ -2227,7 +2229,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_text
-      value: "I can't believe,\n my dad didn't wait for me\n"
+      value: 'Dad will definitely wait for me
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 3942335112524478672, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_fontSize
