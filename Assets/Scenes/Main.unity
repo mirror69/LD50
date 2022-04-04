@@ -184,17 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8f59e5b6ab8c241861b2daf629a9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &302346719 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7772344348356617543, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
-  m_PrefabInstance: {fileID: 347739471}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f90df110a38fd2438c6e103dbd1227b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &347739471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -249,6 +238,10 @@ PrefabInstance:
     - target: {fileID: 4877019823005292681, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_Name
       value: ___UI___ withDeathText
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877019823005292681, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
@@ -868,6 +861,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6228151, y: 2.213983}
   m_EdgeRadius: 0
+--- !u!114 &993132703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+  m_PrefabInstance: {fileID: 2914477333632316504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f90df110a38fd2438c6e103dbd1227b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &996219918 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3212731949592636128, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
@@ -2209,7 +2213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2914477333663350879, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5446414143156536065, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2346,7 +2350,7 @@ PrefabInstance:
     - target: {fileID: 2879794118452459851, guid: 14d85f9dacb05c540bcff6d46bffb176, type: 3}
       propertyPath: DeathTextsController
       value: 
-      objectReference: {fileID: 302346719}
+      objectReference: {fileID: 993132703}
     - target: {fileID: 2879794118452459851, guid: 14d85f9dacb05c540bcff6d46bffb176, type: 3}
       propertyPath: GameScreenController
       value: 

@@ -28,6 +28,8 @@ public class DeathTextsController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float animatorSpeed;
     [SerializeField] private float blackScreenSpeed;
+    [SerializeField] private float nextTextDelay;
+    [SerializeField] private float nextPageDelay;
 
 
 
@@ -120,9 +122,9 @@ public class DeathTextsController : MonoBehaviour
                 gameObjects[i].GetComponent<Animator>().enabled = true;
                 gameObjects[i].GetComponent<Animator>().speed = animatorSpeed;
 
-                yield return new WaitForSeconds(firstTextAnimation.length);
+                yield return new WaitForSeconds(nextTextDelay);
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(nextPageDelay);
     }
 }
