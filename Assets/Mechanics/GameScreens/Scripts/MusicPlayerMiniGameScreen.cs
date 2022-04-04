@@ -23,6 +23,7 @@ public class MusicPlayerMiniGameScreen : GameScreen
 
     private void MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded()
     {
+        wasAlreadyChoosen = true;
         Debug.Log("MusicPlayerQuest is ended");
         CloseRequested?.Invoke(GameScreenResult.WinGame);
     }

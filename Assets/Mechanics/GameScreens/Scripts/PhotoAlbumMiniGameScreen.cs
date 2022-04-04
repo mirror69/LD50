@@ -19,6 +19,7 @@ public class PhotoAlbumMiniGameScreen : GameScreen
 
     private void PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone(PhotoAlbumQuest obj)
     {
+        wasAlreadyChoosen = true;
         CloseRequested?.Invoke(GameScreenResult.WinGame);
     }
 
