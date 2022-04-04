@@ -83,8 +83,8 @@ public class GameController : MonoBehaviour
 
     private void OnDeathCutsceneEnded()
     {
-        KeyPressController.SetNotListeningMode();
-        UIScreenController.ShowGameOverScreen();
+        //KeyPressController.SetNotListeningMode();
+        //UIScreenController.ShowGameOverScreen();
     }
 
     private void PauseGame()
@@ -197,6 +197,7 @@ public class GameController : MonoBehaviour
         }
         Player.SetAnimatorDead();
         KeyPressController.SetNotListeningMode();
+        UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
     }
 

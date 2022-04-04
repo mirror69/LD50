@@ -1919,8 +1919,8 @@ RectTransform:
   m_Children:
   - {fileID: 8767840736306702582}
   - {fileID: 4882282473119868680}
-  - {fileID: 3212731949242589048}
   - {fileID: 6299057113034450502}
+  - {fileID: 3212731949242589048}
   m_Father: {fileID: 2914477333663350864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3303,7 +3303,7 @@ RectTransform:
   m_Children:
   - {fileID: 2539889886958780795}
   m_Father: {fileID: 9032460361359357594}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3325,7 +3325,6 @@ MonoBehaviour:
   firstTextAnimation: {fileID: 7400000, guid: 28b1a44804ee31f43bf890da62e68f52, type: 2}
   blackScreen: {fileID: 2620975225498420200}
   activateForText: {fileID: 2031429508793282934}
-  ButtonObject: {fileID: 0}
   firstTextsArray:
   - {fileID: 2719035065739390616}
   - {fileID: 6923471357444305699}
@@ -4705,7 +4704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 957980881856074967, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 957980881856074967, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_AnchorMax.x
