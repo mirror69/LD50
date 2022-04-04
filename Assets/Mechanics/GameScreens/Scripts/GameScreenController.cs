@@ -2,23 +2,6 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-//public class InteractionController : MonoBehaviour
-//{
-//    private PlayableDirector _currentTimeline;
-//    public void ShowItemScreen(ItemType itemType)
-//    {
-//        switch (itemType)
-//        {
-//            case ItemType.Bulb:
-//                ShowScreen(TestMiniGameScreen);
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//}
-
-
 public class GameScreenController : MonoBehaviour
 {
     [field: SerializeField]
@@ -82,11 +65,11 @@ public class GameScreenController : MonoBehaviour
                 ShowScreen(PhotoAlbumMiniGameScreen);
                 break;
             case ItemType.Records:
+                ShowScreen(TurntableMiniGameScreen);
                 break;
             case ItemType.Table:
                 break;
             case ItemType.Turntable:
-                ShowScreen(TurntableMiniGameScreen);
                 break;
             case ItemType.TV:
                 break;
