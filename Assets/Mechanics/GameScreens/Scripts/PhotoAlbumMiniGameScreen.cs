@@ -12,7 +12,6 @@ public class PhotoAlbumMiniGameScreen : GameScreen
         base.Show();
         if (_testMiniGameObject == null)
         {
-            wasAlreadyChoosen = true;
             _testMiniGameObject = Instantiate(PhotoAlbumMiniGamePrefab, transform);
             _testMiniGameObject.GetComponent<PhotoAlbumQuest>().OnPhotoAlbumQuestDone += PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone;
         }
@@ -20,6 +19,7 @@ public class PhotoAlbumMiniGameScreen : GameScreen
 
     private void PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone(PhotoAlbumQuest obj)
     {
+        wasAlreadyChoosen = true;
         CloseRequested?.Invoke(GameScreenResult.WinGame);
     }
 
