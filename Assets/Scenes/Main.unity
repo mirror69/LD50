@@ -168,6 +168,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToStartQuest: 2
+--- !u!1001 &89823080
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 994.2211
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 524.6624
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.192316
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358574881925236080, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028806286058129506, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_Name
+      value: StartCutScene and Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346746894570094341, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: clickHandler
+      value: 
+      objectReference: {fileID: 618116561}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
 --- !u!1 &201175050
 GameObject:
   m_ObjectHideFlags: 0
