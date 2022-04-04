@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class EraseImageLayer : MonoBehaviour
 {
+    public static event Action<EraseImageLayer> OnEraseImageEnded;
+
     private Texture2D m_Texture;
     private Color[] m_Colors;
     RaycastHit2D hit;
@@ -10,10 +13,17 @@ public class EraseImageLayer : MonoBehaviour
     public int erSize;
     public Vector2Int lastPos;
     public bool Drawing = false;
+    public bool isReady = false;
+
+    private int colorPixelsCount;
+    private int allPixelsCount;
+
     void Start()
     {
         spriteRend = gameObject.GetComponent<SpriteRenderer>();
         var tex = spriteRend.sprite.texture;
+        allPixelsCount = tex.width * tex.height;
+
         m_Texture = new Texture2D(tex.width, tex.height, TextureFormat.ARGB32, false);
         m_Texture.filterMode = FilterMode.Bilinear;
         m_Texture.wrapMode = TextureWrapMode.Clamp;
@@ -25,6 +35,9 @@ public class EraseImageLayer : MonoBehaviour
 
     void Update()
     {
+        if (isReady)
+            return;
+
         if (Input.GetMouseButton(0))
         {
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -69,7 +82,20 @@ public class EraseImageLayer : MonoBehaviour
                 }
                 if ((pixel - linePos).sqrMagnitude <= erSize * erSize)
                 {
-                    m_Colors[x + y * w] = zeroAlpha;
+                    if (m_Colors[x + y * w] != zeroAlpha)
+                    {
+                        colorPixelsCount++;
+
+                        if (allPixelsCount - colorPixelsCount <1500)
+                        {
+                            isReady = true;
+                            spriteRend.enabled = false;
+                            OnEraseImageEnded?.Invoke(this);
+                            return;
+                        }
+
+                        m_Colors[x + y * w] = zeroAlpha;
+                    }
                 }
             }
         }
