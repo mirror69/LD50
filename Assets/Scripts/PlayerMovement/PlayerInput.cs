@@ -5,11 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimations))]
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] private float gruntTimer;
+
     private PlayerMovements _playerMovements;
     private PlayerAnimations _playerAnimations;
     private PlayerSounds playerSounds;
     private float _newTargetPosX;
     private float _horizontalDirection;
+    private float _currTime;
+    private bool _isGruntTimerOn = false;
+    private bool _isWalkSoundPlaying = false;
 
     private DestinationPoint _currentDestinationPoint;
 
@@ -52,17 +57,30 @@ public class PlayerInput : MonoBehaviour
             _horizontalDirection = 0;
         }
 
-        bool isMoving = (_horizontalDirection != 0);
+        bool isMoving = (_newTargetPosX != 0);
 
         if (isMoving)
         {
-            playerSounds.PlayWalkSound();
-            Debug.Log(" GDE ZVUK");
+            if (!_isWalkSoundPlaying)
+            {
+                playerSounds.PlayWalkSound();
+                Debug.Log(" GDE ZVUK");
+                _isWalkSoundPlaying = true;
+                _currTime = Time.time;
+            }
         }
         else
         {
             playerSounds.StopWalkSound();
+            _isWalkSoundPlaying = false;
+            _isGruntTimerOn = false;
         }
+
+        if (_isGruntTimerOn)
+        {
+            GruntTimer();
+        }
+
     }
 
     private void FixedUpdate()
@@ -95,7 +113,7 @@ public class PlayerInput : MonoBehaviour
     {
         _currentDestinationPoint = destinationPoint;
         _newTargetPosX = destinationPoint.point.x;
-        Debug.Log(_newTargetPosX);
+        _isGruntTimerOn = true;
     }
 
     private void OnDestinationPointReached()
@@ -107,5 +125,14 @@ public class PlayerInput : MonoBehaviour
     private void SetDestinationToZero()
     {
         _newTargetPosX = 0;
+    }
+
+    private void GruntTimer()
+    {
+        if (Time.time - _currTime > 2f)
+        {
+            playerSounds.PlayGrountSound();
+            _currTime = Time.time;
+        }
     }
 }
