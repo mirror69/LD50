@@ -1,17 +1,28 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public enum ItemTimerType
 {
-    BadItem,
-    GoodItem
+    BadItem = 0,
+    GoodItem = 1,
+    NeutralItem = 2
 }
 
 public enum ItemType
 {
-    Table,
-    Bulb
+    Table = 0,
+    Bulb = 1,
+    Jacket = 2,
+    Mirror = 3
+}
+
+[Serializable]
+public struct AnimatorIntParam
+{
+    public string Name;
+    public int Value;
 }
 
 public class InteractableItem : MonoBehaviour
@@ -23,6 +34,9 @@ public class InteractableItem : MonoBehaviour
     public ItemTimerType TimerType { get; private set; }
 
     [field: SerializeField]
+    public Transform StayPoint { get; private set; }
+
+    [field: SerializeField]
     public Transform LeftInteractionPoint { get; private set; }
 
     [field: SerializeField]
@@ -30,6 +44,18 @@ public class InteractableItem : MonoBehaviour
 
     [field: SerializeField]
     public InteractableItemDrawer Drawer { get; private set; }
+
+    [field: SerializeField]
+    public GameScreen GameScreen { get; private set; }
+
+    [field: SerializeField]
+    public PlayableDirector InTimeline { get; private set; }
+
+    [field: SerializeField]
+    public PlayableDirector OutTimeline { get; private set; }
+
+    [field: SerializeField]
+    public AnimatorIntParam[] OutAnimatorIntParams { get; private set; }
 
     public Action<InteractableItem> Clicked;
 

@@ -6,6 +6,11 @@ public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
+    public void SetByIntParam(AnimatorIntParam intParam)
+    {
+        _animator.SetInteger(intParam.Name, intParam.Value);
+    }
+
     public void SetByVelocity(Vector2 velocity)
     {
         int direction;
