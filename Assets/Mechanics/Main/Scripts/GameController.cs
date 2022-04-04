@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -28,6 +29,8 @@ public class GameController : MonoBehaviour
 
     private GameData _gameData;
     private UIEventMediator _uiEventMediator;
+
+    private PlayableDirector _currentTimeline;
 
     private void Start()
     {
@@ -103,12 +106,21 @@ public class GameController : MonoBehaviour
 
     private void StopCurrentInteraction()
     {
-        if (_gameData.CurrentInteractingItem == null)
+        TryStopTimeline(_currentTimeline);
+        _currentTimeline = null;
+
+        var item = _gameData.CurrentInteractingItem;
+        if (item == null)
         {
             return;
         }
 
-        StopCurrentInteraction(_gameData.CurrentInteractingItem.TimerType);
+        Player.TryApplyAnimParams(item.OutAnimatorIntParams);
+
+        StopCurrentInteraction(item.TimerType);
+
+        TryPlayTimeline(item.OutTimeline);
+        _currentTimeline = item.OutTimeline;
     }
 
     private void StopCurrentInteraction(ItemTimerType timerType)
@@ -153,11 +165,15 @@ public class GameController : MonoBehaviour
         Invoke(nameof(ShowCredits), 2);
     }
 
-    private void ProcessLoseActions()
+    private IEnumerator ProcessLoseActions()
     {
-        KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        //_debugView.ShowLoseScreen();
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+        KeyPressController.SetNotListeningMode();
         DeathTextsController.StartDeathTextMethod();
         Player.SetAnimatorDead();
     }
@@ -170,10 +186,39 @@ public class GameController : MonoBehaviour
         {
             TimeController.StartBadInteraction();
         }
-        else
+        else if (item.TimerType == ItemTimerType.GoodItem)
         {
             TimeController.StartGoodInteraction();
             GameScreenController.BlackScreen.Activate(() => StartMiniGame(item));
+        }
+
+        TryPlayTimeline(item.InTimeline);
+        _currentTimeline = item.InTimeline;
+    }
+
+    private void TryPlayTimeline(PlayableDirector timeline)
+    {
+        if (timeline == null)
+        {
+            return;
+        }
+
+        if (timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
+        }
+        timeline.Play();
+    }
+
+    private void TryStopTimeline(PlayableDirector timeline)
+    {
+        if (timeline == null)
+        {
+            return;
+        }
+        if (timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
         }
     }
 
@@ -198,12 +243,25 @@ public class GameController : MonoBehaviour
 
     private void OnDeathTimeOver()
     {
-        ProcessLoseActions();
+        StopCurrentInteraction();
+        StartCoroutine(ProcessLoseActions());
     }
 
     private void OnDestinationPointClicked(DestinationPoint destinationPoint)
     {
         StopCurrentInteraction();
+        StartCoroutine(StartMoveToPoint(destinationPoint));
+    }
+
+    private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
+    {
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+        GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
+
         Player.SetNewTargetPosition(destinationPoint);
 
         bool isBadInteraction = false;
@@ -232,6 +290,9 @@ public class GameController : MonoBehaviour
 
     private void OnPlayerReachedDestinationPoint(DestinationPoint destinationPoint)
     {
+        TryStopTimeline(_currentTimeline);
+        _currentTimeline = null;
+
         if (destinationPoint.item != null)
         {
             TimeController.ResumeTime();

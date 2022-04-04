@@ -8,6 +8,11 @@ public class MainGameScreen : GameScreen
 
     public Action<DestinationPoint> DestinationPointClicked;
 
+    public void SetEnabledControl(bool enabled)
+    {
+        _clickHandler.enabled = enabled;
+    }
+
     private void OnEnable()
     {
         _clickHandler.DestinationPointClicked += OnDestinationPointClickedd;
