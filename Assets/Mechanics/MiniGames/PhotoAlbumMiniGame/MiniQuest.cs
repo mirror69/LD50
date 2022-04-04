@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public abstract class MiniQuest : MonoBehaviour
 {
-    //public Image previewImageInAlbum;
     public SpriteRenderer previewImageInAlbum;
-    public Sprite originalImage;
 
     public static event Action<MiniQuest> OnMiniQuestEnded;
 
@@ -29,6 +27,5 @@ public abstract class MiniQuest : MonoBehaviour
     {
         questIsDone = true;
         OnMiniQuestEnded?.Invoke(this);
-        //gameObject.SetActive(false);
     }
 }

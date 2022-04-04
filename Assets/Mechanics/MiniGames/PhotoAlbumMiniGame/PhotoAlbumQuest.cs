@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,7 @@ using UnityEngine.UI;
 public class PhotoAlbumQuest : MonoBehaviour
 {
     public static PhotoAlbumQuest Instance = null;
-
-    //[SerializeField]
-    //private Button backButton;
+    public event Action<PhotoAlbumQuest> OnPhotoAlbumQuestDone;
 
     [SerializeField]
     private List<MiniQuest> photoQuests;
@@ -34,9 +33,6 @@ public class PhotoAlbumQuest : MonoBehaviour
         else
             Destroy(this);
 
-        //backButton.gameObject.SetActive(false);
-        //backButton.onClick.AddListener(ShowAllPreviews);
-
         foreach (var elem in photoQuests)
         {
             elem.SetMiniQuestToPreviewImage();
@@ -45,8 +41,15 @@ public class PhotoAlbumQuest : MonoBehaviour
 
     private void Start()
     {
+        for (int i = 0; i < photoQuests.Count; i++)
+        {
+            if (!photoQuests[i].questIsDone)
+            {
+                _currentQuestIndex = i-1;
+                break;
+            }
+        }
         HideAllPreviews();
-        _currentQuestIndex = 0;
         ShowNextPreview();
     }
 
@@ -56,11 +59,19 @@ public class PhotoAlbumQuest : MonoBehaviour
         {
             photo.previewImageInAlbum.gameObject.SetActive(false);
         }
-        //backButton.gameObject.SetActive(true);
     }
 
     public void ShowNextPreview ()
     {
+        _currentQuestIndex++;
+
+        if (_currentQuestIndex >= photoQuests.Count)
+        {
+            OnPhotoAlbumQuestDone?.Invoke(this);
+            Debug.Log("??????? —Œ¡€“»≈ Œ «¿¬≈–ÿ≈Õ»»  ¬≈—“¿ — ¿À‹¡ŒÃŒÃ ???????");
+            return;
+        }
+
         photoQuests[_currentQuestIndex].previewImageInAlbum.gameObject.SetActive(true);
     }
 
@@ -80,14 +91,6 @@ public class PhotoAlbumQuest : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-
-        _currentQuestIndex++;
-
-        if (_currentQuestIndex < photoQuests.Count)
-        {
-            ShowNextPreview();
-        }
-        else
-            Debug.Log("??????? —Œ¡€“»≈ Œ «¿¬≈–ÿ≈Õ»»  ¬≈—“¿ — ¿À‹¡ŒÃŒÃ ???????");
+        ShowNextPreview();
     }
 }
