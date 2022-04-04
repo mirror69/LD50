@@ -3,6 +3,9 @@
 public class MusicPlayerMiniGameScreen : GameScreen
 {
     [SerializeField]
+    private Camera cameraToMiniGame;
+
+    [SerializeField]
     private GameObject MusicPlayerMiniGamePrefab;
 
     private GameObject _musicPlayerMiniGameObject;
@@ -13,11 +16,12 @@ public class MusicPlayerMiniGameScreen : GameScreen
         if (_musicPlayerMiniGameObject == null)
         {
             _musicPlayerMiniGameObject = Instantiate(MusicPlayerMiniGamePrefab, transform);
-           // _musicPlayerMiniGameObject.GetComponent<ChessController>().OnFinish += MusicPlayerMiniGameScreen_OnFinish;
+            _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().SetCamera(cameraToMiniGame);
+            _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().OnMusicPlayerMiniGameEnded += MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded;
         }
     }
 
-    private void MusicPlayerMiniGameScreen_OnFinish()
+    private void MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded()
     {
         Debug.Log("MusicPlayerQuest is ended");
         CloseRequested?.Invoke(GameScreenResult.WinGame);

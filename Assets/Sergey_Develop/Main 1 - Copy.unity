@@ -1844,6 +1844,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1571059431}
     m_Modifications:
+    - target: {fileID: 2831539050282952957, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
+      propertyPath: cameraToMiniGame
+      value: 
+      objectReference: {fileID: 1707955593}
     - target: {fileID: 5165193674812572432, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
       propertyPath: m_Name
       value: MusicPlayerMiniGameScreen
@@ -2113,6 +2117,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679244512}
   m_CullTransparentMesh: 1
+--- !u!20 &1707955593 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5165193673241992324, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
+  m_PrefabInstance: {fileID: 1665252377}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1753813141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 255305580035311530, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
