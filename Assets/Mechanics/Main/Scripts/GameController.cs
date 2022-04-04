@@ -38,7 +38,8 @@ public class GameController : MonoBehaviour
     private UIEventMediator _uiEventMediator;
 
     private PlayableDirector _currentTimeline;
-    //private PlayableDirector _chairTimeline;
+
+    [SerializeField] private PlayableDirector finalTimeLine;
 
     private bool _goToChairToWatchTV;
     
@@ -114,13 +115,12 @@ public class GameController : MonoBehaviour
             && TimeController.IsWinTimeReached();
     }
 
-    private void StopCurrentInteraction(InteractableItem newItem = null)
+    private void StopCurrentInteraction()
     {
-        var item = _gameData.CurrentInteractingItem;
-
         TryStopTimeline(_currentTimeline);
         _currentTimeline = null;
 
+        var item = _gameData.CurrentInteractingItem;
         if (item == null)
         {
             return;
@@ -172,9 +172,11 @@ public class GameController : MonoBehaviour
     {
         KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        _debugView.ShowWinScreen();
-        Invoke(nameof(ShowCredits), 2);
+        finalTimeLine.Play();
+        //_debugView.ShowWinScreen();
+        //Invoke(nameof(ShowCredits), 2);
     }
+
 
     private IEnumerator ProcessLoseActions()
     {
@@ -184,9 +186,9 @@ public class GameController : MonoBehaviour
         {
             yield return null;
         }
+        Player.SetAnimatorDead();
         KeyPressController.SetNotListeningMode();
         DeathTextsController.StartDeathTextMethod();
-        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
@@ -233,7 +235,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void ShowCredits()
+    public void ShowCredits()
     {
         UIScreenController.ShowCreditsScreen();
     }
@@ -300,11 +302,6 @@ public class GameController : MonoBehaviour
         StopCurrentInteraction();
         StartCoroutine(StartMoveToPoint(destinationPoint));
     }
-
-    //private IEnumerator MoveToTV()
-    //{
-    //    MoveToTV(destinationPoint);
-    //}
 
     private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
     {
