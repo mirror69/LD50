@@ -64,7 +64,6 @@ public class PlayerInput : MonoBehaviour
             if (!_isWalkSoundPlaying)
             {
                 playerSounds.PlayWalkSound();
-                Debug.Log(" GDE ZVUK");
                 _isWalkSoundPlaying = true;
                 _currTime = Time.time;
             }
@@ -76,10 +75,10 @@ public class PlayerInput : MonoBehaviour
             _isGruntTimerOn = false;
         }
 
-        if (_isGruntTimerOn)
-        {
-            GruntTimer();
-        }
+        //if (_isGruntTimerOn)
+        //{
+        //    GruntTimer();
+        //}
 
     }
 
@@ -107,6 +106,7 @@ public class PlayerInput : MonoBehaviour
     public void SetAnimatorDead()
     {
         _playerAnimations.SetDead();
+        _playerMovements.StopAgent();
     }
 
     public void SetNewTargetPosition(DestinationPoint destinationPoint)

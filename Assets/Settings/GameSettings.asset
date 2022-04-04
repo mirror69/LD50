@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TimeSettings>k__BackingField:
     NormalTimeSpeed: 1
-    SecondsToDeath: 10
+    SecondsToDeath: 5
     MaxTimeOfBadItemUse: 12
     TimeAfterShortBadItemUse: 18
     TimeAfterLongBadItemUse: 8

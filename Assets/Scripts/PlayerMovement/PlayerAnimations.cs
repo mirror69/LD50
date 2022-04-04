@@ -43,7 +43,7 @@ public class PlayerAnimations : MonoBehaviour
 
     public void SetDead()
     {
-        _animator.SetBool("IsAlive", false);
+        _animator.SetTrigger("IsDead");
         playerSounds.PlayDeadSound();
         playerSounds.StopWalkSound();
     }

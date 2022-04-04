@@ -2270,8 +2270,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: thirdTextsArray.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: fourTextPosition.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
+      propertyPath: secondTextsArray.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274233017622444169, guid: 3f4694cc26265fe449f1847f69ac0f4d, type: 3}
       propertyPath: firstTextsArray.Array.data[2]
