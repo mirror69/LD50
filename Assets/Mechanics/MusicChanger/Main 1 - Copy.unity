@@ -517,6 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 0}
   CloseWinButton: {fileID: 0}
+  wasAlreadyChoosen: 0
   _clickHandler: {fileID: 618116561}
 --- !u!1 &694150331
 GameObject:
@@ -875,6 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 606226498}
   CloseWinButton: {fileID: 1679244514}
+  wasAlreadyChoosen: 0
   TestMiniGamePrefab: {fileID: 2222748004372721716, guid: 0dfbf1ec4760c6f43b243744a19e213b, type: 3}
 --- !u!1 &1317366130
 GameObject:
@@ -1385,6 +1387,9 @@ MonoBehaviour:
   <BlackScreen>k__BackingField: {fileID: 2914477333632316505}
   <MainGameScreen>k__BackingField: {fileID: 618116562}
   <TestMiniGameScreen>k__BackingField: {fileID: 1220739512}
+  <ChessMiniGameScreen>k__BackingField: {fileID: 0}
+  <PhotoAlbumMiniGameScreen>k__BackingField: {fileID: 0}
+  <TurntableMiniGameScreen>k__BackingField: {fileID: 0}
   _cursorTexture: {fileID: 2800000, guid: 7507738fe621d75478b1c034d902380f, type: 3}
   _cursorTextureYellow: {fileID: 2800000, guid: 76a221d0916f79841a80e939a70f9525, type: 3}
 --- !u!1 &1576292825

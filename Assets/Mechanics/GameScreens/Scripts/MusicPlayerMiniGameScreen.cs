@@ -15,6 +15,7 @@ public class MusicPlayerMiniGameScreen : GameScreen
         base.Show();
         if (_musicPlayerMiniGameObject == null)
         {
+            wasAlreadyChoosen = true;
             _musicPlayerMiniGameObject = Instantiate(MusicPlayerMiniGamePrefab, transform);
             _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().SetCamera(cameraToMiniGame);
             _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().OnMusicPlayerMiniGameEnded += MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded;
