@@ -6,9 +6,24 @@ public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
-    private void Awake()
+    public void SetByVelocity(Vector2 velocity)
     {
-        _animator = GetComponent<Animator>();
+        int direction;
+
+        if (velocity.x < 0)
+        {
+            direction = -1;
+        }
+        else if (velocity.x > 0)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = 0;
+        }
+
+        _animator.SetInteger("XSpeed", direction);
     }
 
     public void AnimatorStateChanger(bool isWalking)

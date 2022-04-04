@@ -26,6 +26,9 @@ public class CreditsScreen : UIScreen
 
         base.SetActive(active);
 
-        MovingPanel.DOMoveY(EndPoint.position.y, 60);
+        if (active)
+        {
+            MovingPanel.DOMoveY(EndPoint.position.y, 60);
+        }
     }
 }

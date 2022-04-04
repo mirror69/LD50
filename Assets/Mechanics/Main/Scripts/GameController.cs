@@ -203,13 +203,27 @@ public class GameController : MonoBehaviour
         StopCurrentInteraction();
         Player.SetNewTargetPosition(destinationPoint);
 
+        bool isBadInteraction = false;
         if (destinationPoint.item != null)
         {
             TimeController.PauseTime();
             if (destinationPoint.item.TimerType == ItemTimerType.BadItem)
             {
-                QuestStarter.Enable(destinationPoint);
+                isBadInteraction = true;
             }
+        }
+        else
+        {
+            TimeController.ResumeTime();
+        }
+
+        if (isBadInteraction)
+        {
+            QuestStarter.Enable(destinationPoint);
+        }
+        else
+        {
+            QuestStarter.Disable();
         }
     }
 

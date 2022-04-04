@@ -17,8 +17,8 @@ public class CursorManager
     public void SetCursorHighlight(bool highlight)
     {
         if(highlight)
-            Cursor.SetCursor(_cursorHighlight, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(_cursorHighlight, new Vector2(_cursorCommon.width/2f, _cursorCommon.height/2f), CursorMode.Auto);
         else
-            Cursor.SetCursor(_cursorCommon, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(_cursorCommon, new Vector2(_cursorCommon.width/2f, _cursorCommon.height/2f), CursorMode.Auto);
     }
 }
