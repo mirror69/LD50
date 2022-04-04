@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
 public class PlayerMovements : MonoBehaviour
 {
-    [Header("Movement vars")]
-    [SerializeField] private float _speed;
 
     private NavMeshAgent agent;
 
@@ -34,7 +31,11 @@ public class PlayerMovements : MonoBehaviour
 
     private void HorizontalMovement(Vector2 newPos)
     {
-        agent.SetDestination(newPos);
+        if (agent.enabled == true)
+        {
+
+            agent.SetDestination(newPos);
+        }
 
         if (!agent.pathPending && agent.remainingDistance < 0.2f)
         {

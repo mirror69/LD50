@@ -52,13 +52,11 @@ public class PlayerInput : MonoBehaviour
 
         bool isMoving = (_horizontalDirection != 0);
 
-
-        //_playerAnimations.AnimatorStateChanger(isMoving);
+        _playerAnimations.AnimatorStateChanger(isMoving);
     }
 
     private void FixedUpdate()
     {
-        //CharacterRotation();
         if (_newTargetPosX != 0)
         {
             _playerMovements.Move(_horizontalDirection, _currentDestinationPoint.point);
@@ -84,10 +82,4 @@ public class PlayerInput : MonoBehaviour
     {
         _newTargetPosX = 0;
     }
-
-    //private void CharacterRotation()
-    //{
-    //    if (_horizontalDirection < 0) gameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-    //    if (_horizontalDirection > 0) gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-    //}
 }
