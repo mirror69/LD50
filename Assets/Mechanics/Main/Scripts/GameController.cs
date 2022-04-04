@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -71,11 +72,19 @@ public class GameController : MonoBehaviour
         TimeController.Init(GameSettings, _gameData, _debugView);
         TimeController.StartTime();
 
+        DeathTextsController.DeathCutsceneEnded += OnDeathCutsceneEnded;
+
         KeyPressController.Init(_uiEventMediator, UIScreenController);
 
         ResumeGame();
 
         RefreshDebugView();
+    }
+
+    private void OnDeathCutsceneEnded()
+    {
+        KeyPressController.SetNotListeningMode();
+        UIScreenController.ShowGameOverScreen();
     }
 
     private void PauseGame()

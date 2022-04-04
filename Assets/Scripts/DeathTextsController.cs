@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
 
 public class DeathTextsController : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class DeathTextsController : MonoBehaviour
 
     private List<GameObject[]> arrayList = new List<GameObject[]>();
     private List<Transform[]> posArrayList = new List<Transform[]>();
+
+    public event Action DeathCutsceneEnded;
 
     private void Start()
     {
@@ -102,6 +105,8 @@ public class DeathTextsController : MonoBehaviour
         {
             yield return StartCoroutine(TextAnimationCorutine(arrayList[i]));
         }
+
+        DeathCutsceneEnded?.Invoke();
     }
 
 
