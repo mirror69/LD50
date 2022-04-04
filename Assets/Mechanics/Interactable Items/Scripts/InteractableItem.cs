@@ -15,7 +15,15 @@ public enum ItemType
     Table = 0,
     Bulb = 1,
     Jacket = 2,
-    Mirror = 3
+    Mirror = 3,
+    Whiskey = 4,
+    Curtain = 5,
+    Chair = 6,
+    TV = 7,
+    Turntable = 8,
+    Records = 9,
+    Chess = 10,
+    PhotoAlbum = 11
 }
 
 [Serializable]
