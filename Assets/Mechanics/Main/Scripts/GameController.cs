@@ -159,6 +159,7 @@ public class GameController : MonoBehaviour
         TimeController.StopTime();
         //_debugView.ShowLoseScreen();
         DeathTextsController.StartDeathTextMethod();
+        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)

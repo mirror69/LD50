@@ -26,6 +26,11 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetInteger("XSpeed", direction);
     }
 
+    public void SetDead()
+    {
+        _animator.SetBool("IsAlive", false);
+    }
+
     public void AnimatorStateChanger(bool isWalking)
     {
         if (isWalking)
