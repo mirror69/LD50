@@ -65,6 +65,11 @@ public class PlayerInput : MonoBehaviour
         _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
     }
 
+    public void SetAnimatorDead()
+    {
+        _playerAnimations.SetDead();
+    }
+
     public void SetNewTargetPosition(DestinationPoint destinationPoint)
     {
         _currentDestinationPoint = destinationPoint;

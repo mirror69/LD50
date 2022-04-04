@@ -157,8 +157,9 @@ public class GameController : MonoBehaviour
     {
         KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        _debugView.ShowLoseScreen();
+        //_debugView.ShowLoseScreen();
         DeathTextsController.StartDeathTextMethod();
+        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
