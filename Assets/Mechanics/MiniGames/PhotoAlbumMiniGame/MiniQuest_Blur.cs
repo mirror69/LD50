@@ -10,6 +10,8 @@ public class MiniQuest_Blur : MiniQuest
     [SerializeField]
     private Volume universalGlobalVolume;
     [SerializeField]
+    private GameObject localCanvasWithSlider;
+    [SerializeField]
     private Slider leftSlider;
 
     [SerializeField]
@@ -72,6 +74,7 @@ public class MiniQuest_Blur : MiniQuest
         if (sliderIsNear)
         {
             depthOfField.mode.overrideState = false;
+            localCanvasWithSlider.SetActive(false);
             MiniQuestEnded();
         }
     }

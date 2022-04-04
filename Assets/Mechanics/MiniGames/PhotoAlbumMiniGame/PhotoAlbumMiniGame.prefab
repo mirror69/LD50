@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previewImageInAlbum: {fileID: 548686830009630394}
-  questIsDone: 1
+  questIsDone: 0
   pazzleDestroyer: {fileID: 6634931872555527963}
 --- !u!95 &3458275872329298912
 Animator:
@@ -2803,9 +2803,10 @@ MonoBehaviour:
   previewImageInAlbum: {fileID: 20018914888616685}
   questIsDone: 0
   universalGlobalVolume: {fileID: 2473554176248100123}
+  localCanvasWithSlider: {fileID: 3163259615336914525}
   leftSlider: {fileID: 712562136470950148}
   defaultFocalLength: 35
-  focalAccuracy: 2
+  focalAccuracy: 3
 --- !u!95 &2779152388152764701
 Animator:
   serializedVersion: 4
@@ -3105,6 +3106,7 @@ MonoBehaviour:
   previewImageInAlbum: {fileID: 0}
   questIsDone: 0
   universalGlobalVolume: {fileID: 0}
+  localCanvasWithSlider: {fileID: 0}
   leftSlider: {fileID: 0}
   defaultFocalLength: 0
   focalAccuracy: 0
@@ -3937,7 +3939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previewImageInAlbum: {fileID: 8270902333255117658}
-  questIsDone: 1
+  questIsDone: 0
 --- !u!95 &4032297939860117985
 Animator:
   serializedVersion: 4
