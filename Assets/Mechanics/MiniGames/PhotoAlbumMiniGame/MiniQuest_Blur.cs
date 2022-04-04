@@ -23,13 +23,11 @@ public class MiniQuest_Blur : MiniQuest
     private DepthOfField depthOfField;
     private bool sliderIsNear;
 
-    private void Awake()
-    {
-        universalGlobalVolume.profile.TryGet<DepthOfField>(out depthOfField);
-    }
 
     private void Start()
     {
+        universalGlobalVolume.profile.TryGet<DepthOfField>(out depthOfField);
+        
         depthOfField.mode.value = DepthOfFieldMode.Bokeh;
         depthOfField.mode.overrideState = true;
     }

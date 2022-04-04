@@ -87,9 +87,11 @@ public class PhotoAlbumQuest : MonoBehaviour
         obj.previewImageInAlbum.gameObject.GetComponent<InteractablePhotoDrawer>().enabled = false;
         obj.previewImageInAlbum.gameObject.GetComponent<Collider2D>().enabled = false;
 
-        obj.gameObject.GetComponent<Animator>().SetTrigger("SetPhotoInAlbum");
 
         yield return new WaitForSeconds(3f);
+        obj.gameObject.GetComponent<Animator>().SetTrigger("SetPhotoInAlbum");
+
+        yield return new WaitForSeconds(2f);
 
         ShowNextPreview();
     }

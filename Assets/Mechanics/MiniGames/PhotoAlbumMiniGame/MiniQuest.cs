@@ -7,6 +7,14 @@ using UnityEngine.UI;
 public abstract class MiniQuest : MonoBehaviour
 {
     public SpriteRenderer previewImageInAlbum;
+    public AudioClip musicWhenQuestIsDone;
+
+    private AudioSource audio;
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+    }
 
     public static event Action<MiniQuest> OnMiniQuestEnded;
 
@@ -26,6 +34,7 @@ public abstract class MiniQuest : MonoBehaviour
     public virtual void MiniQuestEnded()
     {
         questIsDone = true;
+        audio.PlayOneShot(musicWhenQuestIsDone);
         OnMiniQuestEnded?.Invoke(this);
     }
 }
