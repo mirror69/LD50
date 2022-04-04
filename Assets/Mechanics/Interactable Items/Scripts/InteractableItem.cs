@@ -23,7 +23,8 @@ public enum ItemType
     Turntable = 8,
     Records = 9,
     Chess = 10,
-    PhotoAlbum = 11
+    PhotoAlbum = 11,
+    Lamp = 12
 }
 
 [Serializable]
