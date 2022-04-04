@@ -202,6 +202,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1328925498061418528, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328925498061418528, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328925498061418528, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328925498061418528, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2890660100174168030, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.001953125
@@ -260,7 +276,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772344347317072917, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_text
-      value: I can't believe, my dad didn't wait for me
+      value: 'I can''t believe,
+
+        my dad didn''t wait for me'
       objectReference: {fileID: 0}
     - target: {fileID: 7772344347381288867, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_IsActive
@@ -1397,6 +1415,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
+    - target: {fileID: 1874466498, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
+      propertyPath: m_Speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_RootOrder
       value: 4
