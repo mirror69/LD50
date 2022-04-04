@@ -165,7 +165,10 @@ public class GameController : MonoBehaviour
     private void OnGameScreenCloseRequested(GameScreenResult gameScreenResult)
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
-        GameScreenController.CloseCurrentScreen();
+
+
+        GameScreenController.BlackScreen.Activate(() => GameScreenController.CloseCurrentScreen());
+        
 
         if (gameScreenResult == GameScreenResult.WinGame)
         {

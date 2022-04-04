@@ -62,12 +62,6 @@ public class PhotoAlbumQuest : MonoBehaviour
     public void ShowNextPreview ()
     {
         photoQuests[_currentQuestIndex].previewImageInAlbum.gameObject.SetActive(true);
-        //foreach (var photo in photoQuests)
-        //{
-        //    if (photo.gameObject.activeSelf)
-        //        photo.gameObject.SetActive(false);
-        //}
-        //backButton.gameObject.SetActive(false);
     }
 
     private void MiniQuest_OnMiniQuestEnded(MiniQuest obj)
@@ -79,17 +73,13 @@ public class PhotoAlbumQuest : MonoBehaviour
 
     private IEnumerator TurnOffQuest (MiniQuest obj)
     {
-        //obj.previewImageInAlbum.sprite = obj.originalImage;
-        //obj.previewImageInAlbum.color = Color.white;
         obj.previewImageInAlbum.gameObject.GetComponent<InteractablePhotoDrawer>().enabled = false;
         obj.previewImageInAlbum.gameObject.GetComponent<Collider2D>().enabled = false;
 
-        //«¿œ”—“»“‹ ¿Õ»Ã¿÷»ﬁ
         obj.gameObject.GetComponent<Animator>().SetTrigger("SetPhotoInAlbum");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
-        //obj.gameObject.SetActive(false);
 
         _currentQuestIndex++;
 
