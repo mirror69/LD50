@@ -4,6 +4,7 @@ using UnityEngine;
 public class EraseImageLayer : MonoBehaviour
 {
     public static event Action<EraseImageLayer> OnEraseImageEnded;
+    public static float PercentToWin;
 
     private Texture2D m_Texture;
     private Color[] m_Colors;
@@ -15,7 +16,7 @@ public class EraseImageLayer : MonoBehaviour
     public bool Drawing = false;
     public bool isReady = false;
 
-    private int colorPixelsCount;
+    private int colorPixelsCount=0;
     private int allPixelsCount;
 
     void Start()
@@ -38,6 +39,15 @@ public class EraseImageLayer : MonoBehaviour
         if (isReady)
             return;
 
+        float dif = (float)colorPixelsCount / (float)allPixelsCount * 100f;
+        if (dif>PercentToWin)
+        {
+            isReady = true;
+            spriteRend.enabled = false;
+            OnEraseImageEnded?.Invoke(this);
+            return;
+        }
+
         if (Input.GetMouseButton(0))
         {
             hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -48,7 +58,9 @@ public class EraseImageLayer : MonoBehaviour
             }
         }
         else
+        {
             Drawing = false;
+        }
     }
 
     public void UpdateTexture()
@@ -85,15 +97,6 @@ public class EraseImageLayer : MonoBehaviour
                     if (m_Colors[x + y * w] != zeroAlpha)
                     {
                         colorPixelsCount++;
-
-                        if (allPixelsCount - colorPixelsCount <1500)
-                        {
-                            isReady = true;
-                            spriteRend.enabled = false;
-                            OnEraseImageEnded?.Invoke(this);
-                            return;
-                        }
-
                         m_Colors[x + y * w] = zeroAlpha;
                     }
                 }

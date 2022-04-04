@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     private QuestStarter QuestStarter;
     [SerializeField]
     public PlayerInput Player;
+    [SerializeField]
+    private DeathTextsController DeathTextsController;
 
     [Space]
     [Header("Debug")]
@@ -155,8 +157,9 @@ public class GameController : MonoBehaviour
     {
         KeyPressController.SetNotListeningMode();
         TimeController.StopTime();
-        _debugView.ShowLoseScreen();
-        UIScreenController.ShowGameOverScreen();
+        //_debugView.ShowLoseScreen();
+        DeathTextsController.StartDeathTextMethod();
+        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
