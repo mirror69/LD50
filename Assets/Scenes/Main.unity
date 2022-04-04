@@ -732,6 +732,14 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[2].value
       value: 
       objectReference: {fileID: 1250942553}
+    - target: {fileID: 7670036398104909447, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670036398104909447, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 608de277836cb4e7380a3ad24c956571, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
 --- !u!4 &886701040 stripped
