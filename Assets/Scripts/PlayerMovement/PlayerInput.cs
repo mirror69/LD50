@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerMovements _playerMovements;
     private PlayerAnimations _playerAnimations;
+    private PlayerSounds playerSounds;
     private float _newTargetPosX;
     private float _horizontalDirection;
 
@@ -26,6 +27,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake()
     {
+        playerSounds = GetComponent<PlayerSounds>();
         _playerMovements = GetComponent<PlayerMovements>();
         _playerAnimations = GetComponent<PlayerAnimations>();
         _newTargetPosX = 0;
@@ -52,7 +54,15 @@ public class PlayerInput : MonoBehaviour
 
         bool isMoving = (_horizontalDirection != 0);
 
-        _playerAnimations.AnimatorStateChanger(isMoving);
+        if (isMoving)
+        {
+            playerSounds.PlayWalkSound();
+            Debug.Log(" GDE ZVUK");
+        }
+        else
+        {
+            playerSounds.StopWalkSound();
+        }
     }
 
     private void FixedUpdate()
