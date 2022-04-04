@@ -201,7 +201,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: -1447589821, guid: f0b9999c4b68f5048b248668009a3867, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -284,6 +284,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ecae80c6c509a48b7722ba08da69c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 3474940993184985907}
+  ChangeSortingOrderYValue: -2.6
+  MinSortingOrder: 4
+  MaxSortingOrder: 10
 --- !u!95 &3448642037112033422
 Animator:
   serializedVersion: 4
