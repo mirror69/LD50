@@ -202,6 +202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2890660100174168030, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.001953125
+      objectReference: {fileID: 0}
     - target: {fileID: 4877019823005292678, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -249,6 +253,38 @@ PrefabInstance:
     - target: {fileID: 4877019823005292681, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
       propertyPath: m_Name
       value: ___UI___ withDeathText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344347249772286, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_text
+      value: No, everything was done wrong
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344347317072917, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_text
+      value: I can't believe, my dad didn't wait for me
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344347381288867, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344347654113753, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_text
+      value: He can
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344348249683812, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_text
+      value: He can do it
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344348356617543, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: firstTextsArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772344348356617543, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: firstTextsArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 1913376685}
+    - target: {fileID: 7772344348585755871, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
@@ -1854,6 +1890,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcdc6d3de72da1440bf39959029c1a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1913376685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7772344347272540740, guid: 55607d9513b4f5d44aa580282f5d6168, type: 3}
+  m_PrefabInstance: {fileID: 347739471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1925253298
 GameObject:
   m_ObjectHideFlags: 0
