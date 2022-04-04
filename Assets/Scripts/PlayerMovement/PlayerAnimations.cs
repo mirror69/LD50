@@ -43,9 +43,13 @@ public class PlayerAnimations : MonoBehaviour
 
     public void SetDead()
     {
-        _animator.SetTrigger("IsDead");
-        playerSounds.PlayDeadSound();
+        Invoke("DeadTrigger", 0.5f);
+    }
+
+    private void DeadTrigger()
+    {
         playerSounds.StopWalkSound();
+        _animator.SetTrigger("IsDead");
     }
 
     public void AnimatorStateChanger(bool isWalking)

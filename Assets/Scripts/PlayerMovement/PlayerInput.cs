@@ -105,7 +105,19 @@ public class PlayerInput : MonoBehaviour
 
     public void SetAnimatorDead()
     {
+        Invoke("SetDead", 0.5f);
+        playerSounds.PlayDeadSound();
+    }
+
+    private void SetDead()
+    {
         _playerAnimations.SetDead();
+        Invoke("StopAgent", 0.5f);
+ 
+    }
+
+    private void StopAgent()
+    {
         _playerMovements.StopAgent();
     }
 
