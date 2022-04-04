@@ -184,9 +184,9 @@ public class GameController : MonoBehaviour
         {
             yield return null;
         }
+        Player.SetAnimatorDead();
         KeyPressController.SetNotListeningMode();
         DeathTextsController.StartDeathTextMethod();
-        Player.SetAnimatorDead();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
