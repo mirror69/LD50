@@ -35,6 +35,10 @@ public class MiniQuest_Blur : MiniQuest
     private void OnEnable()
     {
         leftSlider.onValueChanged.AddListener(ChangeFocalLength);
+
+        //depthOfField.mode.overrideState = false;
+        localCanvasWithSlider.SetActive(false);
+        MiniQuestEnded();
     }
 
 
@@ -50,21 +54,21 @@ public class MiniQuest_Blur : MiniQuest
         }
     }
 
-    private void Update()
-    {
-        float x2 = Mathf.Abs(depthOfField.focalLength.value - defaultFocalLength);
+    //private void Update()
+    //{
+    //    float x2 = Mathf.Abs(depthOfField.focalLength.value - defaultFocalLength);
 
-        if (x2 < focalAccuracy && !questIsDone)
-        {
-            sliderIsNear = true;
-            StartCoroutine(CheckSliderIsNear());
-        }
-        else
-        {
-            StopAllCoroutines();
-            sliderIsNear = false;
-        }
-    }
+    //    if (x2 < focalAccuracy && !questIsDone)
+    //    {
+    //        sliderIsNear = true;
+    //        StartCoroutine(CheckSliderIsNear());
+    //    }
+    //    else
+    //    {
+    //        StopAllCoroutines();
+    //        sliderIsNear = false;
+    //    }
+    //}
 
     private IEnumerator CheckSliderIsNear ()
     {
