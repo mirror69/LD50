@@ -68,7 +68,7 @@ public class TextInCutScene : MonoBehaviour
             ShowCurrentPhrase(currentText);
             currentPhraseIndex++;
             currentLetterIndex = 0;
-            if (currentPhraseIndex>=dialogs.Length)
+            if (currentPhraseIndex >= dialogs.Length)
             {
                 sceneIsEnded = true;
                 StopAllCoroutines();
