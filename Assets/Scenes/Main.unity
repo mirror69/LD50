@@ -231,6 +231,10 @@ PrefabInstance:
       propertyPath: clickHandler
       value: 
       objectReference: {fileID: 618116561}
+    - target: {fileID: 3346746894570094458, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6152787217069026619, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
       propertyPath: m_IsActive
       value: 0
