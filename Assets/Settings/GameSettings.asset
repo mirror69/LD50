@@ -20,7 +20,7 @@ MonoBehaviour:
     TimeAfterLongBadItemUse: 16
     BadProgressionDivider: 2
     MinTimeAfterGoodItemUse: 20
-    SecondsToWin: 10
+    SecondsToWin: 1
     GoodItemCountToWin: 0
     WinDelayAfterLastItemUse: 0
   <SceneSettings>k__BackingField:
