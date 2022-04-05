@@ -647,6 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 5165193674194289129}
   CloseWinButton: {fileID: 5165193674204199503}
+  wasAlreadyChoosen: 0
   ChessMiniGamePrefab: {fileID: 606112457937361206, guid: 09d8b3b90346d8b4dbcae0e56b475d9d, type: 3}
 --- !u!1 &5165193675103285952
 GameObject:
