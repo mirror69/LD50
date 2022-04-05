@@ -45,12 +45,12 @@ public class TextInCutScene : MonoBehaviour
 
     }
 
-    private void ShowPartOfText (string text)
+    private void ShowPartOfText(string text)
     {
         textInCanvas.text = text;
     }
 
-    private void ShowCurrentPhrase (string text)
+    private void ShowCurrentPhrase(string text)
     {
         textInCanvas.text = $"{dialogs[currentPhraseIndex].person}: {text}";
     }
@@ -80,11 +80,14 @@ public class TextInCutScene : MonoBehaviour
         }
     }
 
-    private IEnumerator LetterShower ()
+    private IEnumerator LetterShower()
     {
         yield return new WaitForSeconds(timeBetweenLetters);
-
-        string resText = textInCanvas.text + currentText[currentLetterIndex];
+        if (currentLetterIndex >= currentText.Length)
+        {
+            yield break;
+        }
+            string resText = textInCanvas.text + currentText[currentLetterIndex];
         Debug.Log(resText);
 
         ShowPartOfText(resText);
@@ -99,7 +102,7 @@ public class TextInCutScene : MonoBehaviour
         StartCoroutine(LetterShower());
     }
 
-    private IEnumerator WaitCoroutine ()
+    private IEnumerator WaitCoroutine()
     {
         yield return new WaitForSeconds(timeBetweenPhrases);
 
