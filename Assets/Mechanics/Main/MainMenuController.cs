@@ -1,7 +1,10 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -11,6 +14,15 @@ public class MainMenuController : MonoBehaviour
     private UIScreenController UIScreenController;
     [SerializeField]
     private KeyPressController KeyPressController;
+    [SerializeField]
+    private PlayableDirector StartTimeline;
+    [SerializeField]
+    private TextInCutScene TextInCutScene;
+    [SerializeField]
+    private AudioSource MainMenuMusic;
+
+    [SerializeField]
+    private Image fadeScreenImage;
 
     private UIEventMediator _uiEventMediator;
 
@@ -35,6 +47,23 @@ public class MainMenuController : MonoBehaviour
     }
 
     private void StartNewGame()
+    {
+        StartCoroutine(GameStarting());
+    }
+
+    private IEnumerator GameStarting()
+    {
+        fadeScreenImage.gameObject.SetActive(true);
+        MainMenuMusic.DOFade(0, 1);
+        fadeScreenImage.DOFade(1, 1);
+        yield return new WaitForSeconds(1);
+        UIScreenController.HideCurrentScreen();
+        StartTimeline.Play();
+        TextInCutScene.gameObject.SetActive(true);
+        TextInCutScene.OnStartCutSceneEnded += LoadNewGame;
+    }
+
+    private void LoadNewGame()
     {
         SceneManager.LoadScene(GameSettings.SceneSettings.GameSceneName);
     }
