@@ -8,74 +8,50 @@ using UnityEngine.Rendering.Universal;
 public class MiniQuest_Blur : MiniQuest
 {
     [SerializeField]
-    private Volume universalGlobalVolume;
-    [SerializeField]
     private GameObject localCanvasWithSlider;
     [SerializeField]
     private Slider leftSlider;
+    [SerializeField]
+    private SpriteRenderer photoWithBlur;
+    [SerializeField]
+    private float alphaEnoughtAccuracy = 0.005f;
 
     [SerializeField]
-    private float defaultFocalLength;
+    private float focusSliderValue;
 
-    [SerializeField]
-    private float focalAccuracy;
-
-    private DepthOfField depthOfField;
     private bool sliderIsNear;
-
-
-    private void Start()
-    {
-        universalGlobalVolume.profile.TryGet<DepthOfField>(out depthOfField);
-        
-        depthOfField.mode.value = DepthOfFieldMode.Bokeh;
-        depthOfField.mode.overrideState = true;
-    }
 
     private void OnEnable()
     {
-        leftSlider.onValueChanged.AddListener(ChangeFocalLength);
-
-        //depthOfField.mode.overrideState = false;
-        localCanvasWithSlider.SetActive(false);
-        MiniQuestEnded();
+        leftSlider.onValueChanged.AddListener(ChangeFocus);
     }
 
-
-    public void ChangeFocalLength (float value)
+    public void ChangeFocus(float sliderValue)
     {
-        if (value < defaultFocalLength)
+        Color color = photoWithBlur.color;
+        color.a = Mathf.Abs(sliderValue);
+        photoWithBlur.color = color;
+    }
+
+    private void Update()
+    {
+        if (photoWithBlur.color.a < alphaEnoughtAccuracy && !questIsDone)
         {
-            depthOfField.focalLength.value = defaultFocalLength + (defaultFocalLength - value);
+            sliderIsNear = true;
+            StartCoroutine(CheckSliderIsNear());
         }
         else
         {
-            depthOfField.focalLength.value = value;
+            StopAllCoroutines();
+            sliderIsNear = false;
         }
     }
-
-    //private void Update()
-    //{
-    //    float x2 = Mathf.Abs(depthOfField.focalLength.value - defaultFocalLength);
-
-    //    if (x2 < focalAccuracy && !questIsDone)
-    //    {
-    //        sliderIsNear = true;
-    //        StartCoroutine(CheckSliderIsNear());
-    //    }
-    //    else
-    //    {
-    //        StopAllCoroutines();
-    //        sliderIsNear = false;
-    //    }
-    //}
 
     private IEnumerator CheckSliderIsNear ()
     {
         yield return new WaitForSeconds(0.5f);
         if (sliderIsNear)
         {
-            depthOfField.mode.overrideState = false;
             localCanvasWithSlider.SetActive(false);
             MiniQuestEnded();
         }
