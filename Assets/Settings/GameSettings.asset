@@ -19,7 +19,7 @@ MonoBehaviour:
     TimeAfterShortBadItemUse: 26
     TimeAfterLongBadItemUse: 12
     BadProgressionDivider: 2
-    MinTimeAfterGoodItemUse: 20
+    MinTimeAfterGoodItemUse: 40
     SecondsToWin: 40
     GoodItemCountToWin: 3
     WinDelayAfterLastItemUse: 3

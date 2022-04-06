@@ -499,7 +499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5165193674194289135, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5165193674204199497, guid: a5f9af3bb68e7544db826cfc8d7b869b, type: 3}
       propertyPath: m_CullTransparentMesh
@@ -1445,7 +1445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5165193674194289135, guid: 72d26934789d5b743a0c96bc9069bf3b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5165193674204199497, guid: 72d26934789d5b743a0c96bc9069bf3b, type: 3}
       propertyPath: m_CullTransparentMesh
@@ -2184,7 +2184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6699381596815345777, guid: 36d0281d2c8cd3e439b1ac232f83f67c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6699381596815345788, guid: 36d0281d2c8cd3e439b1ac232f83f67c, type: 3}
       propertyPath: m_Type
