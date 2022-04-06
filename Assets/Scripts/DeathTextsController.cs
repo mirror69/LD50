@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
 
 
 public class DeathTextsController : MonoBehaviour
@@ -12,8 +13,6 @@ public class DeathTextsController : MonoBehaviour
     [SerializeField] private GameObject blackScreen;
 
     [SerializeField] private GameObject activateForText;
-    [SerializeField]
-    private GameObject ButtonObject;
 
     [Header("Texts Arrays")]
     [SerializeField] private GameObject[] firstTextsArray;
@@ -39,10 +38,11 @@ public class DeathTextsController : MonoBehaviour
     private List<GameObject[]> arrayList = new List<GameObject[]>();
     private List<Transform[]> posArrayList = new List<Transform[]>();
 
+    public event Action DeathCutsceneEnded;
+
     private void Start()
     {
         activateForText.SetActive(false);
-        ButtonObject.SetActive(false);
     }
 
     public void StartDeathTextMethod()
@@ -111,6 +111,8 @@ public class DeathTextsController : MonoBehaviour
         {
             yield return StartCoroutine(TextAnimationCorutine(arrayList[i]));
         }
+
+        DeathCutsceneEnded?.Invoke();
     }
 
 

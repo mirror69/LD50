@@ -39,6 +39,22 @@ public class MainMusicChanger : MonoBehaviour
     private float goodMusicTargetVolume;
     private float badMusicTargetVolume;
 
+    private bool _isMinigame;
+
+    public void OnMinigameMode()
+    {
+        goodMusicAudioSource.volume = minVolumeValue;
+        badMusicAudioSource.volume = minVolumeValue;
+        enabled = false;
+    }
+
+    public void OffMinigameMode()
+    {
+        //goodMusicAudioSource.volume = minVolumeValue;
+        //badMusicAudioSource.volume = minVolumeValue;
+        enabled = true;
+    }
+
     private void OnEnable()
     {
         clickHandler.DestinationPointClicked += ClickHandler_DestinationPointClicked;
