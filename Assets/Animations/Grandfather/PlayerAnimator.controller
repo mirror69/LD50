@@ -880,7 +880,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: turnflip_face
+  m_Name: turnflip_face_to_right
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -908,8 +908,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: turnflip_face 0
-  m_Speed: -1
+  m_Name: turnflip_face_to_left
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4078171985236164582}
@@ -923,7 +923,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 14524e6206232b94ea66f1edefdceb40, type: 2}
+  m_Motion: {fileID: 7400000, guid: 863a366320ba41347bf86cc0c3b51253, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
