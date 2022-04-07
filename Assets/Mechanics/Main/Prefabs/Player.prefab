@@ -311,7 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17942630040e6da4cb5f66102c9efcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gruntTimer: 1.5
   _playerMovements: {fileID: 3448642037112033423}
   _playerAnimations: {fileID: 1250942556}
   _playerSounds: {fileID: 1553312107}
@@ -562,7 +561,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1439604529669190420, guid: 1f542135803db664fa1b6392c3995854, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 42f2d448bb63ba340a58cd83ae645150, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 656f69cef32b8b44480748456a3012c7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
