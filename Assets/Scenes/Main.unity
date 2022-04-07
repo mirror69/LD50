@@ -1832,18 +1832,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
-    - target: {fileID: 1874466498, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-      propertyPath: m_Speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 178373269059915318, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 42f2d448bb63ba340a58cd83ae645150, type: 3}
-    - target: {fileID: 2535493354510278803, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1888,20 +1876,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3448642037112033456, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-      propertyPath: gruntTimer
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033459, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_Name
       value: PlayerModel
       objectReference: {fileID: 0}
-    - target: {fileID: 5580816141919060337, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 4da3364587005034aafe65adb6087bdc, type: 2}
-    m_RemovedComponents:
-    - {fileID: 3448642037112033422, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
 --- !u!1 &1566578123 stripped
 GameObject:
