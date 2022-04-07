@@ -55,6 +55,11 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+    public void StartAgent()
+    {
+        agent.isStopped = false;
+    }
+
     public void StopAgent()
     {
         agent.isStopped = true;

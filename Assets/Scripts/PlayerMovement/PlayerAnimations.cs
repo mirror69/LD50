@@ -1,17 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerSounds))]
 public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    private PlayerSounds playerSounds;
 
-    private void Start()
-    {
-        playerSounds = GetComponent<PlayerSounds>();
-    }
+    public event Action RotationStarted;
+    public event Action RotationEnded;
 
     public void SetByIntParam(AnimatorIntParam intParam)
     {
@@ -43,26 +40,27 @@ public class PlayerAnimations : MonoBehaviour
 
     public void SetDead()
     {
-        Invoke("DeadTrigger", 0.5f);
+        Invoke(nameof(DeadTrigger), 0.5f);
+    }
+
+    /// <summary>
+    /// Notify about rotation animation start (calling by animation signal)
+    /// </summary>
+    public void NotifyStartRotation()
+    {
+        RotationStarted?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about rotation animation end (calling by animation signal)
+    /// </summary>
+    public void NotifyEndRotation()
+    {
+        RotationEnded?.Invoke();
     }
 
     private void DeadTrigger()
     {
-        playerSounds.StopWalkSound();
         _animator.SetTrigger("IsDead");
-    }
-
-    public void AnimatorStateChanger(bool isWalking)
-    {
-        if (isWalking)
-        {
-            _animator.SetBool("Walk", true);
-            _animator.SetBool("Idle", false);
-        }
-        else
-        {
-            _animator.SetBool("Walk", false);
-            _animator.SetBool("Idle", true);
-        }
     }
 }
