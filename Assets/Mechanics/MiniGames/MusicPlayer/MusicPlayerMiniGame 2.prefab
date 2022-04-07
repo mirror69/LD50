@@ -411,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6571109576193642520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8, y: 0.15, z: -95.041176}
+  m_LocalPosition: {x: -0.8, y: 0.15, z: 0}
   m_LocalScale: {x: 0.9595674, y: 0.9756311, z: 1.1399662}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -458,7 +458,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e9836ae432f10de40b8db453231a3f2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -548,7 +548,11 @@ MonoBehaviour:
   plateAnimator: {fileID: 6571109576193642523}
   _plateSpeed: 0.8
   _musicPositionOnSlider: 0.3
-  _areaValue: 0.2
+  _valueSpace: 0.03
+  _firstAreaValue: 0.2
+  _secondAreaValue: 0.4
+  _thirdAreaValue: 0.5
+  _fourthAreaValue: 0.9
 --- !u!1 &6571109576471001836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,7 +1006,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3d88b402ceea9eb4eb5ef1fbc0077e35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1341,7 +1345,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 8d56644c5f63c774c94eb3f4c31187f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
