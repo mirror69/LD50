@@ -53,14 +53,16 @@ public class MainMenuController : MonoBehaviour
 
     private IEnumerator GameStarting()
     {
-        fadeScreenImage.gameObject.SetActive(true);
-        MainMenuMusic.DOFade(0, 1);
-        fadeScreenImage.DOFade(1, 1);
-        yield return new WaitForSeconds(1);
-        UIScreenController.HideCurrentScreen();
-        StartTimeline.Play();
-        TextInCutScene.gameObject.SetActive(true);
-        TextInCutScene.OnStartCutSceneEnded += LoadNewGame;
+        //fadeScreenImage.gameObject.SetActive(true);
+        //MainMenuMusic.DOFade(0, 1);
+        //fadeScreenImage.DOFade(1, 1);
+        //yield return new WaitForSeconds(1);
+        //UIScreenController.HideCurrentScreen();
+        //StartTimeline.Play();
+        //TextInCutScene.gameObject.SetActive(true);
+        //TextInCutScene.OnStartCutSceneEnded += LoadNewGame;
+        yield return null;
+        LoadNewGame();
     }
 
     private void LoadNewGame()
