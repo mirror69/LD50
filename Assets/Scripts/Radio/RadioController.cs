@@ -20,12 +20,24 @@ public class RadioController : MonoBehaviour
     [SerializeField] private Sprite onButtonSprite;
     [SerializeField] private Sprite offButtonSprite;
     [SerializeField] private Animator plateAnimator;
+
     [Header("Radio Values Settings")]
     [SerializeField] private float _plateSpeed;
-    [Tooltip("Set between 0 and 1")]
+    [Tooltip("Set between 0 and 1, default 0.7")]
     [SerializeField] private float _musicPositionOnSlider;
+    [Tooltip("Set between 0 and 1, default 0.05")]
+    [SerializeField] private float _valueSpace;
+    [Space]
     [Tooltip("Set between 0 and 1")]
-    [SerializeField] private float _areaValue;
+    [SerializeField] private float _firstAreaValue;
+    [Tooltip("Set between 0 and 1")]
+    [SerializeField] private float _secondAreaValue;
+    [Tooltip("Set between 0 and 1")]
+    [SerializeField] private float _thirdAreaValue;
+    [Tooltip("Set between 0 and 1")]
+    [SerializeField] private float _fourthAreaValue;
+
+
     private bool isOn = false;
     private bool needleIsOnPlace;
     private float currentTime = 0;
@@ -40,11 +52,14 @@ public class RadioController : MonoBehaviour
         {
             _musicPositionOnSlider = 0.7f;
         }
+
+        if (_valueSpace != Mathf.Clamp(_valueSpace, 0.01f, 0.5f))
+        {
+            _valueSpace = 0.05f;
+        }
         plateAnimator.speed = 0;
         _niddleObj.transform.rotation = Quaternion.Euler(0, 0, -30);
         buttonSwitcher.GetComponent<Image>().sprite = onButtonSprite;
-        _musicSource.Play();
-        _noizeSource.Play();
     }
 
     public void OnSwitcherClick()
@@ -60,6 +75,8 @@ public class RadioController : MonoBehaviour
             isOn = true;
             buttonSwitcher.GetComponent<Image>().sprite = offButtonSprite;
             plateAnimator.speed = _plateSpeed;
+            _musicSource.Play();
+            _noizeSource.Play();
         }
 
     }
@@ -85,42 +102,41 @@ public class RadioController : MonoBehaviour
 
         if (isOn)
         {
-            if (_slider.value > _musicPositionOnSlider + _areaValue || _slider.value < _musicPositionOnSlider - _areaValue)
-            {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -50f);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
-            }
-            else if (_slider.value > _musicPositionOnSlider + (_areaValue / 2) || _slider.value < _musicPositionOnSlider - (_areaValue / 2))
-            {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -40f);
-                _audioMixer.SetFloat("NoizeVolume", 15f);
-            }
-            else if (_slider.value > _musicPositionOnSlider + (_areaValue / 3) || _slider.value < _musicPositionOnSlider - (_areaValue / 3))
-            {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -30f);
-                _audioMixer.SetFloat("NoizeVolume", -15f);
-            }
-            else if (_slider.value > _musicPositionOnSlider + (_areaValue / 4) || _slider.value < _musicPositionOnSlider - (_areaValue / 4))
-            {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -25);
-                _audioMixer.SetFloat("NoizeVolume", -20f);
-            }
-            else if (_slider.value > _musicPositionOnSlider + (_areaValue / 5) || _slider.value < _musicPositionOnSlider - (_areaValue / 5))
+            if (_slider.value == Math.Clamp(_slider.value, _firstAreaValue - _valueSpace, _firstAreaValue + _valueSpace))
             {
                 needleIsOnPlace = false;
                 _audioMixer.SetFloat("MusicVolume", -15);
-                _audioMixer.SetFloat("NoizeVolume", -30f);
+                _audioMixer.SetFloat("NoizeVolume", 20f);
             }
-            else if (_slider.value < _musicPositionOnSlider + (_areaValue / 5) && _slider.value > _musicPositionOnSlider - (_areaValue / 5))
+            else if (_slider.value == Math.Clamp(_slider.value, _secondAreaValue - _valueSpace, _secondAreaValue + _valueSpace))
+            {
+                needleIsOnPlace = false;
+                _audioMixer.SetFloat("MusicVolume", -15);
+                _audioMixer.SetFloat("NoizeVolume", 20f);
+            }
+            else if (_slider.value == Math.Clamp(_slider.value, _thirdAreaValue - _valueSpace, _thirdAreaValue + _valueSpace))
+            {
+                needleIsOnPlace = false;
+                _audioMixer.SetFloat("MusicVolume", -15);
+                _audioMixer.SetFloat("NoizeVolume", 20f);
+            }
+            else if (_slider.value == Math.Clamp(_slider.value, _fourthAreaValue - _valueSpace, _fourthAreaValue + _valueSpace))
+            {
+                needleIsOnPlace = false;
+                _audioMixer.SetFloat("MusicVolume", -15);
+                _audioMixer.SetFloat("NoizeVolume", 20f);
+            }
+            else if (_slider.value == Math.Clamp(_slider.value, _musicPositionOnSlider - _valueSpace, _musicPositionOnSlider + _valueSpace))
             {
                 needleIsOnPlace = true;
                 
                 _audioMixer.SetFloat("MusicVolume", -10f);
                 _audioMixer.SetFloat("NoizeVolume", -40f);
+            }
+            else
+            {
+                _audioMixer.SetFloat("MusicVolume", -50f);
+                _audioMixer.SetFloat("NoizeVolume", 20f);
             }
         }
         else
