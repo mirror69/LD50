@@ -1,14 +1,20 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovements))]
-[RequireComponent(typeof(PlayerAnimations))]
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField]
     private PlayerMovements _playerMovements;
+    [SerializeField]
     private PlayerAnimations _playerAnimations;
-    private float _newTargetPosX;
+    [SerializeField]
+    private PlayerSounds _playerSounds;
+
+    private float _newTargetPosX = 0;
     private float _horizontalDirection;
+    private float _currTime;
+    private bool _isGruntTimerOn = false;
+    private bool _isWalkSoundPlaying = false;
 
     private DestinationPoint _currentDestinationPoint;
 
@@ -17,18 +23,24 @@ public class PlayerInput : MonoBehaviour
     private void OnEnable()
     {
         PlayerMovements.ReachedDestination += OnDestinationPointReached;
+        _playerAnimations.RotationStarted += OnRotationStarted;
+        _playerAnimations.RotationEnded += OnRotationEnded;
+
+    }
+
+    private void OnRotationEnded()
+    {
+        _playerMovements.StartAgent();
+    }
+
+    private void OnRotationStarted()
+    {
+        _playerMovements.StopAgent();
     }
 
     private void OnDisable()
     {
         PlayerMovements.ReachedDestination -= OnDestinationPointReached;
-    }
-
-    private void Awake()
-    {
-        _playerMovements = GetComponent<PlayerMovements>();
-        _playerAnimations = GetComponent<PlayerAnimations>();
-        _newTargetPosX = 0;
     }
 
     private void Update()
@@ -50,9 +62,24 @@ public class PlayerInput : MonoBehaviour
             _horizontalDirection = 0;
         }
 
-        bool isMoving = (_horizontalDirection != 0);
+        bool isMoving = (_newTargetPosX != 0);
 
-        _playerAnimations.AnimatorStateChanger(isMoving);
+        if (isMoving)
+        {
+            if (!_isWalkSoundPlaying)
+            {
+                _playerSounds.PlayWalkSound();
+                _isWalkSoundPlaying = true;
+                _currTime = Time.time;
+            }
+        }
+        else
+        {
+            _playerSounds.StopWalkSound();
+            _isWalkSoundPlaying = false;
+            _isGruntTimerOn = false;
+        }
+
     }
 
     private void FixedUpdate()
@@ -65,16 +92,46 @@ public class PlayerInput : MonoBehaviour
         _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
     }
 
-    public void SetAnimatorDead()
-    {
-        _playerAnimations.SetDead();
-    }
-
     public void SetNewTargetPosition(DestinationPoint destinationPoint)
     {
         _currentDestinationPoint = destinationPoint;
         _newTargetPosX = destinationPoint.point.x;
-        Debug.Log(_newTargetPosX);
+        _isGruntTimerOn = true;
+    }
+
+    public void TryApplyAnimParams(AnimatorIntParam[] animIntParams)
+    {
+        if (animIntParams.Length > 0)
+        {
+            foreach (var item in animIntParams)
+            {
+                _playerAnimations.SetByIntParam(item);
+            }
+        }
+    }
+
+    public void SetAnimatorDead()
+    {
+        Invoke(nameof(SetDead), 0.5f);
+        _playerSounds.PlayDeadSound();
+    }
+
+    private void SetDead()
+    {
+        _playerAnimations.SetDead();
+        Invoke(nameof(StopAgent), 0.5f);
+ 
+    }
+
+    private void StartAgent()
+    {
+        _playerMovements.StartAgent();
+    }
+
+    private void StopAgent()
+    {
+        _playerSounds.StopWalkSound();
+        _playerMovements.StopAgent();
     }
 
     private void OnDestinationPointReached()

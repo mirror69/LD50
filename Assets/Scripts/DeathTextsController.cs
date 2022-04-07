@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
+
 
 public class DeathTextsController : MonoBehaviour
 {
@@ -35,6 +37,8 @@ public class DeathTextsController : MonoBehaviour
 
     private List<GameObject[]> arrayList = new List<GameObject[]>();
     private List<Transform[]> posArrayList = new List<Transform[]>();
+
+    public event Action DeathCutsceneEnded;
 
     private void Start()
     {
@@ -96,12 +100,19 @@ public class DeathTextsController : MonoBehaviour
 
     }
 
+    public void OnClickAgain()
+    {
+
+    }
+
     private IEnumerator NextArrayCorutine()
     {
         for (int i = 0; i < arrayList.Count; i++)
         {
             yield return StartCoroutine(TextAnimationCorutine(arrayList[i]));
         }
+
+        DeathCutsceneEnded?.Invoke();
     }
 
 
@@ -123,8 +134,11 @@ public class DeathTextsController : MonoBehaviour
                 gameObjects[i].GetComponent<Animator>().speed = animatorSpeed;
 
                 yield return new WaitForSeconds(nextTextDelay);
+
             }
         }
+
         yield return new WaitForSeconds(nextPageDelay);
+
     }
 }

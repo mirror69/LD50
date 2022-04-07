@@ -17,9 +17,11 @@ public class ClickHandler : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
             if (hit.collider != null)
             {
+                var item = hit.collider.GetComponent<InteractableItem>();
+                Vector2 point = item != null ? item.StayPoint.position : hit.point;
 
                 DestinationPointClicked?.Invoke(
-                    new DestinationPoint(hit.point, hit.collider.GetComponent<InteractableItem>()));
+                    new DestinationPoint(point, item));
             }
         }
     }

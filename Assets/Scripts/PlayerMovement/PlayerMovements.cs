@@ -3,6 +3,14 @@ using UnityEngine.AI;
 
 public class PlayerMovements : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer SpriteRenderer;
+    [SerializeField]
+    private float ChangeSortingOrderYValue;
+    [SerializeField]
+    private int MinSortingOrder;
+    [SerializeField]
+    private int MaxSortingOrder;
 
     private NavMeshAgent agent;
 
@@ -16,6 +24,24 @@ public class PlayerMovements : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
+    private void Update()
+    {
+        if (transform.position.y < ChangeSortingOrderYValue)
+        {
+            if (SpriteRenderer.sortingOrder != MaxSortingOrder)
+            {
+                SpriteRenderer.sortingOrder = MaxSortingOrder;
+            }
+        }
+        else
+        {
+            if (SpriteRenderer.sortingOrder != MinSortingOrder)
+            {
+                SpriteRenderer.sortingOrder = MinSortingOrder;
+            }
+        }
+    }
+
     public Vector2 GetVelocity()
     {
         return agent.velocity;
@@ -27,6 +53,16 @@ public class PlayerMovements : MonoBehaviour
         {
             HorizontalMovement(newPos);
         }
+    }
+
+    public void StartAgent()
+    {
+        agent.isStopped = false;
+    }
+
+    public void StopAgent()
+    {
+        agent.isStopped = true;
     }
 
     private void HorizontalMovement(Vector2 newPos)

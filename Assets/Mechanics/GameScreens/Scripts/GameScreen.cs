@@ -17,6 +17,8 @@ public abstract class GameScreen : MonoBehaviour
     [SerializeField]
     private Button CloseWinButton;
 
+    public bool wasAlreadyChoosen;
+
     public bool IsActive => gameObject.activeSelf;
 
     public Action<GameScreenResult> CloseRequested;
