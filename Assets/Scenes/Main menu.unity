@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScreenController
       objectReference: {fileID: 0}
+    - target: {fileID: 957980881856074966, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 957980881856074967, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -613,8 +617,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 32.412415, y: 0}
-  m_SizeDelta: {x: -409.2727, y: -402.6013}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1266376318
 Animator:

@@ -225,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1028806286058129506, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3346746894570094341, guid: c3445fc821539d54783bd2e3bed8528f, type: 3}
       propertyPath: clickHandler
@@ -2429,8 +2429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2578c7d1fff2b634980f84e2e7cc3a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorder: 0
-  rightBorder: 0
+  leftBorder: -0.5
+  rightBorder: 0.5
   timeToZoom: 2
   maxCameraSizeInZoom: 4
   playerTransform: {fileID: 2124656820}
@@ -2502,7 +2502,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.55
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
