@@ -10,32 +10,25 @@ public class PlayerAnimations : MonoBehaviour
     public event Action RotationStarted;
     public event Action RotationEnded;
 
-    public void SetByIntParam(AnimatorIntParam intParam)
+    public void SetParam(AnimatorParam<int> intParam)
     {
         _animator.SetInteger(intParam.Name, intParam.Value);
     }
 
-    public void SetByVelocity(Vector2 velocity)
+    public void SetParam(AnimatorParam<bool> param)
     {
-        int direction;
+        _animator.SetBool(param.Name, param.Value);
+    }
 
-        if (velocity.x < 0)
-        {
-            direction = -1;
+    public void SetMoving(bool isMoving)
+    {
+        _animator.SetBool("IsMoving", isMoving);
+    }
 
-        }
-        else if (velocity.x > 0)
-        {
-            direction = 1;
-
-        }
-        else
-        {
-            direction = 0;
-
-        }
-
-        _animator.SetInteger("XSpeed", direction);
+    public void SetDirection(Vector2Int direction)
+    {
+        _animator.SetInteger("XDirection", direction.x);
+        _animator.SetInteger("YDirection", direction.y);
     }
 
     public void SetDead()

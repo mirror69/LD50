@@ -13,12 +13,18 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayWalkSound()
     {
-        walkSound.Play();
+        if (!walkSound.isPlaying)
+        {
+            walkSound.Play();
+        }
     }
 
     public void StopWalkSound()
     {
-        walkSound.Stop();
+        if (walkSound.isPlaying)
+        {
+            walkSound.Stop();
+        }
     }
 
     public void PlayDeadSound()

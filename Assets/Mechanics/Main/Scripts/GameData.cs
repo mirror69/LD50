@@ -6,7 +6,7 @@ public class GameData
     public int GoodItemCount { get; private set; }
     public int BadItemCount { get; private set; }
     public InteractableItem CurrentInteractingItem { get; private set; }
-    public InteractableItem PreviousInteractingItem { get; private set; }
+    public DestinationPoint LastReachedDestinationPoint { get; private set; }
 
     public int CurrentTimeOfBadItemUse 
         => GetProgressionValueForBadCount(_gameSettings.TimeSettings.MaxTimeOfBadItemUse, BadItemCount);
@@ -26,13 +26,12 @@ public class GameData
 
     public void SetCurrentInteraction(InteractableItem item)
     {
-        PreviousInteractingItem = CurrentInteractingItem;
         CurrentInteractingItem = item;
     }
 
-    public void ResetCurrentInteraction()
+    public void SetLastReachedDestinationPoint(DestinationPoint point)
     {
-        CurrentInteractingItem = null;
+        LastReachedDestinationPoint = point;
     }
 
     public void AddGoodItemInteraction()

@@ -1013,22 +1013,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
-    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[11].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 1486250107, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[6].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 2133187385, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[8].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 2291132474790325397, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[6].value
-      value: 
-      objectReference: {fileID: 1250942553}
     - target: {fileID: 2291132474841785065, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1077,14 +1061,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable Items
       objectReference: {fileID: 0}
-    - target: {fileID: 2291132475617768854, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[0].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 2291132475636098239, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[2].value
-      value: 
-      objectReference: {fileID: 1250942553}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
 --- !u!4 &886701040 stripped
@@ -1261,11 +1237,6 @@ MonoBehaviour:
   CloseWinButton: {fileID: 1679244514}
   wasAlreadyChoosen: 0
   TestMiniGamePrefab: {fileID: 2222748004372721716, guid: 0dfbf1ec4760c6f43b243744a19e213b, type: 3}
---- !u!95 &1250942553 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5580816141919060337, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
-  m_PrefabInstance: {fileID: 1527430999}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1317366130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,11 +1809,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.4
+      value: -5.63
       objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.87
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
       propertyPath: m_LocalPosition.z
