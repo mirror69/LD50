@@ -195,10 +195,15 @@ public class GameController : MonoBehaviour
     {
         TimeController.StopTime();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
-        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        if (_gameData.CurrentInteractingItem != ChairItem && _gameData.CurrentInteractingItem != TVItem)
         {
-            yield return null;
+            StopCurrentInteraction();
+            while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+            {
+                yield return null;
+            }
         }
+
         Player.ProcessDeath();
         KeyPressController.SetNotListeningMode();
         UIScreenController.ShowGameOverScreen();
@@ -271,11 +276,6 @@ public class GameController : MonoBehaviour
 
     private void OnDeathTimeOver()
     {
-        if (_gameData.CurrentInteractingItem != ChairItem)
-        {
-            StopCurrentInteraction();
-        }
-
         StartCoroutine(ProcessLoseActions());
     }
 
