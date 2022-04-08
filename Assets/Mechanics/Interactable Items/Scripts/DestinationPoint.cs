@@ -10,4 +10,9 @@ public class DestinationPoint
         this.point = point;
         this.item = item;
     }
+
+    public bool IsEqual(DestinationPoint destinationPoint)
+    {
+        return destinationPoint != null && destinationPoint.item == item && destinationPoint.point == point;
+    }
 }

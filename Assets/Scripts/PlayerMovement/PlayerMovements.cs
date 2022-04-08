@@ -13,7 +13,7 @@ public class PlayerMovements : MonoBehaviour
     private int MaxSortingOrder;
 
     private NavMeshAgent agent;
-
+    private bool _isMoving;
     public delegate void PlayerPositionEvents();
     public static event PlayerPositionEvents ReachedDestination;
 
@@ -40,6 +40,20 @@ public class PlayerMovements : MonoBehaviour
                 SpriteRenderer.sortingOrder = MinSortingOrder;
             }
         }
+
+        if (_isMoving)
+        {
+            if (!agent.pathPending && agent.remainingDistance < 0.1f)
+            {
+                _isMoving = false;
+                ReachedDestination();
+            }
+        }
+    }
+
+    public bool IsStayingOnPoint(Vector2 point)
+    {
+        return Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.y) - point) < 0.01f;
     }
 
     public Vector2 GetVelocity()
@@ -47,12 +61,17 @@ public class PlayerMovements : MonoBehaviour
         return agent.velocity;
     }
 
-    public void Move(float direction, Vector2 newPos)
+    public void Move(int direction, Vector2 newPos)
     {
-        if (Mathf.Abs(direction) > 0.01f)
+        if (Mathf.Abs(direction) > 0)
         {
-            HorizontalMovement(newPos);
+            MoveAgent(newPos);
         }
+    }
+
+    public void Stop()
+    {
+        agent.ResetPath();
     }
 
     public void StartAgent()
@@ -65,17 +84,12 @@ public class PlayerMovements : MonoBehaviour
         agent.isStopped = true;
     }
 
-    private void HorizontalMovement(Vector2 newPos)
+    private void MoveAgent(Vector2 newPos)
     {
         if (agent.enabled == true)
         {
-
+            _isMoving = true;
             agent.SetDestination(newPos);
-        }
-
-        if (!agent.pathPending && agent.remainingDistance < 0.2f)
-        {
-            ReachedDestination();
         }
     }
 }
