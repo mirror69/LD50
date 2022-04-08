@@ -293,6 +293,7 @@ public class GameController : MonoBehaviour
                 {
                     StopCurrentInteraction();
                     _gameData.SetCurrentInteraction(ChairItem);
+                    QuestStarter.Disable();
                 }
                 return;
             }
@@ -304,6 +305,7 @@ public class GameController : MonoBehaviour
                     TimeController.ResumeTime();
                     destinationPoint.item.ResetDraw();
                     ProcessItemInteraction(destinationPoint.item);
+                    QuestStarter.Enable(destinationPoint);
                     return;
                 }
                 else
@@ -316,6 +318,7 @@ public class GameController : MonoBehaviour
                 && destinationPoint.item.Type == ItemType.Chair)
             {
                 StopCurrentInteraction();
+                QuestStarter.Disable();
                 return;
             }
         }
@@ -359,7 +362,7 @@ public class GameController : MonoBehaviour
             TimeController.ResumeTime();
         }
 
-        if (isBadInteraction)
+        if (isBadInteraction || _goToChairToWatchTV)
         {
             QuestStarter.Enable(destinationPoint);
         }
