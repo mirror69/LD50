@@ -199,7 +199,7 @@ public class GameController : MonoBehaviour
         {
             yield return null;
         }
-        Player.SetAnimatorDead();
+        Player.ProcessDeath();
         KeyPressController.SetNotListeningMode();
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
@@ -271,8 +271,11 @@ public class GameController : MonoBehaviour
 
     private void OnDeathTimeOver()
     {
-        StopCurrentInteraction();
-        TryStopTimeline(ChairItem.InTimeline);
+        if (_gameData.CurrentInteractingItem != ChairItem)
+        {
+            StopCurrentInteraction();
+        }
+
         StartCoroutine(ProcessLoseActions());
     }
 

@@ -85,13 +85,21 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public void SetAnimatorDead()
+    public void ProcessDeath()
     {
-        Invoke(nameof(SetDead), 0.5f);
-        _playerSounds.PlayDeadSound();
+        Invoke(nameof(SetAnimatorDead), 0.5f);
+
+        if (_playerAnimations.IsSitting())
+        {
+            _playerSounds.PlayDeadSittingSound();
+        }
+        else
+        {
+            _playerSounds.PlayDeadSound();
+        }
     }
 
-    private void SetDead()
+    private void SetAnimatorDead()
     {
         _playerAnimations.SetDead();
         Invoke(nameof(StopAgent), 0.5f);

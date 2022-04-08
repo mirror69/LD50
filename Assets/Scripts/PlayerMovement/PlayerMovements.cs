@@ -43,7 +43,7 @@ public class PlayerMovements : MonoBehaviour
 
         if (_isMoving)
         {
-            if (!agent.pathPending && agent.remainingDistance < 0.2f)
+            if (!agent.pathPending && agent.remainingDistance < 0.1f)
             {
                 _isMoving = false;
                 ReachedDestination();
@@ -53,7 +53,7 @@ public class PlayerMovements : MonoBehaviour
 
     public bool IsStayingOnPoint(Vector2 point)
     {
-        return Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.y) - point) < 0.04f;
+        return Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.y) - point) < 0.01f;
     }
 
     public Vector2 GetVelocity()

@@ -8,6 +8,7 @@ public class PlayerSounds : MonoBehaviour
 {
     [SerializeField] private AudioSource walkSound;
     [SerializeField] private AudioSource deadSound;
+    [SerializeField] private AudioSource deadSittingSound;
     [SerializeField] private AudioSource gruntsSound;
     [SerializeField] private AudioClip[] gruntsClipsArray;
 
@@ -30,6 +31,11 @@ public class PlayerSounds : MonoBehaviour
     public void PlayDeadSound()
     {
         deadSound.Play();
+    }
+
+    public void PlayDeadSittingSound()
+    {
+        deadSittingSound.Play();
     }
 
     public void PlayGrountSound()

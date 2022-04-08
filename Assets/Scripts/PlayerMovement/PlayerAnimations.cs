@@ -10,6 +10,11 @@ public class PlayerAnimations : MonoBehaviour
     public event Action RotationStarted;
     public event Action RotationEnded;
 
+    public bool IsSitting()
+    {
+        return _animator.GetBool("IsSitting");
+    }
+
     public void SetParam(AnimatorParam<int> intParam)
     {
         _animator.SetInteger(intParam.Name, intParam.Value);
