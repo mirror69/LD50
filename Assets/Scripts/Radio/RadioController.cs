@@ -64,13 +64,13 @@ public class RadioController : MonoBehaviour
 
     public void OnSwitcherClick()
     {
-        if (isOn)
+        if (isOn && !needleIsOnPlace)
         {
             isOn = false;
             buttonSwitcher.GetComponent<Image>().sprite = onButtonSprite;
             plateAnimator.speed = 0;
         }
-        else
+        else if (!isOn && !needleIsOnPlace)
         {
             isOn = true;
             buttonSwitcher.GetComponent<Image>().sprite = offButtonSprite;
@@ -132,6 +132,11 @@ public class RadioController : MonoBehaviour
                 
                 _audioMixer.SetFloat("MusicVolume", -10f);
                 _audioMixer.SetFloat("NoizeVolume", -40f);
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    _slider.interactable = false;
+                }
             }
             else
             {
