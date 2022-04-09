@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
@@ -10,13 +11,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private PlayerSounds _playerSounds;
 
-    private float _newTargetPosX = 0;
-    private float _horizontalDirection;
-    private float _currTime;
-    private bool _isGruntTimerOn = false;
-    private bool _isWalkSoundPlaying = false;
-
     private DestinationPoint _currentDestinationPoint;
+    private Vector2Int _currentPointMoveDirection = new Vector2Int(-1, -1);
 
     public event Action<DestinationPoint> DestinationPointReached;
 
@@ -25,7 +21,13 @@ public class PlayerInput : MonoBehaviour
         PlayerMovements.ReachedDestination += OnDestinationPointReached;
         _playerAnimations.RotationStarted += OnRotationStarted;
         _playerAnimations.RotationEnded += OnRotationEnded;
+    }
 
+    private void OnDisable()
+    {
+        PlayerMovements.ReachedDestination -= OnDestinationPointReached;
+        _playerAnimations.RotationStarted -= OnRotationStarted;
+        _playerAnimations.RotationEnded -= OnRotationEnded;
     }
 
     private void OnRotationEnded()
@@ -38,94 +40,69 @@ public class PlayerInput : MonoBehaviour
         _playerMovements.StopAgent();
     }
 
-    private void OnDisable()
+    public void SetNewTargetPosition(DestinationPoint destinationPoint)
     {
-        PlayerMovements.ReachedDestination -= OnDestinationPointReached;
+        StopAllCoroutines();
+        _currentDestinationPoint = destinationPoint;
+
+        _currentPointMoveDirection.y = -1;
+        if (_playerMovements.IsStayingOnPoint(_currentDestinationPoint.point))
+        {
+            _playerAnimations.SetDirection(_currentPointMoveDirection);
+            OnDestinationPointReached();
+            return;
+        }
+        
+        _currentPointMoveDirection.x = destinationPoint.point.x > transform.position.x ? 1 : -1;
+
+        _playerSounds.PlayWalkSound();
+        _playerMovements.Move(_currentPointMoveDirection.x, _currentDestinationPoint.point);
+        _playerAnimations.SetDirection(_currentPointMoveDirection);
+        _playerAnimations.SetMoving(true);
     }
 
-    private void Update()
+    public void TryApplyAnimParams(AnimatorParamSet animParamSet)
     {
-        Vector3 pos = transform.position;
-        pos.z = 0;
-        transform.position = pos;
-
-        if (_newTargetPosX != 0 && _newTargetPosX > transform.position.x)
+        if (animParamSet == null)
         {
-            _horizontalDirection = 1;
-        }
-        else if (_newTargetPosX != 0 && _newTargetPosX < transform.position.x)
-        {
-            _horizontalDirection = -1;
-        }
-        else if (_newTargetPosX == 0)
-        {
-            _horizontalDirection = 0;
+            return;
         }
 
-        bool isMoving = (_newTargetPosX != 0);
-
-        if (isMoving)
+        if (animParamSet.IntParams != null)
         {
-            if (!_isWalkSoundPlaying)
+            foreach (var item in animParamSet.IntParams)
             {
-                _playerSounds.PlayWalkSound();
-                _isWalkSoundPlaying = true;
-                _currTime = Time.time;
+                _playerAnimations.SetParam(item);
             }
+        }
+
+        if (animParamSet.BoolParams != null)
+        {
+            foreach (var item in animParamSet.BoolParams)
+            {
+                _playerAnimations.SetParam(item);
+            }
+        }
+    }
+
+    public void ProcessDeath()
+    {
+        Invoke(nameof(SetAnimatorDead), 0.5f);
+
+        if (_playerAnimations.IsSitting())
+        {
+            _playerSounds.PlayDeadSittingSound();
         }
         else
         {
-            _playerSounds.StopWalkSound();
-            _isWalkSoundPlaying = false;
-            _isGruntTimerOn = false;
-        }
-
-    }
-
-    private void FixedUpdate()
-    {
-        if (_newTargetPosX != 0)
-        {
-            _playerMovements.Move(_horizontalDirection, _currentDestinationPoint.point);
-        }
-
-        _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
-    }
-
-    public void SetNewTargetPosition(DestinationPoint destinationPoint)
-    {
-        _currentDestinationPoint = destinationPoint;
-        _newTargetPosX = destinationPoint.point.x;
-        _isGruntTimerOn = true;
-    }
-
-    public void TryApplyAnimParams(AnimatorIntParam[] animIntParams)
-    {
-        if (animIntParams.Length > 0)
-        {
-            foreach (var item in animIntParams)
-            {
-                _playerAnimations.SetByIntParam(item);
-            }
+            _playerSounds.PlayDeadSound();
         }
     }
 
-    public void SetAnimatorDead()
-    {
-        Invoke(nameof(SetDead), 0.5f);
-        _playerSounds.PlayDeadSound();
-    }
-
-    private void SetDead()
+    private void SetAnimatorDead()
     {
         _playerAnimations.SetDead();
         Invoke(nameof(StopAgent), 0.5f);
- 
-    }
-
-    private void StartAgent()
-    {
-        _playerMovements.StartAgent();
     }
 
     private void StopAgent()
@@ -136,12 +113,29 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDestinationPointReached()
     {
-        DestinationPointReached?.Invoke(_currentDestinationPoint);
-        SetDestinationToZero();
+        StartCoroutine(StopOnDestinationPoint());
     }
 
-    private void SetDestinationToZero()
+    private IEnumerator StopOnDestinationPoint()
     {
-        _newTargetPosX = 0;
+        _playerSounds.StopWalkSound();
+        _playerMovements.Stop();
+        _playerAnimations.SetMoving(false);
+
+        Vector2Int direction = new Vector2Int(0, 0);
+        if (_currentDestinationPoint.item != null)
+        {
+            direction.x = _currentDestinationPoint.item.StayPoint.right.x > 0 ? 1 : -1;
+            direction.y = _currentDestinationPoint.item.StayPoint.right.y > 0 ? 1 : -1;
+            _playerAnimations.SetDirection(direction);
+
+            // waiting for rotation end
+            if (_currentPointMoveDirection.x != direction.x)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        DestinationPointReached?.Invoke(_currentDestinationPoint);
     }
 }

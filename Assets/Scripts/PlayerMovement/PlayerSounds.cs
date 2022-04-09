@@ -8,22 +8,34 @@ public class PlayerSounds : MonoBehaviour
 {
     [SerializeField] private AudioSource walkSound;
     [SerializeField] private AudioSource deadSound;
+    [SerializeField] private AudioSource deadSittingSound;
     [SerializeField] private AudioSource gruntsSound;
     [SerializeField] private AudioClip[] gruntsClipsArray;
 
     public void PlayWalkSound()
     {
-        walkSound.Play();
+        if (!walkSound.isPlaying)
+        {
+            walkSound.Play();
+        }
     }
 
     public void StopWalkSound()
     {
-        walkSound.Stop();
+        if (walkSound.isPlaying)
+        {
+            walkSound.Stop();
+        }
     }
 
     public void PlayDeadSound()
     {
         deadSound.Play();
+    }
+
+    public void PlayDeadSittingSound()
+    {
+        deadSittingSound.Play();
     }
 
     public void PlayGrountSound()

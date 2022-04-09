@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicMemoryRecords: {fileID: 8300000, guid: 61e1e78c4f3f938469f1a9399fcf2c5f, type: 3}
-  TimeToFadeOutScreen: 10
+  TimeToFadeOutScreen: 7
   audio: {fileID: 6066297199047785771}
   radioController: {fileID: 6571109576392321667}
   miniGameCanvas: {fileID: 6571109577017180373}
