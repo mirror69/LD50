@@ -10,22 +10,27 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private AudioSource deadSound;
     [SerializeField] private AudioSource deadSittingSound;
     [SerializeField] private AudioSource gruntsSound;
+    [SerializeField] private AudioSource stickSound;
     [SerializeField] private AudioClip[] gruntsClipsArray;
+    [SerializeField] private AudioClip[] stepClipsArray;
 
     public void PlayWalkSound()
-    {
-        if (!walkSound.isPlaying)
-        {
-            walkSound.Play();
-        }
-    }
-
-    public void StopWalkSound()
     {
         if (walkSound.isPlaying)
         {
             walkSound.Stop();
         }
+        walkSound.clip = GetRandomClip(stepClipsArray);
+        walkSound.Play();
+    }
+
+    public void PlayStickSound()
+    {
+        if (stickSound.isPlaying)
+        {
+            stickSound.Stop();
+        }
+        stickSound.Play();
     }
 
     public void PlayDeadSound()
@@ -47,4 +52,8 @@ public class PlayerSounds : MonoBehaviour
         gruntsSound.Play();
     }
 
+    private AudioClip GetRandomClip(AudioClip[] clips)
+    {
+        return clips[Random.Range(0, clips.Length)];
+    }
 }

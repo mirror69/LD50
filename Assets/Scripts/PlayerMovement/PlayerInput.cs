@@ -12,6 +12,12 @@ public class PlayerInput : MonoBehaviour
     private PlayerSounds _playerSounds;
 
     private DestinationPoint _currentDestinationPoint;
+
+    /// <summary>
+    /// Current direction the character is facing.
+    /// x = -1 means character turned to the left, 1 - to the right
+    /// y = -1 means character standing facing us, 1 - back to us
+    /// </summary>
     private Vector2Int _currentPointMoveDirection = new Vector2Int(-1, -1);
 
     public event Action<DestinationPoint> DestinationPointReached;
@@ -21,6 +27,18 @@ public class PlayerInput : MonoBehaviour
         PlayerMovements.ReachedDestination += OnDestinationPointReached;
         _playerAnimations.RotationStarted += OnRotationStarted;
         _playerAnimations.RotationEnded += OnRotationEnded;
+        _playerAnimations.StepHappened += OnStepHappened;
+        _playerAnimations.StickHitHappened += OnStickHitHappened;
+    }
+
+    private void OnStickHitHappened()
+    {
+        _playerSounds.PlayStickSound();
+    }
+
+    private void OnStepHappened()
+    {
+        _playerSounds.PlayWalkSound();
     }
 
     private void OnDisable()
@@ -55,7 +73,6 @@ public class PlayerInput : MonoBehaviour
         
         _currentPointMoveDirection.x = destinationPoint.point.x > transform.position.x ? 1 : -1;
 
-        _playerSounds.PlayWalkSound();
         _playerMovements.Move(_currentPointMoveDirection.x, _currentDestinationPoint.point);
         _playerAnimations.SetDirection(_currentPointMoveDirection);
         _playerAnimations.SetMoving(true);
@@ -107,7 +124,6 @@ public class PlayerInput : MonoBehaviour
 
     private void StopAgent()
     {
-        _playerSounds.StopWalkSound();
         _playerMovements.StopAgent();
     }
 
@@ -118,7 +134,6 @@ public class PlayerInput : MonoBehaviour
 
     private IEnumerator StopOnDestinationPoint()
     {
-        _playerSounds.StopWalkSound();
         _playerMovements.Stop();
         _playerAnimations.SetMoving(false);
 
