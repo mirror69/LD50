@@ -9,6 +9,8 @@ public class PlayerAnimations : MonoBehaviour
 
     public event Action RotationStarted;
     public event Action RotationEnded;
+    public event Action StepHappened;
+    public event Action StickHitHappened;
 
     public bool IsSitting()
     {
@@ -55,6 +57,22 @@ public class PlayerAnimations : MonoBehaviour
     public void NotifyEndRotation()
     {
         RotationEnded?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about step (calling by animation signal)
+    /// </summary>
+    public void NotifyStepHappened()
+    {
+        StepHappened?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about stick hited floor (calling by animation signal)
+    /// </summary>
+    public void NotifyStickHitHappened()
+    {
+        StickHitHappened?.Invoke();
     }
 
     private void DeadTrigger()
