@@ -554,11 +554,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'DEVELOPERS
 
-    Alekdsaner Shishkin
+    Alexander Shishkin
 
     Demionchek
 
-    SNIFFlb4
+    SNIFFbl4
 
 
     with
@@ -2534,42 +2534,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &2175110687162698478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5660974291459498107}
-  m_Layer: 5
-  m_Name: EndPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &5660974291459498107
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2175110687162698478}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4681774209040947207}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0055634, y: 1729}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2186927932143129621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4506,8 +4470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0055847, y: -540}
-  m_SizeDelta: {x: 1665.8, y: 1080}
+  m_AnchoredPosition: {x: 0.0055847, y: -610.6981}
+  m_SizeDelta: {x: 1665.8, y: 1221.3962}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5080171419842954186
 GameObject:
@@ -5622,42 +5586,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &6486243061013965542
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3619957787426400520}
-  m_Layer: 5
-  m_Name: StartPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3619957787426400520
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486243061013965542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4681774209040947207}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0055863, y: -1304}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6496663982247934566
 GameObject:
   m_ObjectHideFlags: 0
@@ -8323,8 +8251,6 @@ RectTransform:
   m_Children:
   - {fileID: 63439771486434365}
   - {fileID: 7495370846607908281}
-  - {fileID: 3619957787426400520}
-  - {fileID: 5660974291459498107}
   m_Father: {fileID: 957980881856074967}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8387,8 +8313,8 @@ MonoBehaviour:
   backScreenButton: {fileID: 0}
   mainMenuButton: {fileID: 3790093240377172247}
   MovingPanel: {fileID: 63439771486434365}
-  StartPoint: {fileID: 3619957787426400520}
-  EndPoint: {fileID: 5660974291459498107}
+  MainMenuButtonImage: {fileID: 7644423928840658573}
+  MainMenuButtonText: {fileID: 8734534506904301640}
 --- !u!1 &8886590172853793529
 GameObject:
   m_ObjectHideFlags: 0

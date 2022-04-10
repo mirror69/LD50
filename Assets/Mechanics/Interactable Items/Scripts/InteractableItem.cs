@@ -27,20 +27,6 @@ public enum ItemType
     Lamp = 12
 }
 
-[Serializable]
-public struct AnimatorParam<T>
-{
-    public string Name;
-    public T Value;
-}
-
-[Serializable]
-public class AnimatorParamSet
-{
-    public AnimatorParam<int>[] IntParams;
-    public AnimatorParam<bool>[] BoolParams;
-}
-
 public class InteractableItem : MonoBehaviour
 {
     [field: SerializeField]
@@ -76,18 +62,22 @@ public class InteractableItem : MonoBehaviour
     [field: SerializeField]
     public AnimatorParamSet OutAnimatorParamSet { get; private set; }
 
-    public Action<InteractableItem> Clicked;
+    public Action<InteractableItem> MouseEnter;
+    public Action<InteractableItem> MouseExit;
 
     private void OnMouseEnter()
     {
-        Drawer.Show();
-        CursorManager.Instance.SetCursorHighlight(true);
+        MouseEnter?.Invoke(this);
     }
 
     private void OnMouseExit()
     {
-        Drawer.Hide();
-        CursorManager.Instance.SetCursorHighlight(false);
+        MouseExit?.Invoke(this);
+    }
+
+    public void DrawTooltip()
+    {
+        Drawer.Show();
     }
 
     public void ResetDraw()

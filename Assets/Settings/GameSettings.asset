@@ -26,3 +26,9 @@ MonoBehaviour:
   <SceneSettings>k__BackingField:
     MainMenuSceneName: Main menu
     GameSceneName: Main
+  <CameraSettings>k__BackingField:
+    BadItemZoomInTime: 2
+    BadItemZoomOutTime: 2
+    GoodEndingCameraZoomTime: 7
+  <SoundSettings>k__BackingField:
+    MainMusicFadeOutTimeAfterWin: 1.5
