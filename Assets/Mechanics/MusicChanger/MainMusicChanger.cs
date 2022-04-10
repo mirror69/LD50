@@ -82,6 +82,14 @@ public class MainMusicChanger : MonoBehaviour
         badMusicTargetVolume = minVolumeValue;
 
         maxTimeAudio = goodMusicAudioSource.clip.length;
+
+        Invoke(nameof(PlayMusic), 1f);
+    }
+
+    private void PlayMusic ()
+    {
+        goodMusicAudioSource.Play();
+        badMusicAudioSource.Play();
     }
 
     private void ChangeMusicTheme (MusicThemes newMusicTheme)
