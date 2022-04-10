@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameScreenController GameScreenController;
     [SerializeField]
+    private InteractableItemsController InteractableItemsController;
+    [SerializeField]
     private UIScreenController UIScreenController;
     [SerializeField]
     private CameraController CameraController;
@@ -190,12 +192,13 @@ public class GameController : MonoBehaviour
         StopCurrentInteraction();
         TimeController.StopTime();
 
+        InteractableItemsController.SetEnabledSelection(false);
+        InteractableItemsController.ClearSelection();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         KeyPressController.SetNotListeningMode();
         
         Player.ProcessWin();
         MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
-        CameraController.SetWinModeOn();
         CameraController.ZoomCamera(GameSettings.CameraSettings.GoodEndingCameraZoomTime);
 
         finalTimeLine.Play();
@@ -206,7 +209,12 @@ public class GameController : MonoBehaviour
     private IEnumerator ProcessLoseActions()
     {
         TimeController.StopTime();
+
+        InteractableItemsController.SetEnabledSelection(false);
+        InteractableItemsController.ClearSelection();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        KeyPressController.SetNotListeningMode();
+
         if (_gameData.CurrentInteractingItem != ChairItem && _gameData.CurrentInteractingItem != TVItem)
         {
             StopCurrentInteraction();
@@ -218,7 +226,6 @@ public class GameController : MonoBehaviour
         }
 
         Player.ProcessDeath();
-        KeyPressController.SetNotListeningMode();
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
     }

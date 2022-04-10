@@ -18,8 +18,6 @@ public class CameraController : MonoBehaviour
     private float initialCameraSize;
     private float maxSizeDifference;
 
-    private bool isWinMode;
-
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -31,11 +29,6 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         SetNewCameraPosition();
-    }
-
-    public void SetWinModeOn()
-    {
-        isWinMode = true;
     }
 
     public Vector2 GetPlayerPosition()
@@ -71,12 +64,6 @@ public class CameraController : MonoBehaviour
         {
             newCameraPosition.x = playerTransform.position.x;
         }
-
-        //if (isWinMode)
-        //{
-        //    newCameraPosition.x = playerTransform.position.x;
-        //    newCameraPosition.x = Mathf.Lerp(transform.position.x, newCameraPosition.x, Time.deltaTime / 10);
-        //}
 
         transform.position = newCameraPosition;
     }
