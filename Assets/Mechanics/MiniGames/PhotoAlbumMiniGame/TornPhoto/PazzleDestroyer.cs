@@ -8,8 +8,8 @@ public class PazzleDestroyer : MonoBehaviour
     [HideInInspector]
     public MiniQuest MiniQuest;
 
-    private int readyParts = -1;
-    private int partsCount;
+    public int readyParts = -1;
+    public int partsCount;
     private bool isDestroyed;
 
     public void DestroyPhoto ()

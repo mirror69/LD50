@@ -26,6 +26,8 @@ public class MainMenuController : MonoBehaviour
 
     private UIEventMediator _uiEventMediator;
 
+    private AsyncOperation loadingGameSceneOperation;
+
     void Start()
     {
         _uiEventMediator = new UIEventMediator();
@@ -56,16 +58,21 @@ public class MainMenuController : MonoBehaviour
         fadeScreenImage.gameObject.SetActive(true);
         MainMenuMusic.DOFade(0, 1);
         fadeScreenImage.DOFade(1, 1);
-        yield return new WaitForSeconds(1);
+        StartTimeline.Play();   
+
+        yield return new WaitForSeconds(3.5f);
+
+        loadingGameSceneOperation = SceneManager.LoadSceneAsync(GameSettings.SceneSettings.GameSceneName);
+        loadingGameSceneOperation.allowSceneActivation = false;
+
         UIScreenController.HideCurrentScreen();
-        StartTimeline.Play();
         TextInCutScene.gameObject.SetActive(true);
         TextInCutScene.OnStartCutSceneEnded += LoadNewGame;
     }
 
     private void LoadNewGame()
     {
-        SceneManager.LoadScene(GameSettings.SceneSettings.GameSceneName);
+        loadingGameSceneOperation.allowSceneActivation = true;
     }
 
     private void LoadMainMenu()

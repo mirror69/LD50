@@ -46,7 +46,9 @@ public class GameController : MonoBehaviour
 
     private PlayableDirector _currentTimeline;
 
+    [Header("CutScenes")]
     [SerializeField] private PlayableDirector finalTimeLine;
+    [SerializeField] private GameObject startTimeLine;
 
     private bool _goToChairToWatchTV;
     
@@ -82,6 +84,8 @@ public class GameController : MonoBehaviour
         DeathTextsController.DeathCutsceneEnded += OnDeathCutsceneEnded;
 
         KeyPressController.Init(_uiEventMediator, UIScreenController);
+
+        startTimeLine.SetActive(true);
 
         ResumeGame();
 
