@@ -3,6 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct AnimatorParam<T>
+{
+    public string Name;
+    public T Value;
+}
+
+[Serializable]
+public class AnimatorParamSet
+{
+    public AnimatorParam<int>[] IntParams;
+    public AnimatorParam<bool>[] BoolParams;
+}
+
 public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
