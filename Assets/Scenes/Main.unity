@@ -902,9 +902,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
     - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].key
+      value: 
+      objectReference: {fileID: -2333509518731922935, guid: 0c7ff033a60507a40a28e19148370e67, type: 2}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_SceneBindings.Array.data[11].value
       value: 
-      objectReference: {fileID: 1250942553}
+      objectReference: {fileID: 1283381060}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_ExposedReferences.m_References.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_ExposedReferences.m_References.Array.data[0].first
+      value: 1d6f8aa4c202c50449966aa4c3bb98cf
+      objectReference: {fileID: 0}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_ExposedReferences.m_References.Array.data[1].first
+      value: 26ba3de73f8ddee40adf170517439401
+      objectReference: {fileID: 0}
+    - target: {fileID: 633377980, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_ExposedReferences.m_References.Array.data[0].second
+      value: 
+      objectReference: {fileID: 1283381056}
     - target: {fileID: 1486250107, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_SceneBindings.Array.data[6].value
       value: 
@@ -973,6 +997,14 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[2].value
       value: 
       objectReference: {fileID: 1250942553}
+    - target: {fileID: 2519823288256007179, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: <OutTimeline>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168895048706584083, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
 --- !u!4 &886701040 stripped
@@ -1170,6 +1202,145 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5580816141919060337, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}
   m_PrefabInstance: {fileID: 1527430999}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1257044419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1257044420}
+  - component: {fileID: 1257044421}
+  m_Layer: 0
+  m_Name: LampSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257044420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257044419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.403, y: -1.533, z: 0}
+  m_LocalScale: {x: 0.6272155, y: 0.6272155, z: 0.6272155}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1283381057}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1257044421
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257044419}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: da8f9b6941db3864c8fe7da6bee76620, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 28.8, y: 16.199999}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &1283381056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3168895047527560274, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+  m_PrefabInstance: {fileID: 886701039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1283381057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3168895047527560269, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
+  m_PrefabInstance: {fileID: 886701039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1283381060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283381056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 83dad88148ed83540887577631e2181f, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1283381061}
+          m_TargetAssemblyTypeName: LampSpriteChanger, Assembly-CSharp
+          m_MethodName: ChangeSprite
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1283381061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283381056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc62f1c9d876024091c061f4ffe453f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lampOn: {fileID: 21300000, guid: da8f9b6941db3864c8fe7da6bee76620, type: 3}
+  lampOff: {fileID: 21300000, guid: 24a3b8d13e0da094088e6008c2e20570, type: 3}
+  spriteRenderer: {fileID: 1257044421}
 --- !u!1 &1317366130
 GameObject:
   m_ObjectHideFlags: 0
