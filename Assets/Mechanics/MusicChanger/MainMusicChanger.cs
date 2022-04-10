@@ -50,8 +50,6 @@ public class MainMusicChanger : MonoBehaviour
 
     public void OffMinigameMode()
     {
-        //goodMusicAudioSource.volume = minVolumeValue;
-        //badMusicAudioSource.volume = minVolumeValue;
         enabled = true;
     }
 
@@ -67,13 +65,12 @@ public class MainMusicChanger : MonoBehaviour
 
     private void ClickHandler_DestinationPointClicked(DestinationPoint obj)
     {
-        if (obj.item == null || obj.item.TimerType == ItemTimerType.GoodItem)
+        if (obj.item == null || obj.item.TimerType == ItemTimerType.GoodItem || obj.item.TimerType == ItemTimerType.NeutralItem)
             nextMusicTheme = MusicThemes.GoodMusic;
         else
             nextMusicTheme = MusicThemes.BadMusic;
 
-        if (nextMusicTheme != currentMusicTheme)
-            needToChangeMusic = true;
+        needToChangeMusic = nextMusicTheme != currentMusicTheme;
     }
 
     private void Start()
@@ -120,11 +117,6 @@ public class MainMusicChanger : MonoBehaviour
         if (needToChangeMusic && currentTime >= timeCodesToSwitchMusic[timeLineIndex])
         {
             ChangeMusicTheme(nextMusicTheme);
-            timeLineIndex++;
-        }
-
-        if (currentTime>= timeCodesToSwitchMusic[timeLineIndex])
-        {
             timeLineIndex++;
             if (timeLineIndex >= timeCodesToSwitchMusic.Length)
             {

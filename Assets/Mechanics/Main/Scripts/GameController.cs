@@ -137,12 +137,14 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        Player.TryApplyAnimParams(item.OutAnimatorIntParams);
+        Player.TryApplyAnimParams(item.OutAnimatorParamSet);
 
         StopCurrentInteraction(item.TimerType);
 
         TryPlayTimeline(item.OutTimeline);
         _currentTimeline = item.OutTimeline;
+
+        _gameData.SetCurrentInteraction(null);
     }
 
     private void StopCurrentInteraction(ItemTimerType timerType)
@@ -166,7 +168,7 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-        _gameData.ResetCurrentInteraction();
+        _gameData.SetCurrentInteraction(null);
         QuestStarter.Disable();
 
         RefreshDebugView();
@@ -193,11 +195,16 @@ public class GameController : MonoBehaviour
     {
         TimeController.StopTime();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
-        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        if (_gameData.CurrentInteractingItem != ChairItem && _gameData.CurrentInteractingItem != TVItem)
         {
-            yield return null;
+            StopCurrentInteraction();
+            while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+            {
+                yield return null;
+            }
         }
-        Player.SetAnimatorDead();
+
+        Player.ProcessDeath();
         KeyPressController.SetNotListeningMode();
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
@@ -269,51 +276,65 @@ public class GameController : MonoBehaviour
 
     private void OnDeathTimeOver()
     {
-        StopCurrentInteraction();
-        TryStopTimeline(ChairItem.InTimeline);
         StartCoroutine(ProcessLoseActions());
     }
 
     private void OnDestinationPointClicked(DestinationPoint destinationPoint)
     {
         _goToChairToWatchTV = false;
+
         if (destinationPoint.item != null)
         {
             if (_gameData.CurrentInteractingItem == destinationPoint.item)
             {
+                // forbid to interact the item which is using now,
+                // but allow to turn off TV
+                if (_gameData.CurrentInteractingItem.Type == ItemType.TV)
+                {
+                    StopCurrentInteraction();
+                    _gameData.SetCurrentInteraction(ChairItem);
+                    QuestStarter.Disable();
+                }
                 return;
             }
             else if (destinationPoint.item.Type == ItemType.TV)
             {
-                if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.Chair)
+                if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null 
+                    && _gameData.LastReachedDestinationPoint.item.Type == ItemType.Chair)
                 {
                     TimeController.ResumeTime();
                     destinationPoint.item.ResetDraw();
                     ProcessItemInteraction(destinationPoint.item);
+                    QuestStarter.Enable(destinationPoint);
                     return;
                 }
                 else
                 {
                     _goToChairToWatchTV = true;
+                    destinationPoint = new DestinationPoint(ChairItem.StayPoint.position, ChairItem);
                 }
             }
             else if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.TV 
                 && destinationPoint.item.Type == ItemType.Chair)
             {
+                StopCurrentInteraction();
+                QuestStarter.Disable();
                 return;
             }
         }
 
-        if (_goToChairToWatchTV)
-        {
-            destinationPoint = new DestinationPoint(ChairItem.StayPoint.position, ChairItem);
-        }
-        else
-        {
-            TryStopTimeline(ChairItem.InTimeline);
-        }
         StopCurrentInteraction();
-        StartCoroutine(StartMoveToPoint(destinationPoint));
+
+        if (!destinationPoint.IsEqual(_gameData.LastReachedDestinationPoint))
+        {
+            if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null)
+            {
+                _gameData.SetCurrentInteraction(_gameData.LastReachedDestinationPoint.item);
+                StopCurrentInteraction();
+            }
+            _gameData.SetLastReachedDestinationPoint(null);
+            StartCoroutine(StartMoveToPoint(destinationPoint));
+        }
     }
 
     private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
@@ -341,7 +362,7 @@ public class GameController : MonoBehaviour
             TimeController.ResumeTime();
         }
 
-        if (isBadInteraction)
+        if (isBadInteraction || _goToChairToWatchTV)
         {
             QuestStarter.Enable(destinationPoint);
         }
@@ -356,8 +377,11 @@ public class GameController : MonoBehaviour
         TryStopTimeline(_currentTimeline);
         _currentTimeline = null;
 
+        _gameData.SetLastReachedDestinationPoint(destinationPoint);
         if (destinationPoint.item != null)
         {
+            Player.TryApplyAnimParams(destinationPoint.item.InAnimatorParamSet);
+
             TimeController.ResumeTime();
             destinationPoint.item.ResetDraw();
 

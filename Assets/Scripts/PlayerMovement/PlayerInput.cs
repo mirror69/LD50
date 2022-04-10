@@ -1,119 +1,125 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMovements))]
-[RequireComponent(typeof(PlayerAnimations))]
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private float gruntTimer;
-
+    [SerializeField]
     private PlayerMovements _playerMovements;
+    [SerializeField]
     private PlayerAnimations _playerAnimations;
-    private PlayerSounds playerSounds;
-    private float _newTargetPosX;
-    private float _horizontalDirection;
-    private float _currTime;
-    private bool _isGruntTimerOn = false;
-    private bool _isWalkSoundPlaying = false;
+    [SerializeField]
+    private PlayerSounds _playerSounds;
 
     private DestinationPoint _currentDestinationPoint;
+
+    /// <summary>
+    /// Current direction the character is facing.
+    /// x = -1 means character turned to the left, 1 - to the right
+    /// y = -1 means character standing facing us, 1 - back to us
+    /// </summary>
+    private Vector2Int _currentPointMoveDirection = new Vector2Int(-1, -1);
 
     public event Action<DestinationPoint> DestinationPointReached;
 
     private void OnEnable()
     {
         PlayerMovements.ReachedDestination += OnDestinationPointReached;
+        _playerAnimations.RotationStarted += OnRotationStarted;
+        _playerAnimations.RotationEnded += OnRotationEnded;
+        _playerAnimations.StepHappened += OnStepHappened;
+        _playerAnimations.StickHitHappened += OnStickHitHappened;
+    }
+
+    private void OnStickHitHappened()
+    {
+        _playerSounds.PlayStickSound();
+    }
+
+    private void OnStepHappened()
+    {
+        _playerSounds.PlayWalkSound();
     }
 
     private void OnDisable()
     {
         PlayerMovements.ReachedDestination -= OnDestinationPointReached;
+        _playerAnimations.RotationStarted -= OnRotationStarted;
+        _playerAnimations.RotationEnded -= OnRotationEnded;
     }
 
-    private void Awake()
+    private void OnRotationEnded()
     {
-        playerSounds = GetComponent<PlayerSounds>();
-        _playerMovements = GetComponent<PlayerMovements>();
-        _playerAnimations = GetComponent<PlayerAnimations>();
-        _newTargetPosX = 0;
+        _playerMovements.StartAgent();
     }
 
-    private void Update()
+    private void OnRotationStarted()
     {
-        Vector3 pos = transform.position;
-        pos.z = 0;
-        transform.position = pos;
+        _playerMovements.StopAgent();
+    }
 
-        if (_newTargetPosX != 0 && _newTargetPosX > transform.position.x)
+    public void SetNewTargetPosition(DestinationPoint destinationPoint)
+    {
+        StopAllCoroutines();
+        _currentDestinationPoint = destinationPoint;
+
+        _currentPointMoveDirection.y = -1;
+        if (_playerMovements.IsStayingOnPoint(_currentDestinationPoint.point))
         {
-            _horizontalDirection = 1;
+            _playerAnimations.SetDirection(_currentPointMoveDirection);
+            OnDestinationPointReached();
+            return;
         }
-        else if (_newTargetPosX != 0 && _newTargetPosX < transform.position.x)
+        
+        _currentPointMoveDirection.x = destinationPoint.point.x > transform.position.x ? 1 : -1;
+
+        _playerMovements.Move(_currentPointMoveDirection.x, _currentDestinationPoint.point);
+        _playerAnimations.SetDirection(_currentPointMoveDirection);
+        _playerAnimations.SetMoving(true);
+    }
+
+    public void TryApplyAnimParams(AnimatorParamSet animParamSet)
+    {
+        if (animParamSet == null)
         {
-            _horizontalDirection = -1;
-        }
-        else if (_newTargetPosX == 0)
-        {
-            _horizontalDirection = 0;
+            return;
         }
 
-        bool isMoving = (_newTargetPosX != 0);
-
-        if (isMoving)
+        if (animParamSet.IntParams != null)
         {
-            if (!_isWalkSoundPlaying)
+            foreach (var item in animParamSet.IntParams)
             {
-                playerSounds.PlayWalkSound();
-                _isWalkSoundPlaying = true;
-                _currTime = Time.time;
+                _playerAnimations.SetParam(item);
             }
+        }
+
+        if (animParamSet.BoolParams != null)
+        {
+            foreach (var item in animParamSet.BoolParams)
+            {
+                _playerAnimations.SetParam(item);
+            }
+        }
+    }
+
+    public void ProcessDeath()
+    {
+        Invoke(nameof(SetAnimatorDead), 0.5f);
+
+        if (_playerAnimations.IsSitting())
+        {
+            _playerSounds.PlayDeadSittingSound();
         }
         else
         {
-            playerSounds.StopWalkSound();
-            _isWalkSoundPlaying = false;
-            _isGruntTimerOn = false;
-        }
-
-        //if (_isGruntTimerOn)
-        //{
-        //    GruntTimer();
-        //}
-
-    }
-
-    private void FixedUpdate()
-    {
-        if (_newTargetPosX != 0)
-        {
-            _playerMovements.Move(_horizontalDirection, _currentDestinationPoint.point);
-        }
-
-        _playerAnimations.SetByVelocity(_playerMovements.GetVelocity());
-    }
-
-    public void TryApplyAnimParams(AnimatorIntParam[] animIntParams)
-    {
-        if (animIntParams.Length > 0)
-        {
-            foreach (var item in animIntParams)
-            {
-                _playerAnimations.SetByIntParam(item);
-            }
+            _playerSounds.PlayDeadSound();
         }
     }
 
-    public void SetAnimatorDead()
-    {
-        Invoke("SetDead", 0.5f);
-        playerSounds.PlayDeadSound();
-    }
-
-    private void SetDead()
+    private void SetAnimatorDead()
     {
         _playerAnimations.SetDead();
-        Invoke("StopAgent", 0.5f);
- 
+        Invoke(nameof(StopAgent), 0.5f);
     }
 
     private void StopAgent()
@@ -121,30 +127,30 @@ public class PlayerInput : MonoBehaviour
         _playerMovements.StopAgent();
     }
 
-    public void SetNewTargetPosition(DestinationPoint destinationPoint)
-    {
-        _currentDestinationPoint = destinationPoint;
-        _newTargetPosX = destinationPoint.point.x;
-        _isGruntTimerOn = true;
-    }
-
     private void OnDestinationPointReached()
     {
-        DestinationPointReached?.Invoke(_currentDestinationPoint);
-        SetDestinationToZero();
+        StartCoroutine(StopOnDestinationPoint());
     }
 
-    private void SetDestinationToZero()
+    private IEnumerator StopOnDestinationPoint()
     {
-        _newTargetPosX = 0;
-    }
+        _playerMovements.Stop();
+        _playerAnimations.SetMoving(false);
 
-    private void GruntTimer()
-    {
-        if (Time.time - _currTime > 2f)
+        Vector2Int direction = new Vector2Int(0, 0);
+        if (_currentDestinationPoint.item != null)
         {
-            playerSounds.PlayGrountSound();
-            _currTime = Time.time;
+            direction.x = _currentDestinationPoint.item.StayPoint.right.x > 0 ? 1 : -1;
+            direction.y = _currentDestinationPoint.item.StayPoint.right.y > 0 ? 1 : -1;
+            _playerAnimations.SetDirection(direction);
+
+            // waiting for rotation end
+            if (_currentPointMoveDirection.x != direction.x)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
         }
+
+        DestinationPointReached?.Invoke(_currentDestinationPoint);
     }
 }

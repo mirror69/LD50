@@ -28,10 +28,17 @@ public enum ItemType
 }
 
 [Serializable]
-public struct AnimatorIntParam
+public struct AnimatorParam<T>
 {
     public string Name;
-    public int Value;
+    public T Value;
+}
+
+[Serializable]
+public class AnimatorParamSet
+{
+    public AnimatorParam<int>[] IntParams;
+    public AnimatorParam<bool>[] BoolParams;
 }
 
 public class InteractableItem : MonoBehaviour
@@ -64,7 +71,10 @@ public class InteractableItem : MonoBehaviour
     public PlayableDirector OutTimeline { get; private set; }
 
     [field: SerializeField]
-    public AnimatorIntParam[] OutAnimatorIntParams { get; private set; }
+    public AnimatorParamSet InAnimatorParamSet { get; private set; }
+
+    [field: SerializeField]
+    public AnimatorParamSet OutAnimatorParamSet { get; private set; }
 
     public Action<InteractableItem> Clicked;
 

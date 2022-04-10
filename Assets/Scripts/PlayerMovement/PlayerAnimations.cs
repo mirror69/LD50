@@ -1,68 +1,82 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerSounds))]
 public class PlayerAnimations : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    private PlayerSounds playerSounds;
 
-    private void Start()
+    public event Action RotationStarted;
+    public event Action RotationEnded;
+    public event Action StepHappened;
+    public event Action StickHitHappened;
+
+    public bool IsSitting()
     {
-        playerSounds = GetComponent<PlayerSounds>();
+        return _animator.GetBool("IsSitting");
     }
 
-    public void SetByIntParam(AnimatorIntParam intParam)
+    public void SetParam(AnimatorParam<int> intParam)
     {
         _animator.SetInteger(intParam.Name, intParam.Value);
     }
 
-    public void SetByVelocity(Vector2 velocity)
+    public void SetParam(AnimatorParam<bool> param)
     {
-        int direction;
+        _animator.SetBool(param.Name, param.Value);
+    }
 
-        if (velocity.x < 0)
-        {
-            direction = -1;
+    public void SetMoving(bool isMoving)
+    {
+        _animator.SetBool("IsMoving", isMoving);
+    }
 
-        }
-        else if (velocity.x > 0)
-        {
-            direction = 1;
-
-        }
-        else
-        {
-            direction = 0;
-
-        }
-
-        _animator.SetInteger("XSpeed", direction);
+    public void SetDirection(Vector2Int direction)
+    {
+        _animator.SetInteger("XDirection", direction.x);
+        _animator.SetInteger("YDirection", direction.y);
     }
 
     public void SetDead()
     {
-        Invoke("DeadTrigger", 0.5f);
+        Invoke(nameof(DeadTrigger), 0.5f);
+    }
+
+    /// <summary>
+    /// Notify about rotation animation start (calling by animation signal)
+    /// </summary>
+    public void NotifyStartRotation()
+    {
+        RotationStarted?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about rotation animation end (calling by animation signal)
+    /// </summary>
+    public void NotifyEndRotation()
+    {
+        RotationEnded?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about step (calling by animation signal)
+    /// </summary>
+    public void NotifyStepHappened()
+    {
+        StepHappened?.Invoke();
+    }
+
+    /// <summary>
+    /// Notify about stick hited floor (calling by animation signal)
+    /// </summary>
+    public void NotifyStickHitHappened()
+    {
+        StickHitHappened?.Invoke();
     }
 
     private void DeadTrigger()
     {
-        playerSounds.StopWalkSound();
         _animator.SetTrigger("IsDead");
-    }
-
-    public void AnimatorStateChanger(bool isWalking)
-    {
-        if (isWalking)
-        {
-            _animator.SetBool("Walk", true);
-            _animator.SetBool("Idle", false);
-        }
-        else
-        {
-            _animator.SetBool("Walk", false);
-            _animator.SetBool("Idle", true);
-        }
     }
 }
