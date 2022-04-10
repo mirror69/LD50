@@ -592,7 +592,6 @@ GameObject:
   - component: {fileID: 1266376317}
   - component: {fileID: 1266376320}
   - component: {fileID: 1266376319}
-  - component: {fileID: 1266376318}
   m_Layer: 5
   m_Name: FadePanel
   m_TagString: Untagged
@@ -620,26 +619,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1266376318
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266376316}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1266376319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,8 +1148,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 1847502717445230447, guid: 2c817526f5990bb49aaa20696597df59, type: 2}
     value: {fileID: 0}
-  - key: {fileID: -2080042921939875476, guid: 2c817526f5990bb49aaa20696597df59, type: 2}
-    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &6152787217645766010
@@ -1189,7 +1166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6152787217645766011
 Transform:
   m_ObjectHideFlags: 0

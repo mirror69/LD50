@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -88,7 +89,7 @@ public class TextInCutScene : MonoBehaviour
             yield break;
         }
             string resText = textInCanvas.text + currentText[currentLetterIndex];
-        Debug.Log(resText);
+        //Debug.Log(resText);
 
         ShowPartOfText(resText);
         currentLetterIndex++;
