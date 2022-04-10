@@ -429,11 +429,12 @@ public class GameController : MonoBehaviour
     private void OnGameScreenCloseRequested(GameScreenResult gameScreenResult)
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
+        GameScreenController.BlackScreen.Activate(() => OnMinigameEnded(gameScreenResult));      
+    }
 
-
-        GameScreenController.BlackScreen.Activate(() => GameScreenController.CloseCurrentScreen());
-        
-
+    private void OnMinigameEnded(GameScreenResult gameScreenResult)
+    {
+        GameScreenController.CloseCurrentScreen();
         if (gameScreenResult == GameScreenResult.WinGame)
         {
             StopCurrentInteraction();
