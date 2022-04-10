@@ -17,6 +17,11 @@ public class PlayerAnimations : MonoBehaviour
         return _animator.GetBool("IsSitting");
     }
 
+    public void SetSitting(bool isSitting)
+    {
+        _animator.SetBool("IsSitting", isSitting);
+    }
+
     public void SetParam(AnimatorParam<int> intParam)
     {
         _animator.SetInteger(intParam.Name, intParam.Value);

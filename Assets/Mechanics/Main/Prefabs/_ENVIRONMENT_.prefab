@@ -334,8 +334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftBorder: -18
   rightBorder: 18
-  timeToZoom: 5
-  maxCameraSizeInZoom: 3.5
   playerTransform: {fileID: 0}
 --- !u!1 &5420375285924344924
 GameObject:
@@ -534,10 +532,12 @@ MonoBehaviour:
   TimeController: {fileID: 288554039485505420}
   GameScreenController: {fileID: 0}
   UIScreenController: {fileID: 0}
+  CameraController: {fileID: 0}
   KeyPressController: {fileID: 2120518461092270666}
   QuestStarter: {fileID: 0}
   Player: {fileID: 0}
   DeathTextsController: {fileID: 0}
+  MusicChanger: {fileID: 0}
   ChairItem: {fileID: 0}
   TVItem: {fileID: 0}
   _debugView: {fileID: 0}

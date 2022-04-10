@@ -2,56 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    public static CameraController Instance=null;
-
     [Header("Min and Max X axies values")]
     [SerializeField] float leftBorder;
     [SerializeField] float rightBorder;
 
     [Header("Zoom settings")]
-    [SerializeField] private float timeToZoom;
-    [SerializeField] private float maxCameraSizeInZoom;
+    [SerializeField] private float maxCameraSizeInZoom = 4;
 
     [Header("Main character")]
     [SerializeField] Transform playerTransform;
 
     private Camera mainCamera;
-    private float currentTime;
-    private float targetCameraSize;
-    private float startCameraSize;
+    private float initialCameraSize;
+    private float maxSizeDifference;
+
+    private bool isWinMode;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        mainCamera = Camera.main;
+        initialCameraSize = mainCamera.orthographicSize;
 
-        else
-            Destroy(this);
-
-        mainCamera = GetComponent<Camera>();
-    }
-
-    private void Start()
-    {
-        currentTime = timeToZoom;
-        startCameraSize = mainCamera.orthographicSize;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-            ZoomCamera();
-        if (Input.GetKeyDown(KeyCode.X))
-            ResetCamera();
-
-        if (currentTime<timeToZoom)
-        {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetCameraSize, currentTime * Time.deltaTime);
-            currentTime += Time.deltaTime;
-        }
+        maxSizeDifference = Mathf.Abs(initialCameraSize - maxCameraSizeInZoom);
     }
 
     private void LateUpdate()
@@ -59,7 +33,29 @@ public class CameraController : MonoBehaviour
         SetNewCameraPosition();
     }
 
-    private void SetNewCameraPosition ()
+    public void SetWinModeOn()
+    {
+        isWinMode = true;
+    }
+
+    public Vector2 GetPlayerPosition()
+    {
+        return playerTransform.position;
+    }
+
+    public void ZoomCamera(float time)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ProcessZoom(maxCameraSizeInZoom, time));
+    }
+
+    public void ResetCamera(float time)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ProcessZoom(initialCameraSize, time));
+    }
+
+    private void SetNewCameraPosition()
     {
         Vector3 newCameraPosition = transform.position;
 
@@ -76,27 +72,42 @@ public class CameraController : MonoBehaviour
             newCameraPosition.x = playerTransform.position.x;
         }
 
+        //if (isWinMode)
+        //{
+        //    newCameraPosition.x = playerTransform.position.x;
+        //    newCameraPosition.x = Mathf.Lerp(transform.position.x, newCameraPosition.x, Time.deltaTime / 10);
+        //}
+
         transform.position = newCameraPosition;
     }
 
-    public Vector3 GetPlayerPosition ()
+    private IEnumerator ProcessZoom(float targetSize, float time)
     {
-        return playerTransform.position;
+        if (mainCamera.orthographicSize == targetSize)
+        {
+            yield break;
+        }
+
+        float difference = targetSize - mainCamera.orthographicSize;
+        time *= Mathf.Abs(difference / maxSizeDifference);
+        float currentTime = 0;
+        float startSize = mainCamera.orthographicSize;
+        while (currentTime < time)
+        {
+            mainCamera.orthographicSize = startSize + difference * EaseInOutSine(currentTime / time);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+        mainCamera.orthographicSize = targetSize;
     }
 
-    private void ChangeCameraZoom (float zoomValue)
+    private float EaseOutSine(float x)
     {
-        currentTime = 0;
-        targetCameraSize = zoomValue;
+        return Mathf.Sin(x * Mathf.PI / 2);
     }
 
-    public void ZoomCamera ()
+    private float EaseInOutSine(float x)
     {
-        ChangeCameraZoom(maxCameraSizeInZoom);
-    }
-
-    public void ResetCamera ()
-    {
-        ChangeCameraZoom(startCameraSize);
+        return -(Mathf.Cos(Mathf.PI * x) - 1) / 2;
     }
 }

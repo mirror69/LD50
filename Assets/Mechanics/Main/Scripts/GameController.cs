@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private UIScreenController UIScreenController;
     [SerializeField]
+    private CameraController CameraController;
+    [SerializeField]
     private KeyPressController KeyPressController;
     [SerializeField]
     private QuestStarter QuestStarter;
@@ -61,6 +63,7 @@ public class GameController : MonoBehaviour
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
 
         UIScreenController.Init(_uiEventMediator);
+        QuestStarter.Init(CameraController, GameSettings);
 
         _gameData = new GameData();
         _gameData.Init(GameSettings);
@@ -177,17 +180,26 @@ public class GameController : MonoBehaviour
     private void ProcessWinAfterDelay(int delay)
     {
         KeyPressController.SetNotListeningMode();
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         TimeController.StopTime();
         Invoke(nameof(ProcessWinActions), delay);
     }
 
     private void ProcessWinActions()
     {
-        KeyPressController.SetNotListeningMode();
+        StopCurrentInteraction();
         TimeController.StopTime();
+
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        KeyPressController.SetNotListeningMode();
+        
+        Player.ProcessWin();
+        MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
+        CameraController.SetWinModeOn();
+        CameraController.ZoomCamera(GameSettings.CameraSettings.GoodEndingCameraZoomTime);
+
         finalTimeLine.Play();
-        //_debugView.ShowWinScreen();
-        //Invoke(nameof(ShowCredits), 2);
+        finalTimeLine.stopped += (d) => LoadMainMenu();
     }
 
 
@@ -198,6 +210,7 @@ public class GameController : MonoBehaviour
         if (_gameData.CurrentInteractingItem != ChairItem && _gameData.CurrentInteractingItem != TVItem)
         {
             StopCurrentInteraction();
+            TimeController.StopTime();
             while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
             {
                 yield return null;
@@ -261,7 +274,7 @@ public class GameController : MonoBehaviour
 
     private void StartMiniGame(InteractableItem item)
     {
-        MusicChanger.OnMinigameMode();
+        MusicChanger.SetMinigameModeOn();
         GameScreenController.ShowItemScreen(item.Type);
         GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
     }
@@ -305,7 +318,7 @@ public class GameController : MonoBehaviour
                     TimeController.ResumeTime();
                     destinationPoint.item.ResetDraw();
                     ProcessItemInteraction(destinationPoint.item);
-                    QuestStarter.Enable(destinationPoint);
+                    QuestStarter.Enable(destinationPoint.point);
                     return;
                 }
                 else
@@ -364,7 +377,7 @@ public class GameController : MonoBehaviour
 
         if (isBadInteraction || _goToChairToWatchTV)
         {
-            QuestStarter.Enable(destinationPoint);
+            QuestStarter.Enable(destinationPoint.point);
         }
         else
         {
@@ -419,7 +432,7 @@ public class GameController : MonoBehaviour
             StopCurrentInteraction(ItemTimerType.BadItem);
         }
 
-        MusicChanger.OffMinigameMode();
+        MusicChanger.SetMinigameModeOff();
     }
 
     private void RefreshDebugView()

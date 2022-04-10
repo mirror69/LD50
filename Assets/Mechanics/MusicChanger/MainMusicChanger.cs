@@ -39,18 +39,26 @@ public class MainMusicChanger : MonoBehaviour
     private float goodMusicTargetVolume;
     private float badMusicTargetVolume;
 
-    private bool _isMinigame;
+    private bool _isWinMode;
 
-    public void OnMinigameMode()
+    public void SetMinigameModeOn()
     {
         goodMusicAudioSource.volume = minVolumeValue;
         badMusicAudioSource.volume = minVolumeValue;
         enabled = false;
     }
 
-    public void OffMinigameMode()
+    public void SetMinigameModeOff()
     {
         enabled = true;
+    }
+
+    public void SetWinModeOn(float fadeOutDuration)
+    {
+        _isWinMode = true;
+        clickHandler.DestinationPointClicked -= ClickHandler_DestinationPointClicked;
+        StartCoroutine(ProcessFadeOut(goodMusicAudioSource, fadeOutDuration));
+        StartCoroutine(ProcessFadeOut(badMusicAudioSource, fadeOutDuration));     
     }
 
     private void OnEnable()
@@ -107,6 +115,10 @@ public class MainMusicChanger : MonoBehaviour
 
     private void Update()
     {
+        if (_isWinMode)
+        {
+            return;
+        }
         goodMusicAudioSource.volume = Mathf.Lerp(goodMusicAudioSource.volume, goodMusicTargetVolume, Time.deltaTime * 5);
         badMusicAudioSource.volume = Mathf.Lerp(badMusicAudioSource.volume, badMusicTargetVolume, Time.deltaTime * 5);
 
@@ -123,5 +135,17 @@ public class MainMusicChanger : MonoBehaviour
                 timeLineIndex = 0;
             }
         }
+    }
+
+    private IEnumerator ProcessFadeOut(AudioSource audioSource, float duration)
+    {
+        float speed = (maxVolumeValue - minVolumeValue) / duration;
+
+        while (audioSource.volume > minVolumeValue)
+        {
+            audioSource.volume -= speed * Time.deltaTime;
+            yield return null;
+        }
+        audioSource.volume = minVolumeValue;
     }
 }

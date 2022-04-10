@@ -6,22 +6,30 @@ public class QuestStarter : MonoBehaviour
 {
     [SerializeField] float distanceToStartQuest;
 
-    private bool CharacterIsNear;
+    private CameraController _cameraController;
+    private GameSettings _gameSettings;
+
     private bool questIsActivated;
 
-    private DestinationPoint _currentDestinationPoint;
+
+    private Vector2 _currentDestinationPoint;
 
     private void Update()
     {
-        if (Mathf.Abs(_currentDestinationPoint.point.x - CameraController.Instance.GetPlayerPosition().x) < distanceToStartQuest)
+        if (Mathf.Abs(_currentDestinationPoint.x - _cameraController.GetPlayerPosition().x) < distanceToStartQuest)
         {
-            CharacterIsNear = true;
             if (!questIsActivated)
                 StartQuest();
         }
     }
 
-    public void Enable(DestinationPoint destinationPoint)
+    public void Init(CameraController cameraController, GameSettings gameSettings)
+    {
+        _cameraController = cameraController;
+        _gameSettings = gameSettings;
+    }
+
+    public void Enable(Vector2 destinationPoint)
     {
         _currentDestinationPoint = destinationPoint;
         gameObject.SetActive(true);
@@ -33,17 +41,17 @@ public class QuestStarter : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void StartQuest ()
+    private void StartQuest()
     {
         questIsActivated = true;
-        Debug.Log("Quest is STARTED");
-        CameraController.Instance.ZoomCamera();
+        //Debug.Log("Quest is STARTED");
+        _cameraController.ZoomCamera(_gameSettings.CameraSettings.BadItemZoomInTime);
     }
 
-    private void EndQuest ()
+    private void EndQuest()
     {
-        Debug.Log("Quest is ENDED");
+        //Debug.Log("Quest is ENDED");
         questIsActivated = false;
-        CameraController.Instance.ResetCamera();
+        _cameraController.ResetCamera(_gameSettings.CameraSettings.BadItemZoomOutTime);
     }
 }
