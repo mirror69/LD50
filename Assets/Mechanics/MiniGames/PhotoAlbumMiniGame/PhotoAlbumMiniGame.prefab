@@ -2303,8 +2303,8 @@ MonoBehaviour:
   localCanvasWithSlider: {fileID: 3163259615336914525}
   leftSlider: {fileID: 712562136470950148}
   photoWithBlur: {fileID: 8183196630237063169}
-  alphaEnoughtAccuracy: 0.01
-  focusSliderValue: 0
+  alphaEnoughtAccuracy: 0.05
+  blurValueIfMiss: 155
 --- !u!95 &2779152388152764701
 Animator:
   serializedVersion: 4

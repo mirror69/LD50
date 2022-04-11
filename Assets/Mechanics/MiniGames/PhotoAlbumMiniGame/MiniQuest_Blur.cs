@@ -17,7 +17,7 @@ public class MiniQuest_Blur : MiniQuest
     private float alphaEnoughtAccuracy = 0.005f;
 
     [SerializeField]
-    private float focusSliderValue;
+    private float blurValueIfMiss;
 
     private bool sliderIsNear;
 
@@ -30,6 +30,11 @@ public class MiniQuest_Blur : MiniQuest
     {
         Color color = photoWithBlur.color;
         color.a = Mathf.Abs(sliderValue);
+        if (color.a > alphaEnoughtAccuracy)
+        {
+            color.a = blurValueIfMiss;
+        }
+
         photoWithBlur.color = color;
     }
 
@@ -37,8 +42,15 @@ public class MiniQuest_Blur : MiniQuest
     {
         if (photoWithBlur.color.a < alphaEnoughtAccuracy && !questIsDone)
         {
+            Debug.Log("IsNear");
             sliderIsNear = true;
             StartCoroutine(CheckSliderIsNear());
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("UnInteractable");
+
+                leftSlider.interactable = false;
+            }
         }
         else
         {
