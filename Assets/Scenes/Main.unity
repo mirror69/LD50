@@ -2351,8 +2351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2578c7d1fff2b634980f84e2e7cc3a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorder: -0.5
-  rightBorder: 0.5
+  borderBackground: {fileID: 7990103628718895742}
   maxCameraSizeInZoom: 4
   playerTransform: {fileID: 2124656820}
 --- !u!114 &1925253301
@@ -2929,3 +2928,8 @@ PrefabInstance:
       objectReference: {fileID: 381062960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d21dbf4f25b0c4097a0a99f0cfbb7d, type: 3}
+--- !u!212 &7990103628718895742 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7990103628859800878, guid: c6d21dbf4f25b0c4097a0a99f0cfbb7d, type: 3}
+  m_PrefabInstance: {fileID: 7990103628718895741}
+  m_PrefabAsset: {fileID: 0}

@@ -203,6 +203,7 @@ public class GameController : MonoBehaviour
         
         Player.ProcessWin();
         MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
+        CameraController.FollowRightEdge(GameSettings.CameraSettings.GoodEndingCameraMoveSpeed);
         CameraController.ZoomCamera(GameSettings.CameraSettings.GoodEndingCameraZoomTime);
 
         finalTimeLine.Play();
