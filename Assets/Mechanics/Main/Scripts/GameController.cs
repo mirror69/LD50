@@ -312,7 +312,7 @@ public class GameController : MonoBehaviour
         {
             if (_gameData.CurrentInteractingItem == destinationPoint.item)
             {
-                // forbid to interact the item which is using now,
+                // Forbid to interact the item which is using now,
                 // but allow to turn off TV
                 if (_gameData.CurrentInteractingItem.Type == ItemType.TV)
                 {
@@ -324,6 +324,8 @@ public class GameController : MonoBehaviour
             }
             else if (destinationPoint.item.Type == ItemType.TV)
             {
+                // If we sit on chair, then turn on TV immediately.
+                // Otherwise, we need to go to the chair first
                 if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null 
                     && _gameData.LastReachedDestinationPoint.item.Type == ItemType.Chair)
                 {
@@ -342,6 +344,7 @@ public class GameController : MonoBehaviour
             else if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.TV 
                 && destinationPoint.item.Type == ItemType.Chair)
             {
+                // Turn off TV if we clicked on chair
                 StopCurrentInteraction();
                 QuestStarter.Disable();
                 return;
@@ -352,18 +355,21 @@ public class GameController : MonoBehaviour
 
         if (!destinationPoint.IsEqual(_gameData.LastReachedDestinationPoint))
         {
-            if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null)
+            // If we sit on chair, then we need to stand up before to go to another point
+            if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null
+                && _gameData.LastReachedDestinationPoint.item.Type == ItemType.Chair)
             {
-                _gameData.SetCurrentInteraction(_gameData.LastReachedDestinationPoint.item);
+                _gameData.SetCurrentInteraction(ChairItem);
                 StopCurrentInteraction();
-            }
-            _gameData.SetLastReachedDestinationPoint(null);
+            }        
             StartCoroutine(StartMoveToPoint(destinationPoint));
         }
     }
 
     private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
     {
+        _gameData.SetLastReachedDestinationPoint(null);
+
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
         {
