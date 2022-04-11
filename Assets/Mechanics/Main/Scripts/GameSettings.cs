@@ -50,6 +50,7 @@ public struct CameraSettings
     public float BadItemZoomInTime;
     public float BadItemZoomOutTime;
     public float GoodEndingCameraZoomTime;
+    public float GoodEndingCameraMoveSpeed;
 }
 
 [System.Serializable]

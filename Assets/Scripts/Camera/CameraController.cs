@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CameraMoveMode
+{
+    None = 0,
+    FollowPlayer = 1,
+    FollowRightEdge = 2
+}
+
 public class CameraController : MonoBehaviour
 {
-    [Header("Min and Max X axies values")]
-    [SerializeField] float leftBorder;
-    [SerializeField] float rightBorder;
+    [SerializeField] SpriteRenderer borderBackground;
 
     [Header("Zoom settings")]
     [SerializeField] private float maxCameraSizeInZoom = 4;
@@ -15,8 +20,14 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform playerTransform;
 
     private Camera mainCamera;
+    private float leftBorder;
+    private float rightBorder;
+
     private float initialCameraSize;
     private float maxSizeDifference;
+
+    private float moveSpeed;
+    private CameraMoveMode moveMode;
 
     private void Awake()
     {
@@ -24,11 +35,24 @@ public class CameraController : MonoBehaviour
         initialCameraSize = mainCamera.orthographicSize;
 
         maxSizeDifference = Mathf.Abs(initialCameraSize - maxCameraSizeInZoom);
+
+        leftBorder = borderBackground.transform.position.x + 
+            borderBackground.sprite.bounds.min.x * borderBackground.transform.lossyScale.x;
+        rightBorder = borderBackground.transform.position.x + 
+            borderBackground.sprite.bounds.max.x * borderBackground.transform.lossyScale.x;
+
+        moveMode = CameraMoveMode.FollowPlayer;
     }
 
     private void LateUpdate()
     {
         SetNewCameraPosition();
+    }
+
+    public void FollowRightEdge(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+        moveMode = CameraMoveMode.FollowRightEdge;
     }
 
     public Vector2 GetPlayerPosition()
@@ -50,19 +74,29 @@ public class CameraController : MonoBehaviour
 
     private void SetNewCameraPosition()
     {
+        Vector3 leftBottomCameraPoint = mainCamera.ScreenToWorldPoint(Vector3.zero);
+        Vector3 rightTopCameraPoint = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        float halfCameraWidth = 0.5f * (rightTopCameraPoint.x - leftBottomCameraPoint.x);
+
         Vector3 newCameraPosition = transform.position;
 
-        if (playerTransform.position.x < leftBorder)
-        {
-            newCameraPosition.x = leftBorder;
-        }
-        else if (playerTransform.position.x > rightBorder)
-        {
-            newCameraPosition.x = rightBorder;
-        }
-        else
+        if (moveMode == CameraMoveMode.FollowPlayer)
         {
             newCameraPosition.x = playerTransform.position.x;
+        }
+        else if (moveMode == CameraMoveMode.FollowRightEdge)
+        {
+            newCameraPosition.x = playerTransform.position.x;
+            newCameraPosition.x = transform.position.x + moveSpeed * Time.deltaTime;
+        }
+
+        if (newCameraPosition.x + halfCameraWidth > rightBorder)
+        {
+            newCameraPosition.x = rightBorder - halfCameraWidth;
+        }
+        else if (newCameraPosition.x - halfCameraWidth < leftBorder)
+        {
+            newCameraPosition.x = leftBorder + halfCameraWidth;
         }
 
         transform.position = newCameraPosition;
