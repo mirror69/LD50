@@ -14,6 +14,9 @@ public class GameSettings : ScriptableObject
 
     [field: SerializeField]
     public SoundSettings SoundSettings { get; private set; }
+
+    [field: SerializeField]
+    public UISettings UISettings { get; private set; }
 }
 
 [System.Serializable]
@@ -57,4 +60,10 @@ public struct CameraSettings
 public struct SoundSettings
 {
     public float MainMusicFadeOutTimeAfterWin;
+}
+
+[System.Serializable]
+public struct UISettings
+{
+    public float CreditsMoveSpeed;
 }

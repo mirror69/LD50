@@ -16,9 +16,9 @@ public class CreditsScreen : UIScreen
     [SerializeField]
     private TMP_Text MainMenuButtonText;
 
-    public override void Init(UIEventMediator uiEventMediator)
+    public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
-        base.Init(uiEventMediator);
+        base.Init(gameSettings, uiEventMediator);
         mainMenuButton.onClick.AddListener(_uiEventMediator.RequestMainMenu);
 
         
@@ -36,7 +36,7 @@ public class CreditsScreen : UIScreen
         if (active)
         {
             Invoke(nameof(SetActiveMenuButton), 3);
-            MovingPanel.DOMoveY(MovingPanel.rect.height, 160);
+            MovingPanel.DOMoveY(MovingPanel.rect.height, 160 / _gameSettings.UISettings.CreditsMoveSpeed);
         }
     }
 
