@@ -31,10 +31,12 @@ public abstract class UIScreen : MonoBehaviour
     public UIScreen ParentScreen { get; private set; } = null;
 
     protected UIEventMediator _uiEventMediator;
+    protected GameSettings _gameSettings;
 
-    public virtual void Init(UIEventMediator uiEventMediator)
+    public virtual void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
         _uiEventMediator = uiEventMediator;
+        _gameSettings = gameSettings;
 
         if (childScreenButtons.Length > 0)
         {

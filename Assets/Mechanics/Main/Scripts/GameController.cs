@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour
         _uiEventMediator.StartNewGameRequested += StartNewGame;
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
 
-        UIScreenController.Init(_uiEventMediator);
+        UIScreenController.Init(GameSettings, _uiEventMediator);
         QuestStarter.Init(CameraController, GameSettings);
 
         _gameData = new GameData();

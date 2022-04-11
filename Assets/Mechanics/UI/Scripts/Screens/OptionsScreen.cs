@@ -13,9 +13,9 @@ public class OptionsScreen : UIScreen
     [SerializeField]
     private IntroOptionsPanel introOptionsPanel = null;
 
-    public override void Init(UIEventMediator uiEventMediator)
+    public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
-        base.Init(uiEventMediator);
+        base.Init(gameSettings, uiEventMediator);
         soundOptionsPanel.Init(uiEventMediator);
         introOptionsPanel.Init();
     }

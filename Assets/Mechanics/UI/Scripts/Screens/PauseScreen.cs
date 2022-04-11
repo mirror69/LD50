@@ -15,9 +15,9 @@ public class PauseScreen : UIScreen
     [Tooltip("Кнопка выхода из игры")]
     private Button quitButton = null;
 
-    public override void Init(UIEventMediator uiEventMediator)
+    public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
-        base.Init(uiEventMediator);
+        base.Init(gameSettings, uiEventMediator);
         resumeButton.onClick.AddListener(_uiEventMediator.RequestResumeGame);
         quitButton.onClick.AddListener(_uiEventMediator.RequestQuit);
     }
