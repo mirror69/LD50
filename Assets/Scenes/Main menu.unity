@@ -942,7 +942,7 @@ MonoBehaviour:
   - person: Daughter
     phrase: 'What are you saying? '
   - person: Daughter
-    phrase: I will come now! You hear me? I'll be right there!
+    phrase: I'm coming to you! You hear me? I'll be there in 25 minutes!
   timeBetweenLetters: 0.1
   timeBetweenPhrases: 1
 --- !u!95 &1670443474
