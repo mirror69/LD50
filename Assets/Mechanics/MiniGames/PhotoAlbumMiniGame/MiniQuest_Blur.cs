@@ -16,8 +16,23 @@ public class MiniQuest_Blur : MiniQuest
     [SerializeField]
     private float alphaEnoughtAccuracy = 0.005f;
 
+    [Header("Borders")]
     [SerializeField]
-    private float blurValueIfMiss;
+    private float firstBorder;
+    [SerializeField]
+    private float secondBorder;
+    [SerializeField]
+    private float thirdBorder;
+
+    [Header("BlurValues")]
+    [SerializeField]
+    private float firstBlurValueIfMiss;
+    [SerializeField]
+    private float secondBlurValueIfMiss;
+    [SerializeField]
+    private float thirdBlurValueIfMiss;
+    [SerializeField]
+    private float fourthBlurValueIfMiss;
 
     private bool sliderIsNear;
 
@@ -30,9 +45,21 @@ public class MiniQuest_Blur : MiniQuest
     {
         Color color = photoWithBlur.color;
         color.a = Mathf.Abs(sliderValue);
-        if (color.a > alphaEnoughtAccuracy)
+        if (color.a >= firstBorder)
         {
-            color.a = blurValueIfMiss;
+            color.a = firstBlurValueIfMiss;
+        }
+        else if (color.a >= secondBorder && color.a < firstBorder)
+        {
+            color.a = secondBlurValueIfMiss;
+        }
+        else if (color.a >= thirdBorder && color.a < secondBorder)
+        {
+            color.a = thirdBlurValueIfMiss;
+        }
+        else if (color.a > alphaEnoughtAccuracy && color.a < thirdBorder)
+        {
+            color.a = fourthBlurValueIfMiss;
         }
 
         photoWithBlur.color = color;
@@ -40,6 +67,7 @@ public class MiniQuest_Blur : MiniQuest
 
     private void Update()
     {
+        Debug.Log(photoWithBlur.color.a);
         if (photoWithBlur.color.a < alphaEnoughtAccuracy && !questIsDone)
         {
             Debug.Log("IsNear");
@@ -47,7 +75,7 @@ public class MiniQuest_Blur : MiniQuest
             StartCoroutine(CheckSliderIsNear());
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("UnInteractable");
+
 
                 leftSlider.interactable = false;
             }
