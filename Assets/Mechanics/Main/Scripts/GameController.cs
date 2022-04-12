@@ -231,6 +231,9 @@ public class GameController : MonoBehaviour
         }
 
         Player.ProcessDeath();
+
+        yield return new WaitForSeconds(GameSettings.UISettings.GameOverShowDelay);
+
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
     }
