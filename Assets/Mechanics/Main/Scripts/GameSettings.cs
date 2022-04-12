@@ -65,5 +65,8 @@ public struct SoundSettings
 [System.Serializable]
 public struct UISettings
 {
+    public float ButtonsFadeDuration;
     public float CreditsMoveSpeed;
+    public float CreditsButtonsShowDelay;
+    public float GameOverButtonsShowDelay;
 }

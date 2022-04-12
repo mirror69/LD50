@@ -34,4 +34,7 @@ MonoBehaviour:
   <SoundSettings>k__BackingField:
     MainMusicFadeOutTimeAfterWin: 1.5
   <UISettings>k__BackingField:
+    ButtonsFadeDuration: 3
     CreditsMoveSpeed: 2
+    CreditsButtonsShowDelay: 3
+    GameOverButtonsShowDelay: 4

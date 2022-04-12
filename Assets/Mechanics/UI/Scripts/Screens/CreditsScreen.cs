@@ -11,11 +11,6 @@ public class CreditsScreen : UIScreen
     [SerializeField]
     private RectTransform MovingPanel;
 
-    [SerializeField]
-    private Image MainMenuButtonImage;
-    [SerializeField]
-    private TMP_Text MainMenuButtonText;
-
     public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
         base.Init(gameSettings, uiEventMediator);
@@ -26,7 +21,7 @@ public class CreditsScreen : UIScreen
         position.y -= GetComponentInParent<RectTransform>().rect.height;
         MovingPanel.anchoredPosition = position;
 
-        mainMenuButton.gameObject.SetActive(false);
+        HideButtons();
     }
 
     public override void SetActive(bool active)
@@ -35,23 +30,12 @@ public class CreditsScreen : UIScreen
 
         if (active)
         {
-            Invoke(nameof(SetActiveMenuButton), 3);
+            Invoke(nameof(ShowButtonsSmooth), _gameSettings.UISettings.CreditsButtonsShowDelay);
             MovingPanel.DOMoveY(MovingPanel.rect.height, 160 / _gameSettings.UISettings.CreditsMoveSpeed);
         }
-    }
-
-    private void SetActiveMenuButton()
-    {
-        Color color = MainMenuButtonText.color;
-        color.a = 0;
-        MainMenuButtonText.color = color;
-
-        color = MainMenuButtonImage.color;
-        color.a = 0;
-        MainMenuButtonImage.color = color;
-        mainMenuButton.gameObject.SetActive(true);
-
-        MainMenuButtonText.DOFade(1, 3);
-        MainMenuButtonImage.DOFade(1, 3);
+        else
+        {
+            HideButtons();
+        }
     }
 }
