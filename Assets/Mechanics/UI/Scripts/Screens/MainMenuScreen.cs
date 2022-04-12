@@ -15,11 +15,9 @@ public class MainMenuScreen : UIScreen
     [Tooltip("Кнопка выхода из игры")]
     private Button quitButton = null;
     
-    public override void Init(UIEventMediator uiEventMediator)
+    public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
-        base.Init(uiEventMediator);
-        //playButton.onClick.AddListener(() => GameManager.Instance.Controller.StartNewGame());
-        //quitButton.onClick.AddListener(() => GameManager.Instance.Controller.Quit());
+        base.Init(gameSettings, uiEventMediator);
         playButton.onClick.AddListener(_uiEventMediator.RequestStartNewGame);
         quitButton.onClick.AddListener(_uiEventMediator.RequestQuit);
     }
