@@ -15,12 +15,12 @@ MonoBehaviour:
   <TimeSettings>k__BackingField:
     NormalTimeSpeed: 1
     SecondsToDeath: 80
-    MaxTimeOfBadItemUse: 16
+    MaxTimeOfBadItemUse: 18
     TimeAfterShortBadItemUse: 26
-    TimeAfterLongBadItemUse: 12
+    TimeAfterLongBadItemUse: 16
     BadProgressionDivider: 2
     MinTimeAfterGoodItemUse: 40
-    SecondsToWin: 30
+    SecondsToWin: 36
     GoodItemCountToWin: 3
     WinDelayAfterLastItemUse: 3
   <SceneSettings>k__BackingField:
