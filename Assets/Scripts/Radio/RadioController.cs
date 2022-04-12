@@ -16,7 +16,7 @@ public class RadioController : MonoBehaviour
     [SerializeField] private AudioSource _noizeSource;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private GameObject _niddleObj;
-    [SerializeField] private GameObject buttonSwitcher;
+    [SerializeField] private ColliderBasedButton buttonSwitcher;
     [SerializeField] private Sprite onButtonSprite;
     [SerializeField] private Sprite offButtonSprite;
     [SerializeField] private Animator plateAnimator;
@@ -46,6 +46,8 @@ public class RadioController : MonoBehaviour
     float musicVolume;
     float noiseVolume;
 
+    private SpriteRenderer switcherSpriteRenderer;
+
     private void Start()
     {
         if (_musicPositionOnSlider != Mathf.Clamp(_musicPositionOnSlider, 0f, 1f))
@@ -59,7 +61,19 @@ public class RadioController : MonoBehaviour
         }
         plateAnimator.speed = 0;
         _niddleObj.transform.rotation = Quaternion.Euler(0, 0, -30);
-        buttonSwitcher.GetComponent<Image>().sprite = onButtonSprite;
+
+        switcherSpriteRenderer = buttonSwitcher.GetComponent<SpriteRenderer>();
+        switcherSpriteRenderer.sprite = onButtonSprite;
+    }
+
+    private void OnEnable()
+    {
+        buttonSwitcher.Pressed += OnSwitcherClick;
+    }
+
+    private void OnDisable()
+    {
+        buttonSwitcher.Pressed -= OnSwitcherClick;
     }
 
     public void OnSwitcherClick()
@@ -67,13 +81,13 @@ public class RadioController : MonoBehaviour
         if (isOn && !needleIsOnPlace)
         {
             isOn = false;
-            buttonSwitcher.GetComponent<Image>().sprite = onButtonSprite;
+            switcherSpriteRenderer.sprite = onButtonSprite;
             plateAnimator.speed = 0;
         }
         else if (!isOn && !needleIsOnPlace)
         {
             isOn = true;
-            buttonSwitcher.GetComponent<Image>().sprite = offButtonSprite;
+            switcherSpriteRenderer.sprite = offButtonSprite;
             plateAnimator.speed = _plateSpeed;
             _musicSource.Play();
             _noizeSource.Play();
