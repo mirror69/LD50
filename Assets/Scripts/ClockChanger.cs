@@ -12,11 +12,12 @@ public class ClockChanger : MonoBehaviour
     private GameScreen[] miniGameScreens;
 
     private SpriteRenderer spriteRenderer;
-    private static int spriteIndex = 0;
+    private static int spriteIndex;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteIndex = 0;
         spriteRenderer.sprite = clockSprites[spriteIndex];
     }
 
