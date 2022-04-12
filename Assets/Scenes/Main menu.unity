@@ -313,10 +313,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScreenController
       objectReference: {fileID: 0}
-    - target: {fileID: 957980881856074966, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 957980881856074967, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -425,16 +421,16 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6705933440730389209, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7373347963946463850, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7373347963946463850, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855207879368778478, guid: 492f2847f2c46b44a8a912d4acc85d8c, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

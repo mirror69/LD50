@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 0;
         KeyPressController.SetMenuMode();
-        UIScreenController.ShowMainMenuScreen();
+        UIScreenController.ShowPauseScreen();
     }
 
     private void ResumeGame()
