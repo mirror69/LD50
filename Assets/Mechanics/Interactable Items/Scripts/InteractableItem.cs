@@ -39,16 +39,7 @@ public class InteractableItem : MonoBehaviour
     public Transform StayPoint { get; private set; }
 
     [field: SerializeField]
-    public Transform LeftInteractionPoint { get; private set; }
-
-    [field: SerializeField]
-    public Transform RightInteractionPoint { get; private set; }
-
-    [field: SerializeField]
     public InteractableItemDrawer Drawer { get; private set; }
-
-    [field: SerializeField]
-    public GameScreen GameScreen { get; private set; }
 
     [field: SerializeField]
     public PlayableDirector InTimeline { get; private set; }
