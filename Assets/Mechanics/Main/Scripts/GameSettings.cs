@@ -67,6 +67,7 @@ public struct UISettings
 {
     public float ButtonsFadeDuration;
     public float CreditsMoveSpeed;
+    public float GameOverShowDelay;
     public float CreditsButtonsShowDelay;
     public float GameOverButtonsShowDelay;
 }

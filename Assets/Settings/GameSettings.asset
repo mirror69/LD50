@@ -36,5 +36,6 @@ MonoBehaviour:
   <UISettings>k__BackingField:
     ButtonsFadeDuration: 3
     CreditsMoveSpeed: 2
+    GameOverShowDelay: 2.5
     CreditsButtonsShowDelay: 3
     GameOverButtonsShowDelay: 4
