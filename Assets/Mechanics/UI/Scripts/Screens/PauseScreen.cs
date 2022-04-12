@@ -12,13 +12,13 @@ public class PauseScreen : UIScreen
     private Button resumeButton = null;
 
     [SerializeField]
-    [Tooltip("Кнопка выхода из игры")]
-    private Button quitButton = null;
+    [Tooltip("Кнопка выхода в меню")]
+    private Button mainMenuButton = null;
 
     public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
         base.Init(gameSettings, uiEventMediator);
         resumeButton.onClick.AddListener(_uiEventMediator.RequestResumeGame);
-        quitButton.onClick.AddListener(_uiEventMediator.RequestQuit);
+        mainMenuButton.onClick.AddListener(_uiEventMediator.RequestMainMenu);
     }
 }
