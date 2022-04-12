@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +17,10 @@ public abstract class UIScreen : MonoBehaviour
     [SerializeField]
     [Tooltip("")]
     private BackScreenButton backScreenButton = null;
+
+    [SerializeField]
+    [Tooltip("")]
+    protected CanvasGroup buttonGroup = null;
 
     /// <summary>
     /// Активен ли экран в данный момент
@@ -46,7 +49,10 @@ public abstract class UIScreen : MonoBehaviour
             }
         }
 
-        backScreenButton?.Init(_uiEventMediator);
+        if (backScreenButton != null)
+        {
+            backScreenButton.Init(_uiEventMediator);
+        }     
     }
 
     /// <summary>
@@ -72,5 +78,17 @@ public abstract class UIScreen : MonoBehaviour
     public void SetParent(UIScreen parentScreen)
     {
         ParentScreen = parentScreen;
+    }
+
+    protected void HideButtons()
+    {
+        buttonGroup.alpha = 0;
+        buttonGroup.gameObject.SetActive(true);
+    }
+
+    protected void ShowButtonsSmooth()
+    {
+        buttonGroup.gameObject.SetActive(true);
+        buttonGroup.DOFade(1, _gameSettings.UISettings.ButtonsFadeDuration);
     }
 }

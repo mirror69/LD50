@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   childScreenButtons: []
   backScreenButton: {fileID: 0}
+  buttonGroup: {fileID: 957980882322002046}
   restartButton: {fileID: 957980880796388554}
   mainMenuButton: {fileID: 957980881894742484}
 --- !u!1 &957980881856074966
@@ -2728,6 +2729,7 @@ MonoBehaviour:
   childScreenButtons:
   - {fileID: 8139727396099029299}
   backScreenButton: {fileID: 0}
+  buttonGroup: {fileID: 1707761104040528883}
   resumeButton: {fileID: 105650647240418492}
   mainMenuButton: {fileID: 7167860639021120663}
 --- !u!1 &2510699126162679588
@@ -3635,6 +3637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   childScreenButtons: []
   backScreenButton: {fileID: 0}
+  buttonGroup: {fileID: 0}
   canvasGroup: {fileID: 7186219602061804624}
   fadeInOutTime: 0.3
 --- !u!1 &3937040446994531367
@@ -5092,6 +5095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   childScreenButtons: []
   backScreenButton: {fileID: 7913054202301055212}
+  buttonGroup: {fileID: 6751981118232353516}
   soundOptionsPanel: {fileID: 5480505132406817245}
   introOptionsPanel: {fileID: 2872545897396095254}
 --- !u!1 &5545408497057583832
@@ -5756,6 +5760,7 @@ MonoBehaviour:
   childScreenButtons:
   - {fileID: 4027038267959171340}
   backScreenButton: {fileID: 0}
+  buttonGroup: {fileID: 168156356473116846}
   playButton: {fileID: 1996077268177845957}
   quitButton: {fileID: 7401624907424886901}
 --- !u!1 &6894300766211760526
@@ -8335,10 +8340,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   childScreenButtons: []
   backScreenButton: {fileID: 0}
+  buttonGroup: {fileID: 2236511547005981486}
   mainMenuButton: {fileID: 3790093240377172247}
   MovingPanel: {fileID: 63439771486434365}
-  MainMenuButtonImage: {fileID: 7644423928840658573}
-  MainMenuButtonText: {fileID: 8734534506904301640}
 --- !u!1 &8886590172853793529
 GameObject:
   m_ObjectHideFlags: 0
