@@ -13,7 +13,11 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameScreenController GameScreenController;
     [SerializeField]
+    private InteractableItemsController InteractableItemsController;
+    [SerializeField]
     private UIScreenController UIScreenController;
+    [SerializeField]
+    private CameraController CameraController;
     [SerializeField]
     private KeyPressController KeyPressController;
     [SerializeField]
@@ -62,7 +66,8 @@ public class GameController : MonoBehaviour
         _uiEventMediator.StartNewGameRequested += StartNewGame;
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
 
-        UIScreenController.Init(_uiEventMediator);
+        UIScreenController.Init(GameSettings, _uiEventMediator);
+        QuestStarter.Init(CameraController, GameSettings);
 
         _gameData = new GameData();
         _gameData.Init(GameSettings);
@@ -97,7 +102,7 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 0;
         KeyPressController.SetMenuMode();
-        UIScreenController.ShowMainMenuScreen();
+        UIScreenController.ShowPauseScreen();
     }
 
     private void ResumeGame()
@@ -181,27 +186,44 @@ public class GameController : MonoBehaviour
     private void ProcessWinAfterDelay(int delay)
     {
         KeyPressController.SetNotListeningMode();
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         TimeController.StopTime();
         Invoke(nameof(ProcessWinActions), delay);
     }
 
     private void ProcessWinActions()
     {
-        KeyPressController.SetNotListeningMode();
+        StopCurrentInteraction();
         TimeController.StopTime();
+
+        InteractableItemsController.SetEnabledSelection(false);
+        InteractableItemsController.ClearSelection();
+        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        KeyPressController.SetNotListeningMode();
+        
+        Player.ProcessWin();
+        MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
+        CameraController.FollowRightEdge(GameSettings.CameraSettings.GoodEndingCameraMoveSpeed);
+        CameraController.ZoomCamera(GameSettings.CameraSettings.GoodEndingCameraZoomTime);
+
         finalTimeLine.Play();
-        //_debugView.ShowWinScreen();
-        //Invoke(nameof(ShowCredits), 2);
+        finalTimeLine.stopped += (d) => LoadMainMenu();
     }
 
 
     private IEnumerator ProcessLoseActions()
     {
         TimeController.StopTime();
+
+        InteractableItemsController.SetEnabledSelection(false);
+        InteractableItemsController.ClearSelection();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
+        KeyPressController.SetNotListeningMode();
+
         if (_gameData.CurrentInteractingItem != ChairItem && _gameData.CurrentInteractingItem != TVItem)
         {
             StopCurrentInteraction();
+            TimeController.StopTime();
             while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
             {
                 yield return null;
@@ -209,7 +231,6 @@ public class GameController : MonoBehaviour
         }
 
         Player.ProcessDeath();
-        KeyPressController.SetNotListeningMode();
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
     }
@@ -265,7 +286,7 @@ public class GameController : MonoBehaviour
 
     private void StartMiniGame(InteractableItem item)
     {
-        MusicChanger.OnMinigameMode();
+        MusicChanger.SetMinigameModeOn();
         GameScreenController.ShowItemScreen(item.Type);
         GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
     }
@@ -291,7 +312,7 @@ public class GameController : MonoBehaviour
         {
             if (_gameData.CurrentInteractingItem == destinationPoint.item)
             {
-                // forbid to interact the item which is using now,
+                // Forbid to interact the item which is using now,
                 // but allow to turn off TV
                 if (_gameData.CurrentInteractingItem.Type == ItemType.TV)
                 {
@@ -303,13 +324,15 @@ public class GameController : MonoBehaviour
             }
             else if (destinationPoint.item.Type == ItemType.TV)
             {
+                // If we sit on chair, then turn on TV immediately.
+                // Otherwise, we need to go to the chair first
                 if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null 
                     && _gameData.LastReachedDestinationPoint.item.Type == ItemType.Chair)
                 {
                     TimeController.ResumeTime();
                     destinationPoint.item.ResetDraw();
                     ProcessItemInteraction(destinationPoint.item);
-                    QuestStarter.Enable(destinationPoint);
+                    QuestStarter.Enable(destinationPoint.point);
                     return;
                 }
                 else
@@ -321,6 +344,7 @@ public class GameController : MonoBehaviour
             else if (_gameData.CurrentInteractingItem != null && _gameData.CurrentInteractingItem.Type == ItemType.TV 
                 && destinationPoint.item.Type == ItemType.Chair)
             {
+                // Turn off TV if we clicked on chair
                 StopCurrentInteraction();
                 QuestStarter.Disable();
                 return;
@@ -331,18 +355,21 @@ public class GameController : MonoBehaviour
 
         if (!destinationPoint.IsEqual(_gameData.LastReachedDestinationPoint))
         {
-            if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null)
+            // If we sit on chair, then we need to stand up before to go to another point
+            if (_gameData.LastReachedDestinationPoint != null && _gameData.LastReachedDestinationPoint.item != null
+                && _gameData.LastReachedDestinationPoint.item.Type == ItemType.Chair)
             {
-                _gameData.SetCurrentInteraction(_gameData.LastReachedDestinationPoint.item);
+                _gameData.SetCurrentInteraction(ChairItem);
                 StopCurrentInteraction();
-            }
-            _gameData.SetLastReachedDestinationPoint(null);
+            }        
             StartCoroutine(StartMoveToPoint(destinationPoint));
         }
     }
 
     private IEnumerator StartMoveToPoint(DestinationPoint destinationPoint)
     {
+        _gameData.SetLastReachedDestinationPoint(null);
+
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
         {
@@ -368,7 +395,7 @@ public class GameController : MonoBehaviour
 
         if (isBadInteraction || _goToChairToWatchTV)
         {
-            QuestStarter.Enable(destinationPoint);
+            QuestStarter.Enable(destinationPoint.point);
         }
         else
         {
@@ -409,11 +436,12 @@ public class GameController : MonoBehaviour
     private void OnGameScreenCloseRequested(GameScreenResult gameScreenResult)
     {
         GameScreenController.CurrentScreen.CloseRequested -= OnGameScreenCloseRequested;
+        GameScreenController.BlackScreen.Activate(() => OnMinigameEnded(gameScreenResult));      
+    }
 
-
-        GameScreenController.BlackScreen.Activate(() => GameScreenController.CloseCurrentScreen());
-        
-
+    private void OnMinigameEnded(GameScreenResult gameScreenResult)
+    {
+        GameScreenController.CloseCurrentScreen();
         if (gameScreenResult == GameScreenResult.WinGame)
         {
             StopCurrentInteraction();
@@ -423,7 +451,7 @@ public class GameController : MonoBehaviour
             StopCurrentInteraction(ItemTimerType.BadItem);
         }
 
-        MusicChanger.OffMinigameMode();
+        MusicChanger.SetMinigameModeOff();
     }
 
     private void RefreshDebugView()

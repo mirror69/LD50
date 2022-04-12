@@ -8,6 +8,15 @@ public class GameSettings : ScriptableObject
 
     [field: SerializeField]
     public SceneSettings SceneSettings { get; private set; }
+
+    [field: SerializeField]
+    public CameraSettings CameraSettings { get; private set; }
+
+    [field: SerializeField]
+    public SoundSettings SoundSettings { get; private set; }
+
+    [field: SerializeField]
+    public UISettings UISettings { get; private set; }
 }
 
 [System.Serializable]
@@ -36,4 +45,28 @@ public struct SceneSettings
 {
     public string MainMenuSceneName;
     public string GameSceneName;
+}
+
+[System.Serializable]
+public struct CameraSettings
+{
+    public float BadItemZoomInTime;
+    public float BadItemZoomOutTime;
+    public float GoodEndingCameraZoomTime;
+    public float GoodEndingCameraMoveSpeed;
+}
+
+[System.Serializable]
+public struct SoundSettings
+{
+    public float MainMusicFadeOutTimeAfterWin;
+}
+
+[System.Serializable]
+public struct UISettings
+{
+    public float ButtonsFadeDuration;
+    public float CreditsMoveSpeed;
+    public float CreditsButtonsShowDelay;
+    public float GameOverButtonsShowDelay;
 }

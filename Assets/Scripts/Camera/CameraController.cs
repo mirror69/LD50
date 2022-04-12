@@ -2,56 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
+public enum CameraMoveMode
+{
+    None = 0,
+    FollowPlayer = 1,
+    FollowRightEdge = 2
+}
+
 public class CameraController : MonoBehaviour
 {
-    public static CameraController Instance=null;
-
-    [Header("Min and Max X axies values")]
-    [SerializeField] float leftBorder;
-    [SerializeField] float rightBorder;
+    [SerializeField] SpriteRenderer borderBackground;
 
     [Header("Zoom settings")]
-    [SerializeField] private float timeToZoom;
-    [SerializeField] private float maxCameraSizeInZoom;
+    [SerializeField] private float maxCameraSizeInZoom = 4;
 
     [Header("Main character")]
     [SerializeField] Transform playerTransform;
 
     private Camera mainCamera;
-    private float currentTime;
-    private float targetCameraSize;
-    private float startCameraSize;
+    private float leftBorder;
+    private float rightBorder;
+
+    private float initialCameraSize;
+    private float maxSizeDifference;
+
+    private float moveSpeed;
+    private CameraMoveMode moveMode;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        mainCamera = Camera.main;
+        initialCameraSize = mainCamera.orthographicSize;
 
-        else
-            Destroy(this);
+        maxSizeDifference = Mathf.Abs(initialCameraSize - maxCameraSizeInZoom);
 
-        mainCamera = GetComponent<Camera>();
-    }
+        leftBorder = borderBackground.transform.position.x + 
+            borderBackground.sprite.bounds.min.x * borderBackground.transform.lossyScale.x;
+        rightBorder = borderBackground.transform.position.x + 
+            borderBackground.sprite.bounds.max.x * borderBackground.transform.lossyScale.x;
 
-    private void Start()
-    {
-        currentTime = timeToZoom;
-        startCameraSize = mainCamera.orthographicSize;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-            ZoomCamera();
-        if (Input.GetKeyDown(KeyCode.X))
-            ResetCamera();
-
-        if (currentTime<timeToZoom)
-        {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetCameraSize, currentTime * Time.deltaTime);
-            currentTime += Time.deltaTime;
-        }
+        moveMode = CameraMoveMode.FollowPlayer;
     }
 
     private void LateUpdate()
@@ -59,44 +49,86 @@ public class CameraController : MonoBehaviour
         SetNewCameraPosition();
     }
 
-    private void SetNewCameraPosition ()
+    public void FollowRightEdge(float moveSpeed)
     {
+        this.moveSpeed = moveSpeed;
+        moveMode = CameraMoveMode.FollowRightEdge;
+    }
+
+    public Vector2 GetPlayerPosition()
+    {
+        return playerTransform.position;
+    }
+
+    public void ZoomCamera(float time)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ProcessZoom(maxCameraSizeInZoom, time));
+    }
+
+    public void ResetCamera(float time)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ProcessZoom(initialCameraSize, time));
+    }
+
+    private void SetNewCameraPosition()
+    {
+        Vector3 leftBottomCameraPoint = mainCamera.ScreenToWorldPoint(Vector3.zero);
+        Vector3 rightTopCameraPoint = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        float halfCameraWidth = 0.5f * (rightTopCameraPoint.x - leftBottomCameraPoint.x);
+
         Vector3 newCameraPosition = transform.position;
 
-        if (playerTransform.position.x < leftBorder)
-        {
-            newCameraPosition.x = leftBorder;
-        }
-        else if (playerTransform.position.x > rightBorder)
-        {
-            newCameraPosition.x = rightBorder;
-        }
-        else
+        if (moveMode == CameraMoveMode.FollowPlayer)
         {
             newCameraPosition.x = playerTransform.position.x;
+        }
+        else if (moveMode == CameraMoveMode.FollowRightEdge)
+        {
+            newCameraPosition.x = playerTransform.position.x;
+            newCameraPosition.x = transform.position.x + moveSpeed * Time.deltaTime;
+        }
+
+        if (newCameraPosition.x + halfCameraWidth > rightBorder)
+        {
+            newCameraPosition.x = rightBorder - halfCameraWidth;
+        }
+        else if (newCameraPosition.x - halfCameraWidth < leftBorder)
+        {
+            newCameraPosition.x = leftBorder + halfCameraWidth;
         }
 
         transform.position = newCameraPosition;
     }
 
-    public Vector3 GetPlayerPosition ()
+    private IEnumerator ProcessZoom(float targetSize, float time)
     {
-        return playerTransform.position;
+        if (mainCamera.orthographicSize == targetSize)
+        {
+            yield break;
+        }
+
+        float difference = targetSize - mainCamera.orthographicSize;
+        time *= Mathf.Abs(difference / maxSizeDifference);
+        float currentTime = 0;
+        float startSize = mainCamera.orthographicSize;
+        while (currentTime < time)
+        {
+            mainCamera.orthographicSize = startSize + difference * EaseInOutSine(currentTime / time);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+        mainCamera.orthographicSize = targetSize;
     }
 
-    private void ChangeCameraZoom (float zoomValue)
+    private float EaseOutSine(float x)
     {
-        currentTime = 0;
-        targetCameraSize = zoomValue;
+        return Mathf.Sin(x * Mathf.PI / 2);
     }
 
-    public void ZoomCamera ()
+    private float EaseInOutSine(float x)
     {
-        ChangeCameraZoom(maxCameraSizeInZoom);
-    }
-
-    public void ResetCamera ()
-    {
-        ChangeCameraZoom(startCameraSize);
+        return -(Mathf.Cos(Mathf.PI * x) - 1) / 2;
     }
 }

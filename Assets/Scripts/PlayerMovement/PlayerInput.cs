@@ -116,6 +116,18 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void ProcessWin()
+    {
+        if (_playerAnimations.IsSitting())
+        {
+            _playerAnimations.SetSitting(false);
+        }
+        _playerMovements.Stop();
+        _playerMovements.StopAgent();
+        _currentPointMoveDirection = new Vector2Int(1, -1);
+        _playerAnimations.SetDirection(_currentPointMoveDirection);
+    }
+
     private void SetAnimatorDead()
     {
         _playerAnimations.SetDead();

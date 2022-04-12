@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -98,7 +97,7 @@ public class UIScreenController : MonoBehaviour
         SetActiveScreen(blackoutScreen);
     }
 
-    public void Init(UIEventMediator uiEventMediator)
+    public void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
         screens.Add(gameOverScreen);
         screens.Add(pauseScreen);
@@ -107,7 +106,7 @@ public class UIScreenController : MonoBehaviour
         screens.Add(blackoutScreen);
         screens.Add(creditsScreen);
 
-        InitScreens(uiEventMediator);
+        InitScreens(gameSettings, uiEventMediator);
 
         SetActiveScreen(null);
 
@@ -115,11 +114,11 @@ public class UIScreenController : MonoBehaviour
         uiEventMediator.ShowChildScreenRequested += ShowChildScreen;
     }
 
-    private void InitScreens(UIEventMediator uiEventMediator)
+    private void InitScreens(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
         foreach (var item in screens)
         {
-            item.Init(uiEventMediator);
+            item.Init(gameSettings, uiEventMediator);
         }
     }
     /// <summary>

@@ -15,10 +15,26 @@ public class GameOverScreen : UIScreen
     [Tooltip(" нопка главного меню")]
     private Button mainMenuButton = null;
 
-    public override void Init(UIEventMediator uiEventMediator)
+    public override void Init(GameSettings gameSettings, UIEventMediator uiEventMediator)
     {
-        base.Init(uiEventMediator);
+        base.Init(gameSettings, uiEventMediator);
         restartButton.onClick.AddListener(_uiEventMediator.RequestStartNewGame);
         mainMenuButton.onClick.AddListener(_uiEventMediator.RequestMainMenu);
+
+        HideButtons();
+    }
+
+    public override void SetActive(bool active)
+    {
+        base.SetActive(active);
+
+        if (active)
+        {
+            Invoke(nameof(ShowButtonsSmooth), _gameSettings.UISettings.GameOverButtonsShowDelay);
+        }
+        else
+        {
+            HideButtons();
+        }
     }
 }
