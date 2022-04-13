@@ -53,6 +53,8 @@ public class InteractableItem : MonoBehaviour
     [field: SerializeField]
     public AnimatorParamSet OutAnimatorParamSet { get; private set; }
 
+    public bool IsAvailableToInteract { get; private set; } = true;
+
     public Action<InteractableItem> MouseEnter;
     public Action<InteractableItem> MouseExit;
 
@@ -74,5 +76,10 @@ public class InteractableItem : MonoBehaviour
     public void ResetDraw()
     {
         Drawer.Hide();
+    }
+
+    public void SetAvailableToInteract(bool available)
+    {
+        IsAvailableToInteract = available;
     }
 }

@@ -1244,11 +1244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f90df110a38fd2438c6e103dbd1227b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1078283825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6152787217069026619, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-  m_PrefabInstance: {fileID: 2007080662}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1178344981 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3346746894570094341, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
@@ -2654,53 +2649,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartCutScene and Music 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1028806286058129506, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3346746894570094341, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
       propertyPath: clickHandler
       value: 
       objectReference: {fileID: 618116561}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[1].key
-      value: 
-      objectReference: {fileID: 7399071283338849030, guid: 2c817526f5990bb49aaa20696597df59, type: 2}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[2].key
-      value: 
-      objectReference: {fileID: 269856950525415058, guid: 2c817526f5990bb49aaa20696597df59, type: 2}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[3].key
-      value: 
-      objectReference: {fileID: -3279878074969910159, guid: 2c817526f5990bb49aaa20696597df59, type: 2}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[1].value
-      value: 
-      objectReference: {fileID: 2007080663}
-    - target: {fileID: 6152787217069026617, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[3].value
-      value: 
-      objectReference: {fileID: 1078283825}
-    - target: {fileID: 6152787217069026619, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6152787218892106633, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
---- !u!95 &2007080663 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6152787218892106639, guid: 2738796bf6dc04841b134cdf02a81b76, type: 3}
-  m_PrefabInstance: {fileID: 2007080662}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2124656820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3448642037112033421, guid: 884729a02c30aee4da2fb6a1ef9cee0a, type: 3}

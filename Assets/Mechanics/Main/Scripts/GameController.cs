@@ -457,6 +457,7 @@ public class GameController : MonoBehaviour
         GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
         if (gameScreenResult == GameScreenResult.WinGame)
         {
+            _gameData.CurrentInteractingItem.SetAvailableToInteract(false);
             StopCurrentInteraction();
         }
         else
