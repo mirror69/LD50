@@ -318,13 +318,18 @@ public class GameController : MonoBehaviour
         {
             if (_gameData.CurrentInteractingItem == destinationPoint.item)
             {
-                // Forbid to interact the item which is using now,
-                // but allow to turn off TV
                 if (_gameData.CurrentInteractingItem.Type == ItemType.TV)
                 {
+                    // Forbid to interact the item which is using now,
+                    // but allow to turn off TV
                     StopCurrentInteraction();
                     _gameData.SetCurrentInteraction(ChairItem);
                     QuestStarter.Disable();
+                }
+                else if (_gameData.CurrentInteractingItem.Type == ItemType.Lamp)
+                {
+                    // Allow to turn on/off lamp if we are already interacting whith it
+                    ProcessItemInteraction(_gameData.CurrentInteractingItem);
                 }
                 return;
             }
