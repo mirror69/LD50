@@ -40,7 +40,7 @@ public class InteractableItemsController : MonoBehaviour
 
     public void ItemOnMouseEnter(InteractableItem item)
     {
-        if (IsSelectionEnabled)
+        if (IsSelectionEnabled && item.IsAvailableToInteract)
         {
             item.DrawTooltip();
         }

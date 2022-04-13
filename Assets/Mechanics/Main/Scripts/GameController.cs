@@ -188,22 +188,27 @@ public class GameController : MonoBehaviour
 
     private void ProcessWinAfterDelay(int delay)
     {
-        KeyPressController.SetNotListeningMode();
-        GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
-        TimeController.StopTime();
-        Invoke(nameof(ProcessWinActions), delay);
+        StartCoroutine(ProcessWinActions(delay));
     }
 
-    private void ProcessWinActions()
+    private IEnumerator ProcessWinActions(int delay)
     {
-        StopCurrentInteraction();
         TimeController.StopTime();
-
         InteractableItemsController.SetEnabledSelection(false);
         InteractableItemsController.ClearSelection();
         GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
         KeyPressController.SetNotListeningMode();
-        
+
+        yield return new WaitForSeconds(delay);
+
+        StopCurrentInteraction();
+        TimeController.StopTime();
+
+        while (_currentTimeline != null && _currentTimeline.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+
         Player.ProcessWin();
         MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
         CameraController.FollowRightEdge(GameSettings.CameraSettings.GoodEndingCameraMoveSpeed);
@@ -302,7 +307,7 @@ public class GameController : MonoBehaviour
     {
         if (IsWinReached())
         {
-            ProcessWinActions();
+            ProcessWinAfterDelay(0);
         }
     }
 
@@ -457,6 +462,7 @@ public class GameController : MonoBehaviour
         GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
         if (gameScreenResult == GameScreenResult.WinGame)
         {
+            _gameData.CurrentInteractingItem.SetAvailableToInteract(false);
             StopCurrentInteraction();
         }
         else

@@ -18,7 +18,19 @@ public class ClickHandler : MonoBehaviour
             if (hit.collider != null)
             {
                 var item = hit.collider.GetComponent<InteractableItem>();
-                Vector2 point = item != null ? item.StayPoint.position : hit.point;
+                Vector2 point;
+                if (item != null)
+                {
+                    point = item.StayPoint.position;
+                    if (!item.IsAvailableToInteract)
+                    {
+                        item = null;
+                    }
+                }
+                else
+                {
+                    point = hit.point;
+                }
 
                 DestinationPointClicked?.Invoke(
                     new DestinationPoint(point, item));
