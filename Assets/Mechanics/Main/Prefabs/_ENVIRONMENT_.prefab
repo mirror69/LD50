@@ -90,6 +90,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeService: {fileID: 3306273691404773814}
+--- !u!1 &3757480394390266843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 692896544431170949}
+  - component: {fileID: 4475587522150333343}
+  m_Layer: 0
+  m_Name: SoundController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &692896544431170949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3757480394390266843}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.339287, y: -0.32049012, z: 459.6807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5420375285924344925}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4475587522150333343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3757480394390266843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f74a23ca45030b4c851bf55d8263f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: b1ba612ffb1308e49b45b87d593f34c9, type: 2}
 --- !u!1 &4907581953977561780
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,8 +377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2578c7d1fff2b634980f84e2e7cc3a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBorder: -18
-  rightBorder: 18
+  borderBackground: {fileID: 0}
+  maxCameraSizeInZoom: 4
   playerTransform: {fileID: 0}
 --- !u!1 &5420375285924344924
 GameObject:
@@ -370,6 +415,7 @@ Transform:
   - {fileID: 8786432215075107685}
   - {fileID: 4218865799994448151}
   - {fileID: 5532075281423450879}
+  - {fileID: 692896544431170949}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -531,8 +577,10 @@ MonoBehaviour:
   GameSettings: {fileID: 11400000, guid: f57014c830d72144f83426e001d3ef8c, type: 2}
   TimeController: {fileID: 288554039485505420}
   GameScreenController: {fileID: 0}
+  InteractableItemsController: {fileID: 0}
   UIScreenController: {fileID: 0}
   CameraController: {fileID: 0}
+  SoundController: {fileID: 4475587522150333343}
   KeyPressController: {fileID: 2120518461092270666}
   QuestStarter: {fileID: 0}
   Player: {fileID: 0}
@@ -542,6 +590,7 @@ MonoBehaviour:
   TVItem: {fileID: 0}
   _debugView: {fileID: 0}
   finalTimeLine: {fileID: 0}
+  startTimeLine: {fileID: 0}
 --- !u!114 &4223842147036082726
 MonoBehaviour:
   m_ObjectHideFlags: 0

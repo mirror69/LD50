@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private UIScreenController UIScreenController;
     [SerializeField]
+    private GameSoundController SoundController;
+    [SerializeField]
     private KeyPressController KeyPressController;
     [SerializeField]
     private PlayableDirector StartTimeline;
@@ -36,6 +38,7 @@ public class MainMenuController : MonoBehaviour
         _uiEventMediator.StartNewGameRequested += StartNewGame;
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
 
+        SoundController.Init(_uiEventMediator);
         UIScreenController.Init(GameSettings, _uiEventMediator);
         UIScreenController.ShowMainMenuScreen();
 

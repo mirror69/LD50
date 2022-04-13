@@ -12,7 +12,7 @@ public class RadioController : MonoBehaviour
     [SerializeField] private float TimeToWinWhenListenWalz;
 
     [SerializeField] private Slider _slider;
-    [SerializeField] private AudioMixer _audioMixer;
+    //[SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioSource _noizeSource;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private GameObject _niddleObj;
@@ -64,6 +64,11 @@ public class RadioController : MonoBehaviour
 
         switcherSpriteRenderer = buttonSwitcher.GetComponent<SpriteRenderer>();
         switcherSpriteRenderer.sprite = onButtonSprite;
+
+        musicVolume = 0;
+        noiseVolume = 1;
+        _musicSource.volume = musicVolume;
+        _noizeSource.volume = noiseVolume;
     }
 
     private void OnEnable()
@@ -100,52 +105,51 @@ public class RadioController : MonoBehaviour
     {
         if (questIsReady)
         {
-            musicVolume -= 2*Time.deltaTime;
-            noiseVolume -= 2*Time.deltaTime;
+            musicVolume -= 0.2f * Time.deltaTime;
+            noiseVolume -= 0.2f * Time.deltaTime;
 
-            _audioMixer.SetFloat("MusicVolume", musicVolume);
-            _audioMixer.SetFloat("NoizeVolume", noiseVolume);
+            _musicSource.volume = musicVolume;
+            _noizeSource.volume = noiseVolume;
 
             return;
         }
-            
-         
+                
         float currentNiddleZRotation = (_slider.value * 25f);
 
         _niddleObj.transform.rotation = Quaternion.Euler(0, 0, -50 + currentNiddleZRotation);
+
+        needleIsOnPlace = false;
 
         if (isOn)
         {
             if (_slider.value == Math.Clamp(_slider.value, _firstAreaValue - _valueSpace, _firstAreaValue + _valueSpace))
             {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -15);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
+                musicVolume = 0.4f;
+                noiseVolume = 1f;
             }
             else if (_slider.value == Math.Clamp(_slider.value, _secondAreaValue - _valueSpace, _secondAreaValue + _valueSpace))
             {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -15);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
+                musicVolume = 0.4f;
+                noiseVolume = 1f;
             }
             else if (_slider.value == Math.Clamp(_slider.value, _thirdAreaValue - _valueSpace, _thirdAreaValue + _valueSpace))
             {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -15);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
+                musicVolume = 0.1f;
+                noiseVolume = 0.9f;
             }
             else if (_slider.value == Math.Clamp(_slider.value, _fourthAreaValue - _valueSpace, _fourthAreaValue + _valueSpace))
             {
-                needleIsOnPlace = false;
-                _audioMixer.SetFloat("MusicVolume", -15);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
+                musicVolume = 0f;
+                noiseVolume = 1f;
             }
             else if (_slider.value == Math.Clamp(_slider.value, _musicPositionOnSlider - _valueSpace, _musicPositionOnSlider + _valueSpace))
             {
                 needleIsOnPlace = true;
-                
-                _audioMixer.SetFloat("MusicVolume", -10f);
-                _audioMixer.SetFloat("NoizeVolume", -40f);
+
+                musicVolume = 1f;
+                noiseVolume = 0f;
+                _musicSource.volume = Mathf.Lerp(_musicSource.volume, musicVolume, 10 * Time.deltaTime);
+                _noizeSource.volume = Mathf.Lerp(_noizeSource.volume, noiseVolume, 10 * Time.deltaTime);
 
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -154,15 +158,19 @@ public class RadioController : MonoBehaviour
             }
             else
             {
-                _audioMixer.SetFloat("MusicVolume", -50f);
-                _audioMixer.SetFloat("NoizeVolume", 20f);
+                needleIsOnPlace = false;
+                musicVolume = 0f;
+                noiseVolume = 1f;
             }
         }
         else
         {
-            _audioMixer.SetFloat("MusicVolume", -50f);
-            _audioMixer.SetFloat("NoizeVolume", -50f);
+            musicVolume = 0f;
+            noiseVolume = 0f;
         }
+
+        _musicSource.volume = Mathf.Lerp(_musicSource.volume, musicVolume, 10 * Time.deltaTime);
+        _noizeSource.volume = Mathf.Lerp(_noizeSource.volume, noiseVolume, 10 * Time.deltaTime);
 
         if (!needleIsOnPlace)
             currentTime = 0;
@@ -172,8 +180,8 @@ public class RadioController : MonoBehaviour
         if (currentTime >= TimeToWinWhenListenWalz)
         {
             questIsReady = true;
-            _audioMixer.GetFloat("MusicVolume", out musicVolume);
-            _audioMixer.GetFloat("NoizeVolume", out noiseVolume);
+            musicVolume = _musicSource.volume;
+            noiseVolume = _noizeSource.volume;
             RadioIsFounded?.Invoke();
         }
     }

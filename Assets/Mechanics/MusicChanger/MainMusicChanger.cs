@@ -15,9 +15,9 @@ public class MainMusicChanger : MonoBehaviour
     private ClickHandler clickHandler;
 
     [SerializeField]
-    private float minVolumeValue = -80f;
+    private float minVolumeValue = 0f;
     [SerializeField]
-    private float maxVolumeValue = 0f;
+    private float maxVolumeValue = 1f;
 
     [SerializeField]
     private float[] timeCodesToSwitchMusic;
