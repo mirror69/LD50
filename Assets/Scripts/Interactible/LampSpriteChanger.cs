@@ -6,6 +6,7 @@ public class LampSpriteChanger : MonoBehaviour
 {
     [SerializeField] private Sprite lampOn;
     [SerializeField] private Sprite lampOff;
+    [SerializeField] private GameObject lightObject;
 
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -15,6 +16,7 @@ public class LampSpriteChanger : MonoBehaviour
     private void Start()
     {
         currentSprite = lampOff;
+        lightObject.SetActive(false);
         spriteRenderer.sprite = currentSprite;
     }
 
@@ -26,5 +28,6 @@ public class LampSpriteChanger : MonoBehaviour
             currentSprite = lampOn;
 
         spriteRenderer.sprite = currentSprite;
+        lightObject.SetActive(currentSprite == lampOn);
     }
 }
