@@ -44,7 +44,7 @@ public class SoundOptionsPanel : MonoBehaviour
     {
         _uiEventMediator = uiEventMediator;
 
-        RegisterVolumeSlider(masterVolumeSlider, SoundOptions.MasterVolumeParamName);
+        //RegisterVolumeSlider(masterVolumeSlider, SoundOptions.MasterVolumeParamName);
         RegisterVolumeSlider(sfxVolumeSlider, SoundOptions.SfxVolumeParamName);
         RegisterVolumeSlider(musicVolumeSlider, SoundOptions.MusicVolumeParamName);
         //RegisterVolumeSlider(voiceVolumeSlider, SoundOptions.VoiceVolumeParamName);

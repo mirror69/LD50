@@ -13,7 +13,7 @@ public class SoundOptions
     /// <summary>
     /// Имя параметра общей громкости
     /// </summary> 
-    public const string MasterVolumeParamName = "MasterVolume";
+    //public const string MasterVolumeParamName = "MasterVolume";
 
     /// <summary>
     /// Имя параметра громкости звуковых эффектов
@@ -44,7 +44,7 @@ public class SoundOptions
 
     public SoundOptions()
     {
-        AddVolumeData(MasterVolumeParamName);
+        //AddVolumeData(MasterVolumeParamName);
         AddVolumeData(SfxVolumeParamName);
         AddVolumeData(MusicVolumeParamName);
         //AddVolumeData(VoiceVolumeParamName);
