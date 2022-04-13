@@ -703,14 +703,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 618116560}
     m_Modifications:
-    - target: {fileID: 1486250107, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[6].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 2133187385, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[8].value
-      value: 
-      objectReference: {fileID: 1250942553}
     - target: {fileID: 8664224647036745, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -827,14 +819,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable Items
       objectReference: {fileID: 0}
-    - target: {fileID: 2291132475617768854, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[0].value
-      value: 
-      objectReference: {fileID: 1250942553}
-    - target: {fileID: 2291132475636098239, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
-      propertyPath: m_SceneBindings.Array.data[2].value
-      value: 
-      objectReference: {fileID: 1250942553}
     - target: {fileID: 2293867994062086653, guid: a537e6942e03d0a49b90c1b308820e76, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
