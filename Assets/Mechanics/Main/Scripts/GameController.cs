@@ -252,6 +252,7 @@ public class GameController : MonoBehaviour
         else if (item.TimerType == ItemTimerType.GoodItem)
         {
             TimeController.StartGoodInteraction();
+            GameScreenController.MainGameScreen.DestinationPointClicked -= OnDestinationPointClicked;
             GameScreenController.BlackScreen.Activate(() => StartMiniGame(item));
         }
 
@@ -453,6 +454,7 @@ public class GameController : MonoBehaviour
     private void OnMinigameEnded(GameScreenResult gameScreenResult)
     {
         GameScreenController.CloseCurrentScreen();
+        GameScreenController.MainGameScreen.DestinationPointClicked += OnDestinationPointClicked;
         if (gameScreenResult == GameScreenResult.WinGame)
         {
             StopCurrentInteraction();
