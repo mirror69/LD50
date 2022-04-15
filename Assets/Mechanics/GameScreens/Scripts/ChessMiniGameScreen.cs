@@ -3,9 +3,9 @@
 public class ChessMiniGameScreen : GameScreen
 {
     [SerializeField]
-    private GameObject ChessMiniGamePrefab;
+    private ChessController ChessMiniGamePrefab;
 
-    private GameObject _chessMiniGameObject;
+    private ChessController _chessMiniGameObject;
 
     public override void Show()
     {
@@ -13,19 +13,20 @@ public class ChessMiniGameScreen : GameScreen
         if (_chessMiniGameObject == null)
         {
             _chessMiniGameObject = Instantiate(ChessMiniGamePrefab, transform);
-            _chessMiniGameObject.GetComponent<ChessController>().OnFinish += ChessMiniGameScreen_OnFinish;
+            _chessMiniGameObject.OnFinish += ChessMiniGameScreen_OnFinish;
+            _chessMiniGameObject.SetEnabledMinigameMusicRequested += RequestSetEnabledMinigameMusic;
         }
+    }
+
+    public override void Close()
+    {
+        base.Close();
     }
 
     private void ChessMiniGameScreen_OnFinish()
     {
         Debug.Log("Chess is ended");
         wasAlreadyChoosen = true;
-        CloseRequested?.Invoke(GameScreenResult.WinGame);
-    }
-
-    public override void Close()
-    {
-        base.Close();
+        RequestClose(GameScreenResult.WinGame);
     }
 }

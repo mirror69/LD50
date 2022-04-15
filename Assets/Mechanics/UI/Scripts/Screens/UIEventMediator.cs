@@ -11,6 +11,7 @@ public class UIEventMediator
     public event Action<UIScreen> ShowChildScreenRequested;
     public event Action MainMenuRequested;
     public event Action<string> ApplyToAudioMixerRequested;
+    public event Action<bool> SetEnabledMinigameMusicRequested;
 
     internal void RequestStartNewGame()
     {
@@ -55,5 +56,10 @@ public class UIEventMediator
     internal void RequestSkipCutsceneLine()
     {
         SkipCutsceneLineRequested?.Invoke();
+    }
+
+    internal void RequestSetEnabledMinigameMusic(bool enabled)
+    {
+        SetEnabledMinigameMusicRequested?.Invoke(enabled);
     }
 }

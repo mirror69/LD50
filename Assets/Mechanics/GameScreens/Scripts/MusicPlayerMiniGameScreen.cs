@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class MusicPlayerMiniGameScreen : GameScreen
 {
@@ -6,9 +7,9 @@ public class MusicPlayerMiniGameScreen : GameScreen
     private Camera cameraToMiniGame;
 
     [SerializeField]
-    private GameObject MusicPlayerMiniGamePrefab;
+    private MusicPlayerMiniGame MusicPlayerMiniGamePrefab;
 
-    private GameObject _musicPlayerMiniGameObject;
+    private MusicPlayerMiniGame _musicPlayerMiniGameObject;
 
     public override void Show()
     {
@@ -16,20 +17,21 @@ public class MusicPlayerMiniGameScreen : GameScreen
         if (_musicPlayerMiniGameObject == null)
         {
             _musicPlayerMiniGameObject = Instantiate(MusicPlayerMiniGamePrefab, transform);
-            _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().SetCamera(cameraToMiniGame);
-            _musicPlayerMiniGameObject.GetComponent<MusicPlayerMiniGame>().OnMusicPlayerMiniGameEnded += MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded;
+            _musicPlayerMiniGameObject.SetCamera(cameraToMiniGame);
+            _musicPlayerMiniGameObject.OnMusicPlayerMiniGameEnded += MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded;
+            _musicPlayerMiniGameObject.SetEnabledMinigameMusicRequested += RequestSetEnabledMinigameMusic;
         }
+    }
+
+    public override void Close()
+    {
+        base.Close();
     }
 
     private void MusicPlayerMiniGameScreen_OnMusicPlayerMiniGameEnded()
     {
         wasAlreadyChoosen = true;
         Debug.Log("MusicPlayerQuest is ended");
-        CloseRequested?.Invoke(GameScreenResult.WinGame);
-    }
-
-    public override void Close()
-    {
-        base.Close();
+        RequestClose(GameScreenResult.WinGame);
     }
 }

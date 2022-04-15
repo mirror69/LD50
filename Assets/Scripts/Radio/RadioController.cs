@@ -11,6 +11,7 @@ public class RadioController : MonoBehaviour
     public const string NoiseVolumeParamName = "RadioNoiseVolume";
 
     public event Action RadioIsFounded;
+    public event Action<bool> SetEnabledMinigameMusicRequested;
 
     [SerializeField] private float TimeToWinWhenListenWalz;
 
@@ -83,12 +84,14 @@ public class RadioController : MonoBehaviour
     {
         if (isOn && !needleIsOnPlace)
         {
+            SetEnabledMinigameMusicRequested?.Invoke(true);
             isOn = false;
             switcherSpriteRenderer.sprite = onButtonSprite;
             plateAnimator.speed = 0;
         }
         else if (!isOn && !needleIsOnPlace)
         {
+            SetEnabledMinigameMusicRequested?.Invoke(false);
             isOn = true;
             switcherSpriteRenderer.sprite = offButtonSprite;
             plateAnimator.speed = _plateSpeed;

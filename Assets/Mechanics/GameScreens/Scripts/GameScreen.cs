@@ -21,7 +21,9 @@ public abstract class GameScreen : MonoBehaviour
 
     public bool IsActive => gameObject.activeSelf;
 
-    public Action<GameScreenResult> CloseRequested;
+    private UIEventMediator _uIEventMediator;
+
+    public event Action<GameScreenResult> CloseRequested;
 
     private void OnEnable()
     {
@@ -34,13 +36,28 @@ public abstract class GameScreen : MonoBehaviour
         CloseButton?.onClick.RemoveAllListeners();
         CloseWinButton?.onClick.RemoveAllListeners();
     }
+    public virtual void Init(UIEventMediator uIEventMediator)
+    {
+        _uIEventMediator = uIEventMediator;
+    }
 
     public virtual void Show()
     {
         gameObject.SetActive(true);
     }
+
     public virtual void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    protected void RequestClose(GameScreenResult gameScreenResult)
+    {
+        CloseRequested?.Invoke(gameScreenResult);
+    }
+
+    protected void RequestSetEnabledMinigameMusic(bool enabled)
+    {
+        _uIEventMediator.RequestSetEnabledMinigameMusic(enabled);
     }
 }

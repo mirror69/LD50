@@ -170,7 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 6699381596815345791}
   CloseWinButton: {fileID: 6699381596149026355}
-  PhotoAlbumMiniGamePrefab: {fileID: 2222748004372721716, guid: 0dfbf1ec4760c6f43b243744a19e213b, type: 3}
+  wasAlreadyChoosen: 0
+  PhotoAlbumMiniGamePrefab: {fileID: 1364614218514898715, guid: 0dfbf1ec4760c6f43b243744a19e213b, type: 3}
 --- !u!1 &6699381596715973043
 GameObject:
   m_ObjectHideFlags: 0
