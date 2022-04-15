@@ -33,6 +33,7 @@ MonoBehaviour:
     GoodEndingCameraMoveSpeed: 0.8
   <SoundSettings>k__BackingField:
     MainMusicFadeOutTimeAfterWin: 1.5
+    LoseMusicDelayAfterBlacking: 1.5
   <UISettings>k__BackingField:
     ButtonsFadeDuration: 3
     CreditsMoveSpeed: 2

@@ -60,6 +60,7 @@ public struct CameraSettings
 public struct SoundSettings
 {
     public float MainMusicFadeOutTimeAfterWin;
+    public float LoseMusicDelayAfterBlacking;
 }
 
 [System.Serializable]
