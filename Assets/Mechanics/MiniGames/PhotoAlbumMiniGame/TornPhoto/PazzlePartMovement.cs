@@ -9,7 +9,6 @@ public class PazzlePartMovement : MonoBehaviour
     private Vector3 startPosition;
     private Vector2 mouseOffset=Vector2.zero;
 
-    private bool isClicked;
     private SpriteRenderer spriteRenderer;
     private Vector2 mousePosition;
 
@@ -39,23 +38,17 @@ public class PazzlePartMovement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isClicked)
-            return;
-
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
 
         if (hit.collider.gameObject == this.gameObject)
         {
-            isClicked = true;
             mouseOffset = new Vector2(transform.position.x - hit.point.x, transform.position.y - hit.point.y);
         }
-        Debug.Log(mouseOffset);
+        //Debug.Log(mouseOffset);
     }
 
     private void OnMouseUp()
     {
-        isClicked = false;
-
         if (Vector3.Distance(transform.position, startPosition) < 0.3f)
         {
             transform.position = startPosition;
@@ -68,16 +61,9 @@ public class PazzlePartMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnMouseDrag()
     {
-        if (isClicked)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-
-            if (hit.point.x != 0 && hit.point.y != 0)
-                 mousePosition = new Vector2(hit.point.x, hit.point.y);
-            //Debug.Log($"transform={transform.position}, mouse={mousePosition}");
-            transform.position = mousePosition + mouseOffset;
-        }
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = mousePosition + mouseOffset;
     }
 }
