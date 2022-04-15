@@ -16,7 +16,8 @@ public class MainMusicChanger : MonoBehaviour
         Muted = 0,
         MainGame = 1,
         Minigame = 2,
-        Win = 3
+        Win = 3,
+        Lose = 4
     }
 
     [SerializeField]
@@ -36,6 +37,8 @@ public class MainMusicChanger : MonoBehaviour
     private AudioSource badMusicAudioSource;
     [SerializeField]
     private AudioSource minigameMusicAudioSource;
+    [SerializeField]
+    private AudioSource loseMusicAudioSource;
 
     private float maxTimeAudio;
     private float currentTime = 0;
@@ -148,6 +151,11 @@ public class MainMusicChanger : MonoBehaviour
         StartCoroutine(ProcessFadeOut(goodMusicAudioSource, fadeOutDuration));
         StartCoroutine(ProcessFadeOut(badMusicAudioSource, fadeOutDuration));
         minigameMusicAudioSource.volume = minVolumeValue;
+    }
+
+    public void PlayLoseMusic()
+    {
+        loseMusicAudioSource.Play();
     }
 
     public void SetMutedMode()

@@ -258,6 +258,11 @@ public class GameController : MonoBehaviour
 
         UIScreenController.ShowGameOverScreen();
         DeathTextsController.StartDeathTextMethod();
+
+        MusicChanger.SetMutedMode();
+
+        yield return new WaitForSeconds(GameSettings.SoundSettings.LoseMusicDelayAfterBlacking);
+        MusicChanger.PlayLoseMusic();
     }
 
     private void ProcessItemInteraction(InteractableItem item)
