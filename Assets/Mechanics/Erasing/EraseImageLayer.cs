@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ public class EraseImageLayer : MonoBehaviour
         if (dif>PercentToWin)
         {
             isReady = true;
-            spriteRend.enabled = false;
+            spriteRend.DOFade(0, 1);
             OnEraseImageEnded?.Invoke(this);
             return;
         }
