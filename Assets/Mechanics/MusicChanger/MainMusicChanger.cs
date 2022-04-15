@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum MusicThemes
-{
-    GoodMusic,
-    BadMusic
-}
-
 public class MainMusicChanger : MonoBehaviour
 {
+    public enum MusicThemes
+    {
+        GoodMusic,
+        BadMusic
+    }
+
+    public enum MusicMode
+    {
+        Muted = 0,
+        MainGame = 1,
+        Minigame = 2,
+        Win = 3
+    }
+
     [SerializeField]
     private ClickHandler clickHandler;
 
@@ -26,6 +34,8 @@ public class MainMusicChanger : MonoBehaviour
     private AudioSource goodMusicAudioSource;
     [SerializeField]
     private AudioSource badMusicAudioSource;
+    [SerializeField]
+    private AudioSource minigameMusicAudioSource;
 
     private float maxTimeAudio;
     private float currentTime = 0;
@@ -38,28 +48,11 @@ public class MainMusicChanger : MonoBehaviour
 
     private float goodMusicTargetVolume;
     private float badMusicTargetVolume;
+    private float minigameMusicTargetVolume;
 
-    private bool _isWinMode;
+    private float maxMinigameVolumeValue;
 
-    public void SetMinigameModeOn()
-    {
-        goodMusicAudioSource.volume = minVolumeValue;
-        badMusicAudioSource.volume = minVolumeValue;
-        enabled = false;
-    }
-
-    public void SetMinigameModeOff()
-    {
-        enabled = true;
-    }
-
-    public void SetWinModeOn(float fadeOutDuration)
-    {
-        _isWinMode = true;
-        clickHandler.DestinationPointClicked -= ClickHandler_DestinationPointClicked;
-        StartCoroutine(ProcessFadeOut(goodMusicAudioSource, fadeOutDuration));
-        StartCoroutine(ProcessFadeOut(badMusicAudioSource, fadeOutDuration));     
-    }
+    private MusicMode _currentMode;
 
     private void OnEnable()
     {
@@ -83,6 +76,12 @@ public class MainMusicChanger : MonoBehaviour
 
     private void Start()
     {
+        _currentMode = MusicMode.MainGame;
+
+        maxMinigameVolumeValue = minigameMusicAudioSource.volume;
+        minigameMusicTargetVolume = 0;
+        minigameMusicAudioSource.volume = minVolumeValue;
+
         goodMusicAudioSource.volume = maxVolumeValue;
         badMusicAudioSource.volume = minVolumeValue;
 
@@ -94,10 +93,77 @@ public class MainMusicChanger : MonoBehaviour
         Invoke(nameof(PlayMusic), 1f);
     }
 
+    private void Update()
+    {
+        if (_currentMode == MusicMode.Win)
+        {
+            return;
+        }
+        goodMusicAudioSource.volume = Mathf.Lerp(goodMusicAudioSource.volume, goodMusicTargetVolume, Time.deltaTime * 3);
+        badMusicAudioSource.volume = Mathf.Lerp(badMusicAudioSource.volume, badMusicTargetVolume, Time.deltaTime * 3);
+        minigameMusicAudioSource.volume = Mathf.Lerp(minigameMusicAudioSource.volume, minigameMusicTargetVolume, Time.deltaTime * 3);
+
+        currentTime += Time.deltaTime;
+        if (currentTime >= maxTimeAudio)
+            currentTime = 0;
+
+        if (currentTime >= timeCodesToSwitchMusic[timeLineIndex] && 
+            (timeLineIndex != 0 || currentTime < timeCodesToSwitchMusic[^1]))
+        {
+            if (_currentMode == MusicMode.MainGame && needToChangeMusic)
+            {
+                ChangeMusicTheme(nextMusicTheme);
+            }
+            timeLineIndex++;
+            if (timeLineIndex >= timeCodesToSwitchMusic.Length)
+            {
+                timeLineIndex = 0;
+            }
+        }
+    }
+
+    public void SetMinigameMode()
+    {
+        _currentMode = MusicMode.Minigame;
+        goodMusicTargetVolume = minVolumeValue;
+        badMusicTargetVolume = minVolumeValue;
+        minigameMusicTargetVolume = maxMinigameVolumeValue;
+    }
+
+    public void SetMainGameMode()
+    {
+        _currentMode = MusicMode.MainGame;
+        goodMusicTargetVolume = maxVolumeValue;
+        badMusicTargetVolume = minVolumeValue;
+        minigameMusicTargetVolume = minVolumeValue;
+
+        needToChangeMusic = false;
+    }
+
+    public void SetWinMode(float fadeOutDuration)
+    {
+        _currentMode = MusicMode.Win;
+        clickHandler.DestinationPointClicked -= ClickHandler_DestinationPointClicked;
+
+        StartCoroutine(ProcessFadeOut(goodMusicAudioSource, fadeOutDuration));
+        StartCoroutine(ProcessFadeOut(badMusicAudioSource, fadeOutDuration));
+        minigameMusicAudioSource.volume = minVolumeValue;
+    }
+
+    public void SetMutedMode()
+    {
+        _currentMode = MusicMode.Muted;
+
+        goodMusicTargetVolume = minVolumeValue;
+        badMusicTargetVolume = minVolumeValue;
+        minigameMusicTargetVolume = minVolumeValue;
+    }
+
     private void PlayMusic ()
     {
         goodMusicAudioSource.Play();
         badMusicAudioSource.Play();
+        minigameMusicAudioSource.Play();
     }
 
     private void ChangeMusicTheme (MusicThemes newMusicTheme)
@@ -118,30 +184,6 @@ public class MainMusicChanger : MonoBehaviour
         {
             goodMusicTargetVolume = minVolumeValue;
             badMusicTargetVolume = maxVolumeValue;
-        }
-    }
-
-    private void Update()
-    {
-        if (_isWinMode)
-        {
-            return;
-        }
-        goodMusicAudioSource.volume = Mathf.Lerp(goodMusicAudioSource.volume, goodMusicTargetVolume, Time.deltaTime * 5);
-        badMusicAudioSource.volume = Mathf.Lerp(badMusicAudioSource.volume, badMusicTargetVolume, Time.deltaTime * 5);
-
-        currentTime += Time.deltaTime;
-        if (currentTime >= maxTimeAudio)
-            currentTime = 0;
-
-        if (needToChangeMusic && currentTime >= timeCodesToSwitchMusic[timeLineIndex])
-        {
-            ChangeMusicTheme(nextMusicTheme);
-            timeLineIndex++;
-            if (timeLineIndex >= timeCodesToSwitchMusic.Length)
-            {
-                timeLineIndex = 0;
-            }
         }
     }
 

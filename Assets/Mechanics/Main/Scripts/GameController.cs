@@ -67,7 +67,9 @@ public class GameController : MonoBehaviour
         _uiEventMediator.QuitRequested += Quit;
         _uiEventMediator.StartNewGameRequested += StartNewGame;
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
+        _uiEventMediator.SetEnabledMinigameMusicRequested += SetEnabledMinigameMusic;
 
+        GameScreenController.Init(_uiEventMediator);
         SoundController.Init(_uiEventMediator);
         UIScreenController.Init(GameSettings, _uiEventMediator);
         QuestStarter.Init(CameraController, GameSettings);
@@ -136,6 +138,18 @@ public class GameController : MonoBehaviour
     {
         return _gameData.GoodItemCount >= GameSettings.TimeSettings.GoodItemCountToWin
             && TimeController.IsWinTimeReached();
+    }
+
+    private void SetEnabledMinigameMusic(bool enabled)
+    {
+        if (enabled)
+        {
+            MusicChanger.SetMinigameMode();
+        }
+        else
+        {
+            MusicChanger.SetMutedMode();
+        }
     }
 
     private void StopCurrentInteraction()
@@ -210,7 +224,7 @@ public class GameController : MonoBehaviour
         }
 
         Player.ProcessWin();
-        MusicChanger.SetWinModeOn(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
+        MusicChanger.SetWinMode(GameSettings.SoundSettings.MainMusicFadeOutTimeAfterWin);
         CameraController.FollowRightEdge(GameSettings.CameraSettings.GoodEndingCameraMoveSpeed);
         CameraController.ZoomCamera(GameSettings.CameraSettings.GoodEndingCameraZoomTime);
 
@@ -298,7 +312,7 @@ public class GameController : MonoBehaviour
 
     private void StartMiniGame(InteractableItem item)
     {
-        MusicChanger.SetMinigameModeOn();
+        MusicChanger.SetMinigameMode();
         GameScreenController.ShowItemScreen(item.Type);
         GameScreenController.CurrentScreen.CloseRequested += OnGameScreenCloseRequested;
     }
@@ -470,7 +484,7 @@ public class GameController : MonoBehaviour
             StopCurrentInteraction(ItemTimerType.BadItem);
         }
 
-        MusicChanger.SetMinigameModeOff();
+        MusicChanger.SetMainGameMode();
     }
 
     private void RefreshDebugView()

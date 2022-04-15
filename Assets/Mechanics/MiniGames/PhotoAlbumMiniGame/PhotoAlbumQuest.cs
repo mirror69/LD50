@@ -8,6 +8,7 @@ public class PhotoAlbumQuest : MonoBehaviour
 {
     public static PhotoAlbumQuest Instance = null;
     public event Action<PhotoAlbumQuest> OnPhotoAlbumQuestDone;
+    public event Action<bool> SetEnabledMinigameMusicRequested;
 
     [SerializeField]
     private List<MiniQuest> photoQuests;
@@ -87,10 +88,14 @@ public class PhotoAlbumQuest : MonoBehaviour
         obj.previewImageInAlbum.gameObject.GetComponent<InteractablePhotoDrawer>().enabled = false;
         obj.previewImageInAlbum.gameObject.GetComponent<Collider2D>().enabled = false;
 
+        SetEnabledMinigameMusicRequested?.Invoke(false);
+
         yield return new WaitForSeconds(4f);
         obj.gameObject.GetComponent<Animator>().SetTrigger("SetPhotoInAlbum");
 
         yield return new WaitForSeconds(2f);
+
+        SetEnabledMinigameMusicRequested?.Invoke(true);
 
         ShowNextPreview();
     }

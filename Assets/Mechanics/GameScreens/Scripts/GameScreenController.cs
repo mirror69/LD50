@@ -2,23 +2,6 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-//public class InteractionController : MonoBehaviour
-//{
-//    private PlayableDirector _currentTimeline;
-//    public void ShowItemScreen(ItemType itemType)
-//    {
-//        switch (itemType)
-//        {
-//            case ItemType.Bulb:
-//                ShowScreen(TestMiniGameScreen);
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//}
-
-
 public class GameScreenController : MonoBehaviour
 {
     [field: SerializeField]
@@ -58,6 +41,14 @@ public class GameScreenController : MonoBehaviour
         CursorManager cursorManager = new CursorManager();
         cursorManager.Init(_cursorTexture, _cursorTextureYellow);
         CurrentScreen = MainGameScreen;
+    }
+
+    public void Init(UIEventMediator uIEventMediator)
+    {
+        foreach (var item in _screens)
+        {
+            item.Init(uIEventMediator);
+        }
     }
 
     public void ShowItemScreen(ItemType itemType)

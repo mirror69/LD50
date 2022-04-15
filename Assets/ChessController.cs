@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 using SimpleMan.CoroutineExtensions;
+using System;
 
 public class ChessController : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class ChessController : MonoBehaviour
         remove => _onFinish.RemoveListener(value);
     }
 
+    public event Action<bool> SetEnabledMinigameMusicRequested;
+
     //-------METHODS
     private void Start()
     {
@@ -77,9 +80,15 @@ public class ChessController : MonoBehaviour
             _allyKingPositions[1].gameObject.SetActive(false);
             this.Delay(FigureChessKing.Instance.TimeToShake * 0.7f, ()=> FigureChessKing.Instance.StopNafigShake());
 
-            this.Delay(_afterLastTurn, () => audio.PlayOneShot(chessMemory));
+            this.Delay(_afterLastTurn, PlayMemoryClip);
             this.Delay(_afterVoiceDelay, () => _onFinish.Invoke());
         }
+    }
+
+    private void PlayMemoryClip()
+    {
+        SetEnabledMinigameMusicRequested?.Invoke(false);
+        audio.PlayOneShot(chessMemory);
     }
 
     private void OnFigureChoose()

@@ -649,7 +649,7 @@ MonoBehaviour:
   CloseWinButton: {fileID: 5165193674204199503}
   wasAlreadyChoosen: 0
   cameraToMiniGame: {fileID: 5165193673241992324}
-  MusicPlayerMiniGamePrefab: {fileID: 6571109575886598129, guid: f6e63d836c646cd41921769d3937adb7, type: 3}
+  MusicPlayerMiniGamePrefab: {fileID: 5601382343175522887, guid: f6e63d836c646cd41921769d3937adb7, type: 3}
 --- !u!1 &5165193675103285952
 GameObject:
   m_ObjectHideFlags: 0

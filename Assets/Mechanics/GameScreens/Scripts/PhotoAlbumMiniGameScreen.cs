@@ -3,24 +3,25 @@
 public class PhotoAlbumMiniGameScreen : GameScreen
 {
     [SerializeField]
-    private GameObject PhotoAlbumMiniGamePrefab;
+    private PhotoAlbumQuest PhotoAlbumMiniGamePrefab;
 
-    private GameObject _testMiniGameObject;
+    private PhotoAlbumQuest _photoAlbumMiniGameObject;
 
     public override void Show()
     {
         base.Show();
-        if (_testMiniGameObject == null)
+        if (_photoAlbumMiniGameObject == null)
         {
-            _testMiniGameObject = Instantiate(PhotoAlbumMiniGamePrefab, transform);
-            _testMiniGameObject.GetComponent<PhotoAlbumQuest>().OnPhotoAlbumQuestDone += PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone;
+            _photoAlbumMiniGameObject = Instantiate(PhotoAlbumMiniGamePrefab, transform);
+            _photoAlbumMiniGameObject.OnPhotoAlbumQuestDone += PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone;
+            _photoAlbumMiniGameObject.SetEnabledMinigameMusicRequested += RequestSetEnabledMinigameMusic;
         }
     }
 
     private void PhotoAlbumMiniGameScreen_OnPhotoAlbumQuestDone(PhotoAlbumQuest obj)
     {
         wasAlreadyChoosen = true;
-        CloseRequested?.Invoke(GameScreenResult.WinGame);
+        RequestClose(GameScreenResult.WinGame);
     }
 
     public override void Close()

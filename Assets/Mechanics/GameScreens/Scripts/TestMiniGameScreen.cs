@@ -3,9 +3,9 @@
 public class TestMiniGameScreen : GameScreen
 {
     [SerializeField]
-    private GameObject TestMiniGamePrefab;
+    private PhotoAlbumQuest TestMiniGamePrefab;
 
-    private GameObject _testMiniGameObject;
+    private PhotoAlbumQuest _testMiniGameObject;
 
     public override void Show()
     {
@@ -13,21 +13,15 @@ public class TestMiniGameScreen : GameScreen
         if (_testMiniGameObject == null)
         {
             _testMiniGameObject = Instantiate(TestMiniGamePrefab, transform);
-            _testMiniGameObject.GetComponent<PhotoAlbumQuest>().OnPhotoAlbumQuestDone += TestMiniGameScreen_OnPhotoAlbumQuestDone;
+            _testMiniGameObject.OnPhotoAlbumQuestDone += TestMiniGameScreen_OnPhotoAlbumQuestDone;
             //_testMiniGameObject.GetComponent<ChessController>().OnFinish += TestMiniGameScreen_OnFinish;
 
         }
     }
 
-    private void TestMiniGameScreen_OnFinish()
-    {
-        Debug.Log("Chess is ended");
-        CloseRequested?.Invoke(GameScreenResult.WinGame);
-    }
-
     private void TestMiniGameScreen_OnPhotoAlbumQuestDone(PhotoAlbumQuest obj)
     {
-        CloseRequested?.Invoke(GameScreenResult.WinGame);
+        RequestClose(GameScreenResult.WinGame);
     }
 
     public override void Close()
