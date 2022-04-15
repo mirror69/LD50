@@ -16,7 +16,7 @@ public class InteractablePhotoDrawer : MonoBehaviour
 
     private Color startColor;
 
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
         myMiniQuest.gameObject.SetActive(true);
         myMiniQuest.MiniQuestStart();
