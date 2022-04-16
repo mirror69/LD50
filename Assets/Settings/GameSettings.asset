@@ -36,7 +36,7 @@ MonoBehaviour:
     LoseMusicDelayAfterBlacking: 1.5
   <UISettings>k__BackingField:
     ButtonsFadeDuration: 3
-    CreditsMoveSpeed: 2
+    CreditsMoveSpeed: 40
     GameOverShowDelay: 2.5
     CreditsButtonsShowDelay: 3
     GameOverButtonsShowDelay: 4
