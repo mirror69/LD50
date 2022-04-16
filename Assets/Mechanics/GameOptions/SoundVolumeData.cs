@@ -18,7 +18,12 @@ public class SoundVolumeData
     /// <summary>
     /// Максимальное значение громкости
     /// </summary>
-    public const float MaxVolume = 20;
+    public const float MaxVolume = 0;
+
+    /// <summary>
+    /// Начальное значение громкости
+    /// </summary>
+    public const float DefaultVolume = -4;
 
     /// <summary>
     /// Текущее значение громкости
@@ -32,7 +37,7 @@ public class SoundVolumeData
 
     public SoundVolumeData()
     {
-        SetVolume(0);
+        SetVolume(DefaultVolume);
     }
     
     /// <summary>
