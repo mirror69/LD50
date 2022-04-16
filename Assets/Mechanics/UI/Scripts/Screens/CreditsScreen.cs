@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,11 +32,22 @@ public class CreditsScreen : UIScreen
         if (active)
         {
             Invoke(nameof(ShowButtonsSmooth), _gameSettings.UISettings.CreditsButtonsShowDelay);
-            MovingPanel.DOMoveY(MovingPanel.rect.height, 160 / _gameSettings.UISettings.CreditsMoveSpeed);
+            StartCoroutine(ProcessMoveY());
         }
         else
         {
             HideButtons();
+        }
+    }
+
+    private IEnumerator ProcessMoveY()
+    {
+        const float EtalonScreenHeight = 800;
+
+        while (true)
+        {
+            MovingPanel.Translate(new Vector2(0, _gameSettings.UISettings.CreditsMoveSpeed * Time.deltaTime * Screen.height / EtalonScreenHeight));
+            yield return null;
         }
     }
 }
