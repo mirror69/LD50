@@ -12,18 +12,12 @@ public class PazzlePartMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 mousePosition;
 
-    private void Start()
+    public int SpriteSortingLayer => spriteRenderer.sortingOrder;
+
+    public void Init(PazzleDestroyer pazzleDestroyer)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    public void SaveStartPosition ()
-    {
         startPosition = transform.position;
-    }
-
-    public void SetPazzleDestroyer (PazzleDestroyer pazzleDestroyer)
-    {
         this.pazzleDestroyer = pazzleDestroyer;
     }
 
@@ -32,7 +26,7 @@ public class PazzlePartMovement : MonoBehaviour
         float xPos = Random.Range(-9.5f, 9.5f);
         float yPos = Random.Range(-4.5f, 4.5f);
 
-        Vector3 newPosition = new Vector3(xPos, yPos, 0);
+        Vector3 newPosition = new Vector3(xPos, yPos, transform.localPosition.z);
         transform.localPosition = newPosition;
     }
 
@@ -49,11 +43,11 @@ public class PazzlePartMovement : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (Vector3.Distance(transform.position, startPosition) < 0.3f)
+        if (Vector2.Distance(transform.position, startPosition) < 0.3f)
         {
             transform.position = startPosition;
 
-            spriteRenderer.sortingOrder--;
+            spriteRenderer.sortingOrder = pazzleDestroyer.MinSortingLayer - 1;
             pazzleDestroyer.AddReadyPartToCount();
 
             this.enabled = false;
@@ -64,6 +58,8 @@ public class PazzlePartMovement : MonoBehaviour
     private void OnMouseDrag()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePosition + mouseOffset;
+        Vector3 newPosition = mousePosition + mouseOffset;
+        newPosition.z = transform.position.z;
+        transform.position = newPosition;
     }
 }

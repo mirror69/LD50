@@ -9,7 +9,7 @@ public class EraseImageLayer : MonoBehaviour
 
     private Texture2D m_Texture;
     private Color[] m_Colors;
-    RaycastHit2D hit;
+    private BoxCollider2D imageCollider;
     SpriteRenderer spriteRend;
     Color zeroAlpha = Color.clear;
     public int erSize;
@@ -19,6 +19,8 @@ public class EraseImageLayer : MonoBehaviour
 
     private int colorPixelsCount=0;
     private int allPixelsCount;
+
+    private Camera mainCamera;
 
     void Start()
     {
@@ -33,6 +35,9 @@ public class EraseImageLayer : MonoBehaviour
         m_Texture.SetPixels(m_Colors);
         m_Texture.Apply();
         spriteRend.sprite = Sprite.Create(m_Texture, spriteRend.sprite.rect, new Vector2(0.5f, 0.5f));
+
+        imageCollider = GetComponent<BoxCollider2D>();
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -44,6 +49,7 @@ public class EraseImageLayer : MonoBehaviour
         if (dif>PercentToWin)
         {
             isReady = true;
+            imageCollider.enabled = false;
             spriteRend.DOFade(0, 1);
             OnEraseImageEnded?.Invoke(this);
             return;
@@ -51,10 +57,10 @@ public class EraseImageLayer : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider != null)
+            Vector2 mousePoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            if (imageCollider.OverlapPoint(mousePoint))
             {
-                UpdateTexture();
+                UpdateTexture(mousePoint);
                 Drawing = true;
             }
         }
@@ -64,13 +70,13 @@ public class EraseImageLayer : MonoBehaviour
         }
     }
 
-    public void UpdateTexture()
+    public void UpdateTexture(Vector2 point)
     {
         int w = m_Texture.width;
         int h = m_Texture.height;
-        var mousePos = hit.point - (Vector2)hit.collider.bounds.min;
-        mousePos.x *= w / hit.collider.bounds.size.x;
-        mousePos.y *= h / hit.collider.bounds.size.y;
+        var mousePos = point - (Vector2)imageCollider.bounds.min;
+        mousePos.x *= w / imageCollider.bounds.size.x;
+        mousePos.y *= h / imageCollider.bounds.size.y;
         Vector2Int p = new Vector2Int((int)mousePos.x, (int)mousePos.y);
         Vector2Int start = new Vector2Int();
         Vector2Int end = new Vector2Int();
