@@ -12,21 +12,26 @@ public class PazzleDestroyer : MonoBehaviour
     public int partsCount;
     private bool isDestroyed;
 
+    public int MinSortingLayer { get; private set; }
+
     public void DestroyPhoto ()
     {
         if (isDestroyed)
             return;
 
         int photoPartsCount = transform.childCount;
-
+        MinSortingLayer = int.MaxValue;
         for (int i = 0; i < photoPartsCount; i++)
         {
-
             PazzlePartMovement tmp = transform.GetChild(i).gameObject.AddComponent<PazzlePartMovement>();
 
-            tmp.SetPazzleDestroyer(this);
-            tmp.SaveStartPosition();
+            tmp.Init(this);
             tmp.SetRandomPosition();
+
+            if (tmp.SpriteSortingLayer < MinSortingLayer)
+            {
+                MinSortingLayer = tmp.SpriteSortingLayer;
+            }
         }
 
         partsCount = photoPartsCount;
