@@ -53,15 +53,27 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject startTimeLine;
 
     private bool _goToChairToWatchTV;
-    
+
     private void Start()
     {
-        StartGame();
+        _uiEventMediator = new UIEventMediator();
+        SoundController.Init(_uiEventMediator);
+        UIScreenController.Init(GameSettings, _uiEventMediator);
+
+        UIScreenController.ShowBlackScreen();
+        Initializer.InitializationCompleted += StartGame;
+        Initializer.Instance.Init();
+    }
+
+    private void OnDisable()
+    {
+        Initializer.InitializationCompleted -= StartGame;
     }
 
     private void StartGame()
     {
-        _uiEventMediator = new UIEventMediator();
+        Initializer.InitializationCompleted -= StartGame;
+
         _uiEventMediator.PauseGameRequested += PauseGame;
         _uiEventMediator.ResumeGameRequested += ResumeGame;
         _uiEventMediator.QuitRequested += Quit;
@@ -70,8 +82,6 @@ public class GameController : MonoBehaviour
         _uiEventMediator.SetEnabledMinigameMusicRequested += SetEnabledMinigameMusic;
 
         GameScreenController.Init(_uiEventMediator);
-        SoundController.Init(_uiEventMediator);
-        UIScreenController.Init(GameSettings, _uiEventMediator);
         QuestStarter.Init(CameraController, GameSettings);
 
         _gameData = new GameData();

@@ -16,6 +16,8 @@ public class StoredGameDataManager : Singleton<StoredGameDataManager>
     /// </summary>
     private SoundOptions soundOptions = null;
 
+    private LanguageOptions languageOptions = null;
+
     public static IntroOptions IntroOptions
     {
         get
@@ -39,6 +41,19 @@ public class StoredGameDataManager : Singleton<StoredGameDataManager>
                 Instance.soundOptions.LoadFromStorage();
             }
             return Instance.soundOptions;
+        }
+    }
+
+    public static LanguageOptions LanguageOptions
+    {
+        get
+        {
+            if (Instance.languageOptions == null)
+            {
+                Instance.languageOptions = new LanguageOptions();
+                Instance.languageOptions.LoadFromStorage();
+            }
+            return Instance.languageOptions;
         }
     }
 }

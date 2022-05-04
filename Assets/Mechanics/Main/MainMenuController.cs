@@ -30,16 +30,30 @@ public class MainMenuController : MonoBehaviour
 
     private AsyncOperation loadingGameSceneOperation;
 
-    void Start()
+    private void Start()
     {
         _uiEventMediator = new UIEventMediator();
+        SoundController.Init(_uiEventMediator);
+        UIScreenController.Init(GameSettings, _uiEventMediator);
+
+        UIScreenController.ShowBlackScreen();
+        Initializer.InitializationCompleted += StartGame;
+        Initializer.Instance.Init();
+    }
+
+    private void OnDisable()
+    {
+        Initializer.InitializationCompleted -= StartGame;
+    }
+
+    private void StartGame()
+    {
+        Initializer.InitializationCompleted -= StartGame;
 
         _uiEventMediator.QuitRequested += Quit;
         _uiEventMediator.StartNewGameRequested += StartNewGame;
         _uiEventMediator.MainMenuRequested += LoadMainMenu;
 
-        SoundController.Init(_uiEventMediator);
-        UIScreenController.Init(GameSettings, _uiEventMediator);
         UIScreenController.ShowMainMenuScreen();
 
         KeyPressController.Init(_uiEventMediator, UIScreenController);

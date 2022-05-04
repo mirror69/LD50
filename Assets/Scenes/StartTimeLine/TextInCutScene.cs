@@ -1,16 +1,15 @@
 using System.Collections;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
 using SimpleMan.CoroutineExtensions;
+using UnityEngine.Localization;
 
 [System.Serializable]
 public class Dialogs
 {
-    public string person;
-    public string phrase;
+    public LocalizedString person;
+    public LocalizedString phrase;
 }
 
 public class TextInCutScene : MonoBehaviour
@@ -40,7 +39,7 @@ public class TextInCutScene : MonoBehaviour
 
     private void OnEnable()
     {
-        currentText = dialogs[currentPhraseIndex].phrase;
+        currentText = dialogs[currentPhraseIndex].phrase.GetLocalizedString();
         ShowCurrentPhrase("");
         StartCoroutine(LetterShower());
 
@@ -53,7 +52,7 @@ public class TextInCutScene : MonoBehaviour
 
     private void ShowCurrentPhrase(string text)
     {
-        textInCanvas.text = $"{dialogs[currentPhraseIndex].person}: {text}";
+        textInCanvas.text = $"{dialogs[currentPhraseIndex].person.GetLocalizedString()}: {text}";
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class TextInCutScene : MonoBehaviour
         if (sceneIsEnded)
             return;
 
-        if (Input.GetMouseButtonDown(0) || currentLetterIndex >= dialogs[currentPhraseIndex].phrase.Length)
+        if (Input.GetMouseButtonDown(0) || currentLetterIndex >= currentText.Length)
         {
             StopAllCoroutines();
 
@@ -71,13 +70,14 @@ public class TextInCutScene : MonoBehaviour
             currentLetterIndex = 0;
             if (currentPhraseIndex >= dialogs.Length)
             {
+                currentText = "";
                 sceneIsEnded = true;
                 StopAllCoroutines();
                 this.Delay(2f, () => OnStartCutSceneEnded?.Invoke());
                 this.Delay(3f, () => this.gameObject.SetActive(false));
                 return;
             }
-            currentText = dialogs[currentPhraseIndex].phrase;
+            currentText = dialogs[currentPhraseIndex].phrase.GetLocalizedString();
         }
     }
 
@@ -88,13 +88,13 @@ public class TextInCutScene : MonoBehaviour
         {
             yield break;
         }
-            string resText = textInCanvas.text + currentText[currentLetterIndex];
+        string resText = textInCanvas.text + currentText[currentLetterIndex];
         //Debug.Log(resText);
 
         ShowPartOfText(resText);
         currentLetterIndex++;
 
-        if (currentLetterIndex >= dialogs[currentPhraseIndex].phrase.Length)
+        if (currentLetterIndex >= currentText.Length)
         {
             StartCoroutine(WaitCoroutine());
             yield return null;

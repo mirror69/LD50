@@ -28,6 +28,12 @@ public class BlackoutScreen : UIScreen
             return;
         }
 
+        if (fadeInOutTime <= 0)
+        {
+            gameObject.SetActive(active);
+            return;           
+        }
+
         if (!IsActive)
         {
             canvasGroup.alpha = 0;

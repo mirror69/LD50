@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tooltips_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 26089c86a1e487c4988596beafd72987, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5573771264
+    m_Localized: Records
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32048218112
+    m_Localized: Turntable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 511801098240
+    m_Localized: Photo album
+    m_Metadata:
+      m_Items: []
+  - m_Id: 549218484224
+    m_Localized: Chess
+    m_Metadata:
+      m_Items: []
+  - m_Id: 595800424448
+    m_Localized: TV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1101960642560
+    m_Localized: Chair
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1268407402496
+    m_Localized: Lamp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4375288129060864
+    m_Localized: Curtain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4375489128497152
+    m_Localized: Whiskey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4375562382016512
+    m_Localized: Mirror
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4375631315402752
+    m_Localized: Jacket
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 7332143640526887131}
   - component: {fileID: 3476293006287606241}
   - component: {fileID: 3627418836766901134}
+  - component: {fileID: 6046904327231024928}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -144,8 +145,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0.000022888}
+  m_AnchoredPosition: {x: -0.0012207031, y: 0.000030517578}
+  m_SizeDelta: {x: -0.0021973, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3476293006287606241
 CanvasRenderer:
@@ -175,10 +176,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: It's not so scary to die, when the person you love is near
+  m_text: It's not so scary to die, when the person you love is near.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44c72dcddd105f04a93d0388cfffe6eb, type: 2}
+  m_sharedMaterial: {fileID: 7453642021753212536, guid: 1ffb8c3515fb6dc4688eff5a7e48200f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -241,9 +242,37 @@ MonoBehaviour:
   m_margin: {x: -7.9776, y: 8.554054, z: 4.4035645, w: 6.697525}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6046904327231024928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638603756524122444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc92c425271e0094384cf789c96e0efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:1caa879227664cc448b018ef3e6d4731
+    m_TableEntryReference:
+      m_KeyId: 1114651584167936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &726168163735600608
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +928,7 @@ GameObject:
   - component: {fileID: 8438775197343552655}
   - component: {fileID: 1910945911892259702}
   - component: {fileID: 3942335112524478672}
+  - component: {fileID: 9009592845028622742}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -958,7 +988,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44c72dcddd105f04a93d0388cfffe6eb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1022,9 +1052,37 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9009592845028622742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371918694218996185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc92c425271e0094384cf789c96e0efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:b840974751de8014ba4c7cc92cb20dc3
+    m_TableEntryReference:
+      m_KeyId: 4386141041655808
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1456042982630516773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2994,6 +3052,7 @@ GameObject:
   - component: {fileID: 2626005474042591321}
   - component: {fileID: 8044065595224164485}
   - component: {fileID: 1011374015984612903}
+  - component: {fileID: 511909692531394841}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3051,7 +3110,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: No, it was all wrong
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44c72dcddd105f04a93d0388cfffe6eb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3115,9 +3174,37 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &511909692531394841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4301719278597922198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc92c425271e0094384cf789c96e0efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:b840974751de8014ba4c7cc92cb20dc3
+    m_TableEntryReference:
+      m_KeyId: 4386085391630336
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &4329959454728955163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5782,6 +5869,7 @@ GameObject:
   - component: {fileID: 4807490030105661162}
   - component: {fileID: 200688090841995210}
   - component: {fileID: 2491736096924036897}
+  - component: {fileID: 1084307355998297430}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5839,7 +5927,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: He will wait
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44c72dcddd105f04a93d0388cfffe6eb, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 099a7f2933f3e2a4fbe15cb3eafc6738, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5903,9 +5991,37 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1084307355998297430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015605138738896183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc92c425271e0094384cf789c96e0efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:b840974751de8014ba4c7cc92cb20dc3
+    m_TableEntryReference:
+      m_KeyId: 4386165607694336
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &9021698730453798721
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7b66559cbfeb05245b683e228748b9e0
+  m_SerializeEntries:
+  - m_GUID: b840974751de8014ba4c7cc92cb20dc3
+    m_Address: Assets/Localization/UITexts Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 26089c86a1e487c4988596beafd72987
+    m_Address: Assets/Localization/Tooltips Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 1caa879227664cc448b018ef3e6d4731
+    m_Address: Assets/Localization/StartCutscene Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: b68b55f8efa853d4ea5746772dd81447, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4cf08e300db8b5543af987ede676cace, type: 2}
+    - {fileID: 11400000, guid: f1149e55c47a22a4cb8223a85cc818ac, type: 2}
